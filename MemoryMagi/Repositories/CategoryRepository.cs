@@ -26,7 +26,13 @@ namespace MemoryMagi.Repositories
                 ThenInclude(i => i.UserItems.Where(u => u.UserId == userId)).
                 ToListAsync();
         }
-
+        /// <summary>
+        /// Method to add a new category. 
+        /// The category sent along should contain a list of items which should be automatically added to the items table when the category is saved.
+        /// </summary>
+        /// <param name="newCategory"></param>
+        /// <returns></returns>
+        /// <exception cref="DbUpdateException"></exception>
         public async Task<Category> AddCategoryAsync(Category newCategory)
         {
             try
