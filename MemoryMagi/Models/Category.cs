@@ -13,10 +13,10 @@ namespace MemoryMagi.Models
         public string Name { get; set; } = null!;
 
         [Column("user_id")]
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
 
-        //Navigation property
+        //Navigation properties
+        public User? User { get; set; }
         public List<Item> Items { get; set; } = new();
-
     }
 }

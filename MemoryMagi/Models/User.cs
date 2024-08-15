@@ -20,5 +20,7 @@ namespace MemoryMagi.Models
 
         //Navigation property
         public List<Category> Categories { get; set; } = new();
+
+        public List<UserItem> UserItems { get; set; } = new();
     }
 }
