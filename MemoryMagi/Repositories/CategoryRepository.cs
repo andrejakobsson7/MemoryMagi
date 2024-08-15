@@ -12,10 +12,16 @@ namespace MemoryMagi.Repositories
         {
             _context = context;
         }
-
+        /// <summary>
+        /// Method to retrieve all categories along with their items and user items, 
+        /// which is needed in order to be able to determine whether the user has completed a category/item or not.
+        /// Only take categories that the user has created or where the userid is null. Userid null means that it's a public game that everyone can play.
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public async Task<List<Category>> GetAllCategoriesAsync(int userId)
         {
-            return await _context.Categories.
+            return await _context.Categories.Where(c => c.UserId == userId || c.UserId == null).
                 Include(c => c.Items).
                 ThenInclude(i => i.UserItems.Where(u => u.UserId == userId)).
                 ToListAsync();
