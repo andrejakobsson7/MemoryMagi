@@ -28,6 +28,7 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IUserItemRepository, UserItemRepository>();
 
 var app = builder.Build();
 
