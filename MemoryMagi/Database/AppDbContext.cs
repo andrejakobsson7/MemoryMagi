@@ -1,9 +1,11 @@
 ﻿using MemoryMagi.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace MemoryMagi.Database
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<IdentityUser>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -12,16 +14,11 @@ namespace MemoryMagi.Database
 
         public DbSet<Category> Categories { get; set; }
         public DbSet<Item> Items { get; set; }
-        public DbSet<User> Users { get; set; }
         public DbSet<UserItem> UserItems { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
-            //Set relationship for join table
-            modelBuilder.Entity<UserItem>().HasKey(ui => new { ui.UserId, ui.ItemId });
-
             /// AVKOMMENTERAT - AVKOMMENTERA SENARE VID ANVÄNDNING
 
             // modelBuilder.Entity<Item>().HasData(

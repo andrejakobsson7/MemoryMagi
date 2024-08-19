@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\fhdlu\\Desktop\\memory_magi_vs\\MemoryMagi\\MemoryMagi.csproj": {}
+    "C:\\Users\\andre\\Utbildning\\Agil-systemutveckling\\MemoryMagi\\MemoryMagi\\MemoryMagi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\fhdlu\\Desktop\\memory_magi_vs\\MemoryMagi\\MemoryMagi.csproj": {
+    "C:\\Users\\andre\\Utbildning\\Agil-systemutveckling\\MemoryMagi\\MemoryMagi\\MemoryMagi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\fhdlu\\Desktop\\memory_magi_vs\\MemoryMagi\\MemoryMagi.csproj",
+        "projectUniqueName": "C:\\Users\\andre\\Utbildning\\Agil-systemutveckling\\MemoryMagi\\MemoryMagi\\MemoryMagi.csproj",
         "projectName": "MemoryMagi",
-        "projectPath": "C:\\Users\\fhdlu\\Desktop\\memory_magi_vs\\MemoryMagi\\MemoryMagi.csproj",
-        "packagesPath": "C:\\Users\\fhdlu\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\fhdlu\\Desktop\\memory_magi_vs\\MemoryMagi\\obj\\",
+        "projectPath": "C:\\Users\\andre\\Utbildning\\Agil-systemutveckling\\MemoryMagi\\MemoryMagi\\MemoryMagi.csproj",
+        "packagesPath": "C:\\Users\\andre\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\andre\\Utbildning\\Agil-systemutveckling\\MemoryMagi\\MemoryMagi\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\fhdlu\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\andre\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -26,7 +22,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -39,11 +34,6 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -53,6 +43,14 @@
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.4.0, )"
+            },
+            "microsoft.aspnetcore.identity": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "microsoft.aspnetcore.identity.entityframeworkcore": {
+              "target": "Package",
+              "version": "[8.0.8, )"
             },
             "microsoft.entityframeworkcore": {
               "target": "Package",
@@ -94,7 +92,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

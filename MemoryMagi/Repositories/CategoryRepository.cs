@@ -19,7 +19,7 @@ namespace MemoryMagi.Repositories
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public async Task<List<Category>> GetAllCategoriesAsync(int userId)
+        public async Task<List<Category>> GetAllCategoriesAsync(string userId)
         {
             return await _context.Categories.Where(c => c.UserId == userId || c.UserId == null).
                 Include(c => c.Items).

@@ -16,7 +16,7 @@ namespace MemoryMagi.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllCategoriesAsync(int userId)
+        public async Task<IActionResult> GetAllCategoriesAsync(string userId)
         {
             List<Category> allCategories = await _categoryRepository.GetAllCategoriesAsync(userId);
             if (allCategories == null)
