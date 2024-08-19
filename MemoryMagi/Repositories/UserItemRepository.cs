@@ -50,7 +50,7 @@ namespace MemoryMagi.Repositories
             }
         }
 
-        private async Task<UserItem?> GetUserItemByIds(int userId, int itemId)
+        private async Task<UserItem?> GetUserItemByIds(string userId, int itemId)
         {
             return await _context.UserItems.FirstOrDefaultAsync(ui => ui.UserId == userId && ui.ItemId == itemId);
         }

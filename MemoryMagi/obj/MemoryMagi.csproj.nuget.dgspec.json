@@ -44,6 +44,14 @@
               "target": "Package",
               "version": "[6.4.0, )"
             },
+            "microsoft.aspnetcore.identity": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "microsoft.aspnetcore.identity.entityframeworkcore": {
+              "target": "Package",
+              "version": "[8.0.8, )"
+            },
             "microsoft.entityframeworkcore": {
               "target": "Package",
               "version": "[8.0.8, )"
