@@ -4,6 +4,7 @@ using MemoryMagi.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MemoryMagi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240819095150_SetupIdentityDb")]
+    partial class SetupIdentityDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,28 +48,6 @@ namespace MemoryMagi.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Categories");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Frukt"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Alkohol"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Djur"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Bilar"
-                        });
                 });
 
             modelBuilder.Entity("MemoryMagi.Models.Item", b =>
@@ -97,169 +78,6 @@ namespace MemoryMagi.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Items");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CategoryId = 1,
-                            Image = "images/Apples.jpg",
-                            Name = "Äpple"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CategoryId = 1,
-                            Image = "images/Pasta.jpg",
-                            Name = "Pasta"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CategoryId = 1,
-                            Image = "images/Pineapple.jpg",
-                            Name = "Ananas"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CategoryId = 1,
-                            Image = "images/Pumpkins.jpg",
-                            Name = "Pumpa"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            CategoryId = 1,
-                            Image = "images/Starwberries.jpg",
-                            Name = "Jordgubbar"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            CategoryId = 1,
-                            Image = "images/Fish.jpg",
-                            Name = "Fisk"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            CategoryId = 2,
-                            Image = "images/Beer.jpg",
-                            Name = "Öl"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            CategoryId = 2,
-                            Image = "images/Cocktail.jpg",
-                            Name = "Cocktail"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            CategoryId = 2,
-                            Image = "images/Crafted_beer.jpg",
-                            Name = "Crafted öl"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            CategoryId = 2,
-                            Image = "images/Red_Wine.jpg",
-                            Name = "Rött vin"
-                        },
-                        new
-                        {
-                            Id = 11,
-                            CategoryId = 2,
-                            Image = "images/Wine.jpg",
-                            Name = "Vin"
-                        },
-                        new
-                        {
-                            Id = 12,
-                            CategoryId = 3,
-                            Image = "images/Bird.jpg",
-                            Name = "Fågel"
-                        },
-                        new
-                        {
-                            Id = 13,
-                            CategoryId = 3,
-                            Image = "images/Cat.jpg",
-                            Name = "Katt"
-                        },
-                        new
-                        {
-                            Id = 14,
-                            CategoryId = 3,
-                            Image = "images/Cows.jpg",
-                            Name = "Ko"
-                        },
-                        new
-                        {
-                            Id = 15,
-                            CategoryId = 3,
-                            Image = "images/Lion.jpg",
-                            Name = "Lejon"
-                        },
-                        new
-                        {
-                            Id = 16,
-                            CategoryId = 3,
-                            Image = "images/Monkeys.jpg",
-                            Name = "Apa"
-                        },
-                        new
-                        {
-                            Id = 17,
-                            CategoryId = 3,
-                            Image = "images/Wolf.jpg",
-                            Name = "Varg"
-                        },
-                        new
-                        {
-                            Id = 18,
-                            CategoryId = 4,
-                            Image = "images/Exoticc_car.jpg",
-                            Name = "Cool bil"
-                        },
-                        new
-                        {
-                            Id = 19,
-                            CategoryId = 4,
-                            Image = "images/Pastawagon_car.jpg",
-                            Name = "Pasta bilen"
-                        },
-                        new
-                        {
-                            Id = 20,
-                            CategoryId = 4,
-                            Image = "images/Racecar_car.jpg",
-                            Name = "Racer bilen"
-                        },
-                        new
-                        {
-                            Id = 21,
-                            CategoryId = 4,
-                            Image = "images/SUV_car.jpg",
-                            Name = "Stadsjeepen"
-                        },
-                        new
-                        {
-                            Id = 22,
-                            CategoryId = 4,
-                            Image = "images/Trackcar_car.jpg",
-                            Name = "Ban bilen"
-                        },
-                        new
-                        {
-                            Id = 23,
-                            CategoryId = 4,
-                            Image = "images/Veteran_car.jpg",
-                            Name = "Veteran bilen"
-                        });
                 });
 
             modelBuilder.Entity("MemoryMagi.Models.UserItem", b =>

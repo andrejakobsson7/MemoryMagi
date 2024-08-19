@@ -17,5 +17,8 @@ namespace MemoryMagi.Models
 
         [Column("category_id")]
         public int CategoryId { get; set; }
+
+        //Navigation property
+        public List<UserItem> UserItems { get; set; } = new();
     }
 }
