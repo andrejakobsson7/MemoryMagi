@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MemoryMagi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2076f586cebcad30f6e05c39ae4af203750f0644")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+13464a936f0ae52f5bc650bca5e05e8c0393a2f3")]
 [assembly: System.Reflection.AssemblyProductAttribute("MemoryMagi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MemoryMagi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
