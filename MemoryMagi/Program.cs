@@ -51,6 +51,9 @@ app.MapIdentityApi<IdentityUser>();
 
 app.UseAuthorization();
 
+// För att kommma åt bilder:
+app.UseStaticFiles();
+
 app.UseCors("AllowAll");
 
 app.MapControllers();
