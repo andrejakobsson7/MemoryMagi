@@ -21,6 +21,12 @@ namespace MemoryMagi.Database
 
             //Set relationship for join table
             modelBuilder.Entity<UserItem>().HasKey(ui => new { ui.UserId, ui.ItemId });
+
+
+
+
+
+
         }
     }
 }
