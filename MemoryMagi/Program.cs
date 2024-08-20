@@ -2,7 +2,6 @@ using MemoryMagi.Database;
 using MemoryMagi.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,6 +38,16 @@ builder.Services.AddScoped<IUserItemRepository, UserItemRepository>();
 
 var app = builder.Build();
 
+// Seeda roller - Valhalla
+using (var scope = app.Services.CreateScope())
+{
+    // Skapa roller och användare
+    var adminManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+
+    await SeedaAdmin(userManager, adminManager);
+}
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -70,5 +79,40 @@ app.MapPost("/logout", async (SignInManager<IdentityUser> signInManager,
     return Results.Unauthorized();
 })
 .RequireAuthorization();
+//Komma åt roller 
+app.MapIdentityApi<IdentityUser>();
 
 app.Run();
+
+async Task SeedaAdmin(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
+{
+    // skapa admin
+    string oneAdmin = "Admin";
+    // oneAdmin > 0 
+
+    var roleExists = await roleManager.RoleExistsAsync(oneAdmin);
+
+    if (!roleExists)
+    {
+        await roleManager.CreateAsync(new IdentityRole(oneAdmin));
+    }
+
+    // skapa admin user
+    var adminUser = new IdentityUser
+    {
+        UserName = "admin",
+        Email = "admin@memorymagi.com",
+        EmailConfirmed = true
+    };
+
+    // Se om admin finns 
+    var adminExists = await userManager.FindByEmailAsync(adminUser.Email);
+    if (adminExists == null)
+    {
+        // Skapa lösenord till admin
+        var result = await userManager.CreateAsync(adminUser, "PasswordAdmin");
+
+        // Ge admin role
+        await userManager.AddToRoleAsync(adminUser, oneAdmin);
+    }
+}
