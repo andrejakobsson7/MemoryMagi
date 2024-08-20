@@ -22,7 +22,7 @@ namespace MemoryMagi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllCategoriesAsync()
         {
-            //Get the user information from the cookies and extract it's ID.
+            //Get the user information from the cookies/access token and extract it's ID.
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (userId == null)
             {
