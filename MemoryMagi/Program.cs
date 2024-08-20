@@ -34,6 +34,7 @@ builder.Services.AddCors(options =>
     });
 });
 
+builder.Services.AddScoped<ItemRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IUserItemRepository, UserItemRepository>();
 
