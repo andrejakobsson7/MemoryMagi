@@ -2,6 +2,7 @@ using MemoryMagi.Database;
 using MemoryMagi.Models;
 using MemoryMagi.Repositories;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,15 +15,15 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAuthorization();
 
-// Lägg till Identity för user o roles
+// LÃ¤gg till Identity fÃ¶r user o roles
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => { })
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
 
-//Hämta connection string från appsettings.json
+//HÃ¤mta connection string frÃ¥n appsettings.json
 var connectionString = builder.Configuration.GetConnectionString("DbConnection");
 
-//Lägg till context i dependency injection container
+//LÃ¤gg till context i dependency injection container
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
 
 builder.Services.AddCors(options =>
@@ -35,11 +36,12 @@ builder.Services.AddCors(options =>
     });
 });
 
-// Förbered för admin
+
+// FÃ¶rbered fÃ¶r admin
 builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()
-    // Lägger till signinmanager och usermanager
+    // LÃ¤gger till signinmanager och usermanager
     .AddSignInManager<SignInManager<ApplicationUser>>()
     .AddUserManager<UserManager<ApplicationUser>>()
     .AddDefaultTokenProviders();
@@ -49,10 +51,11 @@ builder.Services.AddScoped<IUserItemRepository, UserItemRepository>();
 
 var app = builder.Build();
 
+
 // Seeda roller / admin
 using (var scope = app.Services.CreateScope())
 {
-    // Skapa roller och användare
+    // Skapa roller och anvÃ¤ndare
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<AppDbContext>();
     var signInManager = services.GetRequiredService<SignInManager<ApplicationUser>>();
@@ -70,7 +73,7 @@ using (var scope = app.Services.CreateScope())
     };
 
     var admin = signInManager.UserManager.FindByEmailAsync(newAdmin.Email)
-       // Kör Metoden synkront!Viktigt! 
+       // KÃ¶r Metoden synkront!Viktigt! 
        .GetAwaiter().GetResult();
     if (admin == null)
     {
@@ -80,7 +83,7 @@ using (var scope = app.Services.CreateScope())
 
         // Kolla om adminrollen existerar
         bool adminRoleExists = roleManager.RoleExistsAsync("Admin")
-            // Kör metoden Synkront! Viktigt!
+            // KÃ¶r metoden Synkront! Viktigt!
             .GetAwaiter().GetResult();
         if (!adminRoleExists)
         {
@@ -91,15 +94,16 @@ using (var scope = app.Services.CreateScope())
             };
 
             roleManager.CreateAsync(adminRole)
-            // Kör metoden Synkront! Viktigt!
+            // KÃ¶r metoden Synkront! Viktigt!
             .GetAwaiter().GetResult();
         }
         // Tilldela adminrollen
         signInManager.UserManager.AddToRoleAsync(admin, "Admin")
-       // Kör metoden Synkront! Viktigt!
+       // KÃ¶r metoden Synkront! Viktigt!
        .GetAwaiter().GetResult();
     }
 }
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -109,9 +113,13 @@ if (app.Environment.IsDevelopment())
 }
 app.UseHttpsRedirection();
 app.UseAuthorization();
-// För att kommma åt bilder:
+// FÃ¶r att kommma Ã¥t bilder:
 app.UseStaticFiles();
 app.UseCors("AllowAll");
 app.MapControllers();
 
+
 app.Run();
+
+
+

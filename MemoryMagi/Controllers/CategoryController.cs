@@ -1,6 +1,8 @@
 ﻿using MemoryMagi.Models;
 using MemoryMagi.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace MemoryMagi.Controllers
 {
@@ -15,20 +17,30 @@ namespace MemoryMagi.Controllers
             _categoryRepository = categoryRepository;
         }
 
+        [Authorize]
         [HttpGet]
-        public async Task<IActionResult> GetAllCategoriesAsync(string userId)
+        public async Task<IActionResult> GetAllCategoriesAsync()
         {
-            List<Category> allCategories = await _categoryRepository.GetAllCategoriesAsync(userId);
-            if (allCategories == null)
+            //Get the user information from the cookies/access token and extract it's ID.
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userId == null)
             {
-                return BadRequest();
+                return NotFound();
             }
             else
             {
-                return Ok(allCategories);
+                List<Category> allCategories = await _categoryRepository.GetAllCategoriesAsync(userId);
+                if (allCategories == null)
+                {
+                    return BadRequest();
+                }
+                else
+                {
+                    return Ok(allCategories);
+                }
             }
         }
-
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> AddCategory(Category newCategory)
         {
