@@ -14,10 +14,13 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAuthorization();
 
+builder.Services.AddIdentityApiEndpoints<IdentityUser>()
+    .AddEntityFrameworkStores<AppDbContext>();
+
 // Lägg till Identity för user o roles
-builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => { })
-    .AddEntityFrameworkStores<AppDbContext>()
-    .AddDefaultTokenProviders();
+//builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => { })
+//    .AddEntityFrameworkStores<AppDbContext>()
+//    .AddDefaultTokenProviders();
 
 //Hämta connection string från appsettings.json
 var connectionString = builder.Configuration.GetConnectionString("DbConnection");
@@ -37,7 +40,7 @@ builder.Services.AddCors(options =>
 
 
 // Förbered för admin
-builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()
     // Lägger till signinmanager och usermanager
@@ -66,6 +69,7 @@ using (var scope = app.Services.CreateScope())
 
     // Kolla om det finns en databas
     context.Database.Migrate();
+    //Kommentar från André: Denna failar om det redan finns data i databasen med ID-nummer som vi försöker seeda in. 
 
     ApplicationUser newAdmin = new()
     {
@@ -114,6 +118,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.MapIdentityApi<IdentityUser>();
+
 app.UseHttpsRedirection();
 app.UseAuthorization();
 // För att kommma åt bilder:
