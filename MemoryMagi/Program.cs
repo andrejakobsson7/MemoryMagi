@@ -39,6 +39,8 @@ builder.Services.AddScoped<IUserItemRepository, UserItemRepository>();
 
 var app = builder.Build();
 
+app.UseCors("AllowAll");
+
 //FREDRIK
 // Seeda roller - Valhalla
 //using (var scope = app.Services.CreateScope())
@@ -66,7 +68,6 @@ app.UseAuthorization();
 // För att kommma åt bilder:
 app.UseStaticFiles();
 
-app.UseCors("AllowAll");
 
 app.MapControllers();
 
