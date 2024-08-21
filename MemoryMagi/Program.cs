@@ -12,12 +12,21 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddAuthorization();
+builder.Services.AddAuthorization(); // <-
+// YT for React
+//builder.Services.AddIdentityApiEndpoints<ApplicationUser>()
+//    .AddEntityFrameworkStores<AppDbContext>();
 
 // Lägg till Identity för user o roles
-builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => { })
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+{
+})
     .AddEntityFrameworkStores<AppDbContext>()
-    .AddDefaultTokenProviders();
+    .AddDefaultTokenProviders()
+    .AddSignInManager<SignInManager<ApplicationUser>>()
+    .AddUserManager<UserManager<ApplicationUser>>();
+
+
 
 //Hämta connection string från appsettings.json
 var connectionString = builder.Configuration.GetConnectionString("DbConnection");
@@ -36,22 +45,11 @@ builder.Services.AddCors(options =>
 });
 
 
-// Förbered för admin
-builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<AppDbContext>()
-    // Lägger till signinmanager och usermanager
-    .AddSignInManager<SignInManager<ApplicationUser>>()
-    .AddUserManager<UserManager<ApplicationUser>>()
-    .AddDefaultTokenProviders();
-
-
 builder.Services.AddScoped<ItemRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IUserItemRepository, UserItemRepository>();
 
 var app = builder.Build();
-
 
 // Seeda roller / admin
 using (var scope = app.Services.CreateScope())
@@ -61,7 +59,7 @@ using (var scope = app.Services.CreateScope())
     var context = services.GetRequiredService<AppDbContext>();
     var signInManager = services.GetRequiredService<SignInManager<ApplicationUser>>();
     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-    var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
+    var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
 
     // Kolla om det finns en databas
     context.Database.Migrate();
@@ -106,6 +104,8 @@ using (var scope = app.Services.CreateScope())
         // hej
     }
 }
+// För React end - YT
+//app.MapIdentityApi<ApplicationUser>();
 
 
 // Configure the HTTP request pipeline.
@@ -120,8 +120,6 @@ app.UseAuthorization();
 app.UseStaticFiles();
 app.UseCors("AllowAll");
 app.MapControllers();
-
-
 app.Run();
 
 
