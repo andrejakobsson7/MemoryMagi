@@ -12,19 +12,22 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddAuthorization(); // <-
-// YT for React
-//builder.Services.AddIdentityApiEndpoints<ApplicationUser>()
-//    .AddEntityFrameworkStores<AppDbContext>();
+builder.Services.AddAuthorization();
 
 // Lägg till Identity för user o roles
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {
+    options.Password.RequireDigit = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireUppercase = true;
+    options.Password.RequireNonAlphanumeric = true;
+    options.Password.RequiredLength = 6;
 })
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders()
     .AddSignInManager<SignInManager<ApplicationUser>>()
     .AddUserManager<UserManager<ApplicationUser>>();
+
 
 
 
@@ -104,8 +107,6 @@ using (var scope = app.Services.CreateScope())
         // hej
     }
 }
-// För React end - YT
-//app.MapIdentityApi<ApplicationUser>();
 
 
 // Configure the HTTP request pipeline.
@@ -115,10 +116,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.UseHttpsRedirection();
-app.UseAuthorization();
 // För att kommma åt bilder:
 app.UseStaticFiles();
 app.UseCors("AllowAll");
+app.UseAuthorization();
 app.MapControllers();
 app.Run();
 
