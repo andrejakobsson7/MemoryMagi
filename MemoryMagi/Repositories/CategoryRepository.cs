@@ -19,12 +19,9 @@ namespace MemoryMagi.Repositories
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public async Task<List<Category>> GetAllCategoriesAsync(string userId)
+        public async Task<List<Category>> GetAllCategoriesAsync()
         {
-            return await _context.Categories.Where(c => c.UserId == userId || c.UserId == null).
-                Include(c => c.Items).
-                ThenInclude(i => i.UserItems.Where(u => u.UserId == userId)).
-                ToListAsync();
+            return await _context.Categories.ToListAsync();
         }
         /// <summary>
         /// Method to add a new category. 
