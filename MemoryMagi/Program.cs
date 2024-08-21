@@ -15,9 +15,21 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddAuthorization();
 
 // Lägg till Identity för user o roles
-builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => { })
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+{
+    options.Password.RequireDigit = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireUppercase = true;
+    options.Password.RequireNonAlphanumeric = true;
+    options.Password.RequiredLength = 6;
+})
     .AddEntityFrameworkStores<AppDbContext>()
-    .AddDefaultTokenProviders();
+    .AddDefaultTokenProviders()
+    .AddSignInManager<SignInManager<ApplicationUser>>()
+    .AddUserManager<UserManager<ApplicationUser>>();
+
+
+
 
 //Hämta connection string från appsettings.json
 var connectionString = builder.Configuration.GetConnectionString("DbConnection");
@@ -36,23 +48,11 @@ builder.Services.AddCors(options =>
 });
 
 
-// Förbered för admin
-builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<AppDbContext>()
-    // Lägger till signinmanager och usermanager
-    .AddSignInManager<SignInManager<ApplicationUser>>()
-    .AddUserManager<UserManager<ApplicationUser>>()
-    .AddDefaultTokenProviders();
-
-
 builder.Services.AddScoped<ItemRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IUserItemRepository, UserItemRepository>();
 
 var app = builder.Build();
-
-app.UseCors("AllowAll");
 
 // Seeda roller / admin
 using (var scope = app.Services.CreateScope())
@@ -62,7 +62,7 @@ using (var scope = app.Services.CreateScope())
     var context = services.GetRequiredService<AppDbContext>();
     var signInManager = services.GetRequiredService<SignInManager<ApplicationUser>>();
     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-    var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
+    var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
 
     // Kolla om det finns en databas
     context.Database.Migrate();
@@ -104,6 +104,7 @@ using (var scope = app.Services.CreateScope())
         signInManager.UserManager.AddToRoleAsync(admin, "Admin")
        // Kör metoden Synkront! Viktigt!
        .GetAwaiter().GetResult();
+        // hej
     }
 }
 
@@ -115,13 +116,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.UseHttpsRedirection();
-app.UseAuthorization();
 // För att kommma åt bilder:
 app.UseStaticFiles();
-
+app.UseCors("AllowAll");
+app.UseAuthorization();
 app.MapControllers();
-
-
 app.Run();
 
 
