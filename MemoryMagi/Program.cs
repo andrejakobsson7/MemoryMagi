@@ -2,7 +2,6 @@ using MemoryMagi.Database;
 using MemoryMagi.Models;
 using MemoryMagi.Repositories;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -46,6 +45,8 @@ builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.Requ
     .AddUserManager<UserManager<ApplicationUser>>()
     .AddDefaultTokenProviders();
 
+
+builder.Services.AddScoped<ItemRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IUserItemRepository, UserItemRepository>();
 
@@ -77,8 +78,9 @@ using (var scope = app.Services.CreateScope())
        .GetAwaiter().GetResult();
     if (admin == null)
     {
-        signInManager.UserManager.CreateAsync(newAdmin, "PasswordAdmin")
-            .GetAwaiter().GetResult();
+        signInManager.UserManager.CreateAsync(newAdmin, "PasswordAdmin1!")
+           .GetAwaiter().GetResult();
+
         admin = newAdmin;
 
         // Kolla om adminrollen existerar
@@ -97,7 +99,7 @@ using (var scope = app.Services.CreateScope())
             // Kör metoden Synkront! Viktigt!
             .GetAwaiter().GetResult();
         }
-        // Tilldela adminrollen
+        //Tilldela adminrollen
         signInManager.UserManager.AddToRoleAsync(admin, "Admin")
        // Kör metoden Synkront! Viktigt!
        .GetAwaiter().GetResult();
