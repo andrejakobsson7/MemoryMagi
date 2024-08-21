@@ -1,7 +1,7 @@
 using MemoryMagi.Database;
+using MemoryMagi.Models;
 using MemoryMagi.Repositories;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,16 +12,17 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
 builder.Services.AddAuthorization();
 
-builder.Services.AddIdentityApiEndpoints<IdentityUser>()
-    .AddEntityFrameworkStores<AppDbContext>();
+// LÃ¤gg till Identity fÃ¶r user o roles
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => { })
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddDefaultTokenProviders();
 
-//Hämta connection string från appsettings.json
+//HÃ¤mta connection string frÃ¥n appsettings.json
 var connectionString = builder.Configuration.GetConnectionString("DbConnection");
 
-//Lägg till context i dependency injection container
+//LÃ¤gg till context i dependency injection container
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
 
 builder.Services.AddCors(options =>
@@ -34,6 +35,18 @@ builder.Services.AddCors(options =>
     });
 });
 
+
+// FÃ¶rbered fÃ¶r admin
+builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<AppDbContext>()
+    // LÃ¤gger till signinmanager och usermanager
+    .AddSignInManager<SignInManager<ApplicationUser>>()
+    .AddUserManager<UserManager<ApplicationUser>>()
+    .AddDefaultTokenProviders();
+
+
+builder.Services.AddScoped<ItemRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IUserItemRepository, UserItemRepository>();
 
@@ -41,16 +54,59 @@ var app = builder.Build();
 
 app.UseCors("AllowAll");
 
-//FREDRIK
-// Seeda roller - Valhalla
-//using (var scope = app.Services.CreateScope())
-//{
-//    // Skapa roller och användare
-//    var adminManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-//    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+// Seeda roller / admin
+using (var scope = app.Services.CreateScope())
+{
+    // Skapa roller och anvÃ¤ndare
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<AppDbContext>();
+    var signInManager = services.GetRequiredService<SignInManager<ApplicationUser>>();
+    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+    var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
 
-//    await SeedaAdmin(userManager, adminManager);
-//}
+    // Kolla om det finns en databas
+    context.Database.Migrate();
+
+    ApplicationUser newAdmin = new()
+    {
+        UserName = "Admin",
+        Email = "admin@magicmagi.com",
+        EmailConfirmed = true
+    };
+
+    var admin = signInManager.UserManager.FindByEmailAsync(newAdmin.Email)
+       // KÃ¶r Metoden synkront!Viktigt! 
+       .GetAwaiter().GetResult();
+    if (admin == null)
+    {
+        signInManager.UserManager.CreateAsync(newAdmin, "PasswordAdmin1!")
+           .GetAwaiter().GetResult();
+
+        admin = newAdmin;
+
+        // Kolla om adminrollen existerar
+        bool adminRoleExists = roleManager.RoleExistsAsync("Admin")
+            // KÃ¶r metoden Synkront! Viktigt!
+            .GetAwaiter().GetResult();
+        if (!adminRoleExists)
+        {
+            // Skapa adminrollen
+            IdentityRole adminRole = new()
+            {
+                Name = "Admin",
+            };
+
+            roleManager.CreateAsync(adminRole)
+            // KÃ¶r metoden Synkront! Viktigt!
+            .GetAwaiter().GetResult();
+        }
+        //Tilldela adminrollen
+        signInManager.UserManager.AddToRoleAsync(admin, "Admin")
+       // KÃ¶r metoden Synkront! Viktigt!
+       .GetAwaiter().GetResult();
+    }
+}
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -58,66 +114,15 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
 app.UseHttpsRedirection();
-
-app.MapIdentityApi<IdentityUser>();
-
 app.UseAuthorization();
-
-// För att kommma åt bilder:
+// FÃ¶r att kommma Ã¥t bilder:
 app.UseStaticFiles();
-
 
 app.MapControllers();
 
-app.MapPost("/logout", async (SignInManager<IdentityUser> signInManager,
-    [FromBody] object empty) =>
-{
-    if (empty != null)
-    {
-        await signInManager.SignOutAsync();
-        return Results.Ok();
-    }
-    return Results.Unauthorized();
-})
-.RequireAuthorization();
-//Komma åt roller 
-//FREDRIK
-//app.MapIdentityApi<IdentityUser>();
 
 app.Run();
 
-//FREDRIK
-//async Task SeedaAdmin(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
-//{
-//    // skapa admin
-//    string oneAdmin = "Admin";
-//    // oneAdmin > 0 
 
-//    var roleExists = await roleManager.RoleExistsAsync(oneAdmin);
 
-//    if (!roleExists)
-//    {
-//        await roleManager.CreateAsync(new IdentityRole(oneAdmin));
-//    }
-
-//    // skapa admin user
-//    var adminUser = new IdentityUser
-//    {
-//        UserName = "admin",
-//        Email = "admin@memorymagi.com",
-//        EmailConfirmed = true
-//    };
-
-//    // Se om admin finns 
-//    var adminExists = await userManager.FindByEmailAsync(adminUser.Email);
-//    if (adminExists == null)
-//    {
-//        // Skapa lösenord till admin
-//        var result = await userManager.CreateAsync(adminUser, "PasswordAdmin");
-
-//        // Ge admin role
-//        await userManager.AddToRoleAsync(adminUser, oneAdmin);
-//    }
-//}//
