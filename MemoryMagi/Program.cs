@@ -35,6 +35,14 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IUserItemRepository, UserItemRepository>();
+builder.Services.AddScoped<IItemRepository, ItemRepository>();
+
+builder.Services.AddControllers()
+    .AddJsonOptions(opts =>
+    {
+        opts.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+    });
+
 
 var app = builder.Build();
 
