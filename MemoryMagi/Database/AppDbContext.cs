@@ -193,22 +193,26 @@ namespace MemoryMagi.Database
                 new Category()
                 {
                     Id = 1,
-                    Name = "Frukt"
+                    Name = "Frukt",
+                    image_url = "images/Veteran_car.jpg"
                 },
                  new Category()
                  {
                      Id = 2,
-                     Name = "Alkohol"
+                     Name = "Alkohol",
+                     image_url = "images/Veteran_car.jpg"
                  },
                   new Category()
                   {
                       Id = 3,
-                      Name = "Djur"
+                      Name = "Djur",
+                      image_url = "images/Veteran_car.jpg"
                   },
                    new Category()
                    {
                        Id = 4,
-                       Name = "Bilar"
+                       Name = "Bilar",
+                       image_url = "images/Veteran_car.jpg"
                    }
                 );
 
