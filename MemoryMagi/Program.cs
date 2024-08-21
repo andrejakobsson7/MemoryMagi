@@ -103,6 +103,7 @@ using (var scope = app.Services.CreateScope())
         signInManager.UserManager.AddToRoleAsync(admin, "Admin")
        // Kör metoden Synkront! Viktigt!
        .GetAwaiter().GetResult();
+        // hej
     }
 }
 
