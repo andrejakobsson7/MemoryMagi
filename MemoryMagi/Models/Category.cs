@@ -11,6 +11,8 @@ namespace MemoryMagi.Models
 
         [Column("name")]
         public string Name { get; set; } = null!;
+        [Column("image_url")]
+        public string image_url { get; set; } = null!;
 
         [Column("user_id")]
         public string? UserId { get; set; }
