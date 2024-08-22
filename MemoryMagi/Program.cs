@@ -2,6 +2,7 @@ using MemoryMagi.Database;
 using MemoryMagi.Models;
 using MemoryMagi.Repositories;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,22 +15,25 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAuthorization();
 
+builder.Services.AddIdentityApiEndpoints<IdentityUser>()
+    .AddEntityFrameworkStores<AppDbContext>();
+
 // Lägg till Identity för user o roles
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
-{
-    options.Password.RequireDigit = true;
-    options.Password.RequireLowercase = true;
-    options.Password.RequireUppercase = true;
-    options.Password.RequireNonAlphanumeric = true;
-    options.Password.RequiredLength = 6;
-})
-    .AddEntityFrameworkStores<AppDbContext>()
-    .AddDefaultTokenProviders()
-    .AddSignInManager<SignInManager<ApplicationUser>>()
-    .AddUserManager<UserManager<ApplicationUser>>();
-
-
-
+//builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => { })
+//    .AddEntityFrameworkStores<AppDbContext>()
+//    .AddDefaultTokenProviders();
+//builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+//{
+    //options.Password.RequireDigit = true;
+    //options.Password.RequireLowercase = true;
+    //options.Password.RequireUppercase = true;
+    //options.Password.RequireNonAlphanumeric = true;
+    //options.Password.RequiredLength = 6;
+//})
+    //.AddEntityFrameworkStores<AppDbContext>()
+    //.AddDefaultTokenProviders()
+    //.AddSignInManager<SignInManager<ApplicationUser>>()
+   // .AddUserManager<UserManager<ApplicationUser>>();
 
 //Hämta connection string från appsettings.json
 var connectionString = builder.Configuration.GetConnectionString("DbConnection");
@@ -47,6 +51,15 @@ builder.Services.AddCors(options =>
     });
 });
 
+
+// Förbered för admin
+builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<AppDbContext>()
+    // Lägger till signinmanager och usermanager
+    .AddSignInManager<SignInManager<ApplicationUser>>()
+    .AddUserManager<UserManager<ApplicationUser>>()
+    .AddDefaultTokenProviders();
 
 builder.Services.AddScoped<ItemRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
@@ -66,6 +79,7 @@ using (var scope = app.Services.CreateScope())
 
     // Kolla om det finns en databas
     context.Database.Migrate();
+    //Kommentar från André: Denna failar om det redan finns data i databasen med ID-nummer som vi försöker seeda in. 
 
     ApplicationUser newAdmin = new()
     {
@@ -115,12 +129,33 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.MapIdentityApi<IdentityUser>();
+
 app.UseHttpsRedirection();
 // För att kommma åt bilder:
 app.UseStaticFiles();
-app.UseCors("AllowAll");
-app.UseAuthorization();
+
+//Endpoint for logging out
+app.MapPost("/logout", async (SignInManager<IdentityUser> signInManager,
+    [FromBody] object empty) =>
+{
+    if (empty != null)
+    {
+        await signInManager.SignOutAsync();
+        return Results.Ok();
+    }
+    return Results.Unauthorized();
+})
+.RequireAuthorization();
+
 app.MapControllers();
+
+
+
+
+app.UseAuthorization();
+
 app.Run();
 
 
