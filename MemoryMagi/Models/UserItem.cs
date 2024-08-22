@@ -20,5 +20,10 @@ namespace MemoryMagi.Models
 
         [Column("is_complete")]
         public bool IsComplete { get; set; }
+
+        public static implicit operator List<object>(UserItem? v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

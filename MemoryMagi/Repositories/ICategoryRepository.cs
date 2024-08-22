@@ -6,7 +6,7 @@ namespace MemoryMagi.Repositories
     public interface ICategoryRepository
     {
         public AppDbContext _context { get; set; }
-        public Task<List<Category>> GetAllCategoriesAsync(string userId);
+        public Task<List<Category>> GetAllCategoriesAsync();
         public Task<Category> AddCategoryAsync(Category newCategory);
     }
 }
