@@ -24,16 +24,16 @@ builder.Services.AddIdentityApiEndpoints<IdentityUser>()
 //    .AddDefaultTokenProviders();
 //builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 //{
-    //options.Password.RequireDigit = true;
-    //options.Password.RequireLowercase = true;
-    //options.Password.RequireUppercase = true;
-    //options.Password.RequireNonAlphanumeric = true;
-    //options.Password.RequiredLength = 6;
+//options.Password.RequireDigit = true;
+//options.Password.RequireLowercase = true;
+//options.Password.RequireUppercase = true;
+//options.Password.RequireNonAlphanumeric = true;
+//options.Password.RequiredLength = 6;
 //})
-    //.AddEntityFrameworkStores<AppDbContext>()
-    //.AddDefaultTokenProviders()
-    //.AddSignInManager<SignInManager<ApplicationUser>>()
-   // .AddUserManager<UserManager<ApplicationUser>>();
+//.AddEntityFrameworkStores<AppDbContext>()
+//.AddDefaultTokenProviders()
+//.AddSignInManager<SignInManager<ApplicationUser>>()
+// .AddUserManager<UserManager<ApplicationUser>>();
 
 //Hämta connection string från appsettings.json
 var connectionString = builder.Configuration.GetConnectionString("DbConnection");
@@ -66,6 +66,11 @@ builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IUserItemRepository, UserItemRepository>();
 
 var app = builder.Build();
+
+app.UseCors("AllowAll");
+
+app.UseAuthorization();
+
 
 // Seeda roller / admin
 using (var scope = app.Services.CreateScope())
@@ -154,7 +159,6 @@ app.MapControllers();
 
 
 
-app.UseAuthorization();
 
 app.Run();
 
