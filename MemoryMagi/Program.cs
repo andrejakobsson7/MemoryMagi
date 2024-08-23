@@ -68,6 +68,11 @@ builder.Services.AddScoped<IUserItemRepository, UserItemRepository>();
 
 var app = builder.Build();
 
+app.UseCors("AllowAll");
+
+app.UseAuthorization();
+
+
 // Seeda roller / admin
 using (var scope = app.Services.CreateScope())
 {
@@ -157,7 +162,6 @@ app.MapControllers();
 
 
 
-app.UseAuthorization();
 
 app.Run();
 
