@@ -15,6 +15,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAuthorization();
 
+// 
 builder.Services.AddIdentityApiEndpoints<IdentityUser>()
     .AddEntityFrameworkStores<AppDbContext>();
 
@@ -24,16 +25,16 @@ builder.Services.AddIdentityApiEndpoints<IdentityUser>()
 //    .AddDefaultTokenProviders();
 //builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 //{
-    //options.Password.RequireDigit = true;
-    //options.Password.RequireLowercase = true;
-    //options.Password.RequireUppercase = true;
-    //options.Password.RequireNonAlphanumeric = true;
-    //options.Password.RequiredLength = 6;
+//options.Password.RequireDigit = true;
+//options.Password.RequireLowercase = true;
+//options.Password.RequireUppercase = true;
+//options.Password.RequireNonAlphanumeric = true;
+//options.Password.RequiredLength = 6;
 //})
-    //.AddEntityFrameworkStores<AppDbContext>()
-    //.AddDefaultTokenProviders()
-    //.AddSignInManager<SignInManager<ApplicationUser>>()
-   // .AddUserManager<UserManager<ApplicationUser>>();
+//.AddEntityFrameworkStores<AppDbContext>()
+//.AddDefaultTokenProviders()
+//.AddSignInManager<SignInManager<ApplicationUser>>()
+// .AddUserManager<UserManager<ApplicationUser>>();
 
 //Hämta connection string från appsettings.json
 var connectionString = builder.Configuration.GetConnectionString("DbConnection");
@@ -122,6 +123,8 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
+// Lägg till denna
+app.UseCors("AllowAll");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
