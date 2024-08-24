@@ -1,4 +1,5 @@
 ﻿using MemoryMagi.Models;
+using MemoryMagi.Models._2._0;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +16,18 @@ namespace MemoryMagi.Database
         public DbSet<Category> Categories { get; set; }
         public DbSet<Item> Items { get; set; }
         public DbSet<UserItem> UserItems { get; set; }
+        public DbSet<CategoryModel> Categories_2 { get; set; }
+        public DbSet<GameModel> Games_2 { get; set; }
+
+        public DbSet<ResultModel> Results_2 { get; set; }
+
+        public DbSet<DifficultyLevelModel> DifficultyLevels_2 { get; set; }
+        public DbSet<GameTypeModel> GameTypes_2 { get; set; }
+        public DbSet<ItemModel> Items_2 { get; set; }
+        public DbSet<AchievementModel> Achievements_2 { get; set; }
+        public DbSet<UserAchievement> UserAchievements_2 { get; set; }
+        public DbSet<AllowedUser> AllowedUsers_2 { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
