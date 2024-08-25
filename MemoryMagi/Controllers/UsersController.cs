@@ -81,7 +81,7 @@ namespace MemoryMagi.Controllers
                 return BadRequest("Lösenord måste innehålla minst 1 siffra");
             }
 
-            if (!model.Password.Any(char.IsLower) || !model.Password.Any(char.IsLower))
+            if (!model.Password.Any(char.IsLower) || !model.Password.Any(char.IsUpper))
             {
                 return BadRequest("Lösneord måste innehålla minst 1 stor och 1 liten bokstav");
             }
@@ -90,6 +90,12 @@ namespace MemoryMagi.Controllers
             {
                 return BadRequest("Lösenord måste innehålla ett special tecken");
             }
+
+            if (!model.Email.Contains("@"))
+            {
+                return BadRequest("Email saknar '@' för att kunna slutföra registrering ");
+            }
+
 
             var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
             var result = await _userManager.CreateAsync(user, model.Password);
