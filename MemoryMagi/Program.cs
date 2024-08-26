@@ -68,6 +68,7 @@ builder.Services.AddScoped<ICategoryModelRepository, CategoryModelRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IUserItemRepository, UserItemRepository>();
 builder.Services.AddScoped(typeof(GenericRepository<>));
+
 var app = builder.Build();
 
 app.UseCors("AllowAll");
