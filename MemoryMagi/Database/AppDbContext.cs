@@ -217,6 +217,43 @@ namespace MemoryMagi.Database
             );
 
 
+            modelBuilder.Entity<GameModel>().HasData(
+                new GameModel()
+                {
+                    Id = 1,
+                    CategoryId = 1, // Frukt
+                    DifficultyLevelId = 1, // Easy
+                    GameTypeId = 1,
+                    CreatedBy = "user123", // Replace with real ID
+                },
+                new GameModel()
+                {
+                    Id = 2,
+                    CategoryId = 2, // Alkohol
+                    DifficultyLevelId = 2, //Medium
+                    GameTypeId = 1,
+                    CreatedBy = "user456", // Replace with real ID
+                },
+                new GameModel()
+                {
+                    Id = 3,
+                    CategoryId = 3, // Djur
+                    DifficultyLevelId = 3, //Hard
+                    GameTypeId = 1,
+                    CreatedBy = "user789", // Replace with real ID
+                },
+                new GameModel()
+                {
+                    Id = 4,
+                    CategoryId = 4, // Bilar
+                    DifficultyLevelId = 1, //Easy
+                    GameTypeId = 1,
+                    CreatedBy = "user101", // Replace with real ID
+                }
+            );
+
+
+
             // hehe
         }
     }
