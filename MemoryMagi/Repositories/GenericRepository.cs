@@ -1,4 +1,5 @@
 ﻿using MemoryMagi.Database;
+using MemoryMagi.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace MemoryMagi.Repositories
@@ -22,6 +23,23 @@ namespace MemoryMagi.Repositories
         public async Task<T?> GetModelById(int id)
         {
             return await _dbSet.FindAsync(id);
+        }
+
+        // Hämta: Game-ID med allt från GameModel - för Tim?
+        public async Task<GameModel?> GetGameIds(int gameId)
+        {
+            // Hämta allt i GameModel - Include:a allt
+            return await _context.Set<GameModel>()
+                .Include(game => game.Items)
+                .Include(g => g.Category)
+                .Include(g => g.DifficultyLevel)
+                .Include(g => g.GameType)
+                .Include(g => g.User)
+                .Include(g => g.Items)
+                .Include(g => g.Results)
+                .Include(g => g.AllowedUsers)
+                .FirstOrDefaultAsync(g => g.Id == gameId);
+
         }
 
         public async Task Add(T entity)
