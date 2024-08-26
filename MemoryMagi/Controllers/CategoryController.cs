@@ -10,7 +10,7 @@ namespace MemoryMagi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class CategoryController : ControllerBase
     {
         private readonly ICategoryModelRepository _categoryModelRepository;
