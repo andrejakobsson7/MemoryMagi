@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace MemoryMagi.Controllers
@@ -27,7 +28,6 @@ namespace MemoryMagi.Controllers
             var users = await _userManager.Users.ToListAsync();
             var usersModeled = users.Select(user => new UserModel
             {
-                UserId = user.Id,
                 UserName = user.UserName,
                 Email = user.Email
             }).ToList();
@@ -35,10 +35,11 @@ namespace MemoryMagi.Controllers
             return Ok(usersModeled);
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetUserById(string id)
+        [HttpGet("user")]
+        public async Task<IActionResult> GetUser()
         {
-            var user = await _userManager.FindByIdAsync(id);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
             {
                 return NotFound("User not found.");
@@ -53,18 +54,18 @@ namespace MemoryMagi.Controllers
             return Ok(userDto);
         }
 
-        [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginModel model)
-        {
-            var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, true, lockoutOnFailure: false);
-            if (result.Succeeded)
-            {
-                var user = await _userManager.FindByNameAsync(model.UserName);
+        //[HttpPost("login")]
+        //public async Task<IActionResult> Login([FromBody] LoginModel model)
+        //{
+        //    var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, true, lockoutOnFailure: false);
+        //    if (result.Succeeded)
+        //    {
+        //        var user = await _userManager.FindByNameAsync(model.UserName);
 
-                return Ok(user!.Id);
-            }
-            return Unauthorized();
-        }
+        //        return Ok(user!.Id);
+        //    }
+        //    return Unauthorized();
+        //}
 
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterModel model)
@@ -81,11 +82,14 @@ namespace MemoryMagi.Controllers
         [HttpPut("update-user")]
         public async Task<IActionResult> UpdateUser([FromBody] UserModel model)
         {
-            var user = await _userManager.FindByIdAsync(model.UserId);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = await _userManager.FindByIdAsync(userId);
+
             if (user == null)
             {
                 return NotFound("User not found");
             }
+
             user.UserName = model.UserName;
             user.Email = model.Email;
 
@@ -100,15 +104,20 @@ namespace MemoryMagi.Controllers
         [HttpPut("update-password")]
         public async Task<IActionResult> UpdatePassword([FromBody] UpdatePasswordModel model)
         {
-            var user = await _userManager.FindByIdAsync(model.UserId);
-            if (user == null) return NotFound("User not found.");
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = await _userManager.FindByIdAsync(userId);
+
+            if (user == null)
+            {
+                return NotFound("User not found.");
+            }
 
             var result = await _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
             if (result.Succeeded)
             {
                 return Ok();
             }
-            return BadRequest(result.Errors);
+            return BadRequest("Current password incorrect." + result.Errors);
         }
 
         // hehe
@@ -128,13 +137,11 @@ namespace MemoryMagi.Controllers
 
         public class UserModel
         {
-            public string UserId { get; set; }
             public string UserName { get; set; }
             public string Email { get; set; }
         }
         public class UpdatePasswordModel
         {
-            public string UserId { get; set; }
             public string CurrentPassword { get; set; }
             public string NewPassword { get; set; }
         }
