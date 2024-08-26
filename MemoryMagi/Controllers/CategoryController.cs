@@ -1,19 +1,24 @@
 ﻿using MemoryMagi.Models;
 using MemoryMagi.Repositories;
 using MemoryMagi.Repositories._2._0;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace MemoryMagi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class CategoryController : ControllerBase
     {
         private readonly ICategoryModelRepository _categoryModelRepository;
         private readonly GenericRepository<CategoryModel> _genericRepository;
+        private JsonSerializerOptions _jsonSerializerOptions = new()
+        {
+            ReferenceHandler = ReferenceHandler.Preserve
+        };
 
         public CategoryController(ICategoryModelRepository categoryModelRepository, GenericRepository<CategoryModel> genericRepository)
         {
@@ -47,14 +52,16 @@ namespace MemoryMagi.Controllers
             }
             else
             {
-                List<CategoryModel> allCategories = await _categoryModelRepository.GetAllCategoriesAsync(userId);
-                if (allCategories == null)
+                List<GameModel> allGames = await _categoryModelRepository.GetAllCategoriesAsync(userId);
+                if (allGames == null)
                 {
-                    return BadRequest(allCategories);
+                    return BadRequest(allGames);
                 }
                 else
                 {
-                    return Ok(allCategories);
+                    var allCategories = allGames.Select(g => g.Category).GroupBy(c => c.Id).ToList();
+                    var categoriesJson = JsonSerializer.Serialize(allGames, _jsonSerializerOptions);
+                    return Ok(categoriesJson);
                 }
             }
 
