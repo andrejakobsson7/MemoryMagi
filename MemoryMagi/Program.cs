@@ -1,6 +1,7 @@
 using MemoryMagi.Database;
 using MemoryMagi.Models;
 using MemoryMagi.Repositories;
+using MemoryMagi.Repositories._2._0;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -63,6 +64,7 @@ builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.Requ
     .AddDefaultTokenProviders();
 
 builder.Services.AddScoped<ItemRepository>();
+builder.Services.AddScoped<ICategoryModelRepository, CategoryModelRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IUserItemRepository, UserItemRepository>();
 builder.Services.AddScoped(typeof(GenericRepository<>));
