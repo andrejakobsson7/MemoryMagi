@@ -22,199 +22,199 @@ namespace MemoryMagi.Database
             /// AVKOMMENTERAT - AVKOMMENTERA SENARE VID ANVÄNDNING
 
             modelBuilder.Entity<Item>().HasData(
-           // Category Id : 1 - Mat
-           new Item
-           {
-               Id = 1,
-               Name = "Äpple",
-               Image = "images/Apples.jpg",
-               CategoryId = 1
-           },
-           new Item
-           {
-               Id = 2,
-               Name = "Pasta",
-               Image = "images/Pasta.jpg",
-               CategoryId = 1
-           },
-             new Item
-             {
-                 Id = 3,
-                 Name = "Ananas",
-                 Image = "images/Pineapple.jpg",
-                 CategoryId = 1
-             },
-               new Item
-               {
-                   Id = 4,
-                   Name = "Pumpa",
-                   Image = "images/Pumpkins.jpg",
-                   CategoryId = 1
-               },
-                 new Item
-                 {
-                     Id = 5,
-                     Name = "Jordgubbar",
-                     Image = "images/Starwberries.jpg",
-                     CategoryId = 1
-                 },
-                   new Item
-                   {
-                       Id = 6,
-                       Name = "Fisk",
-                       Image = "images/Fish.jpg",
-                       CategoryId = 1
-                   },
-                     // CategoryID 2 : Alkohol
-                     new Item
-                     {
-                         Id = 7,
-                         Name = "Öl",
-                         Image = "images/Beer.jpg",
-                         CategoryId = 2
-                     },
-                     new Item
-                     {
-                         Id = 8,
-                         Name = "Cocktail",
-                         Image = "images/Cocktail.jpg",
-                         CategoryId = 2
-                     },
-                     new Item
-                     {
-                         Id = 9,
-                         Name = "Crafted öl",
-                         Image = "images/Crafted_beer.jpg",
-                         CategoryId = 2
-                     },
-                     new Item
-                     {
-                         Id = 10,
-                         Name = "Rött vin",
-                         Image = "images/Red_Wine.jpg",
-                         CategoryId = 2
-                     },
-                     new Item
-                     {
-                         Id = 11,
-                         Name = "Vin",
-                         Image = "images/Wine.jpg",
-                         CategoryId = 2
-                     },
-                     // Cateogiry id 3: djur
-                     new Item
-                     {
-                         Id = 12,
-                         Name = "Fågel",
-                         Image = "images/Bird.jpg",
-                         CategoryId = 3
-                     },
-                     new Item
-                     {
-                         Id = 13,
-                         Name = "Katt",
-                         Image = "images/Cat.jpg",
-                         CategoryId = 3
-                     },
-                     new Item
-                     {
-                         Id = 14,
-                         Name = "Ko",
-                         Image = "images/Cows.jpg",
-                         CategoryId = 3
-                     },
-                     new Item
-                     {
-                         Id = 15,
-                         Name = "Lejon",
-                         Image = "images/Lion.jpg",
-                         CategoryId = 3
-                     },
-                     new Item
-                     {
-                         Id = 16,
-                         Name = "Apa",
-                         Image = "images/Monkeys.jpg",
-                         CategoryId = 3
-                     },
-                     new Item
-                     {
-                         Id = 17,
-                         Name = "Varg",
-                         Image = "images/Wolf.jpg",
-                         CategoryId = 3
-                     },
-                     // Cateogiry id 4: bilar
-                     new Item
-                     {
-                         Id = 18,
-                         Name = "Cool bil",
-                         Image = "images/Exoticc_car.jpg",
-                         CategoryId = 4
-                     },
-                     new Item
-                     {
-                         Id = 19,
-                         Name = "Pasta bilen",
-                         Image = "images/Pastawagon_car.jpg",
-                         CategoryId = 4
-                     },
-                     new Item
-                     {
-                         Id = 20,
-                         Name = "Racer bilen",
-                         Image = "images/Racecar_car.jpg",
-                         CategoryId = 4
-                     },
-                     new Item
-                     {
-                         Id = 21,
-                         Name = "Stadsjeepen",
-                         Image = "images/SUV_car.jpg",
-                         CategoryId = 4
-                     },
-                     new Item
-                     {
-                         Id = 22,
-                         Name = "Ban bilen",
-                         Image = "images/Trackcar_car.jpg",
-                         CategoryId = 4
-                     },
-                     new Item
-                     {
-                         Id = 23,
-                         Name = "Veteran bilen",
-                         Image = "images/Veteran_car.jpg",
-                         CategoryId = 4
-                     }
-                     );
+            // Category Id : 1 - Mat
+            new ItemModel
+            {
+                Id = 1,
+                Name = "Äpple",
+                Image = "images/Apples.jpg",
+                GameId = 1
+            },
+            new ItemModel
+            {
+                Id = 2,
+                Name = "Pasta",
+                Image = "images/Pasta.jpg",
+                GameId = 1
+            },
+            new ItemModel
+            {
+                Id = 3,
+                Name = "Ananas",
+                Image = "images/Pineapple.jpg",
+                GameId = 1
+            },
+            new ItemModel
+            {
+                Id = 4,
+                Name = "Pumpa",
+                Image = "images/Pumpkins.jpg",
+                GameId = 1
+            },
+            new ItemModel
+            {
+                Id = 5,
+                Name = "Jordgubbar",
+                Image = "images/Strawberries.jpg",
+                GameId = 1
+            },
+            new ItemModel
+            {
+                Id = 6,
+                Name = "Fisk",
+                Image = "images/Fish.jpg",
+                GameId = 1
+            },
+            // GameId 2 : Alkohol
+            new ItemModel
+            {
+                Id = 7,
+                Name = "Öl",
+                Image = "images/Beer.jpg",
+                GameId = 2
+            },
+            new ItemModel
+            {
+                Id = 8,
+                Name = "Cocktail",
+                Image = "images/Cocktail.jpg",
+                GameId = 2
+            },
+            new ItemModel
+            {
+                Id = 9,
+                Name = "Crafted öl",
+                Image = "images/Crafted_beer.jpg",
+                GameId = 2
+            },
+            new ItemModel
+            {
+                Id = 10,
+                Name = "Rött vin",
+                Image = "images/Red_Wine.jpg",
+                GameId = 2
+            },
+            new ItemModel
+            {
+                Id = 11,
+                Name = "Vin",
+                Image = "images/Wine.jpg",
+                GameId = 2
+            },
+            // GameId 3: Djur
+            new ItemModel
+            {
+                Id = 12,
+                Name = "Fågel",
+                Image = "images/Bird.jpg",
+                GameId = 3
+            },
+            new ItemModel
+            {
+                Id = 13,
+                Name = "Katt",
+                Image = "images/Cat.jpg",
+                GameId = 3
+            },
+            new ItemModel
+            {
+                Id = 14,
+                Name = "Ko",
+                Image = "images/Cows.jpg",
+                GameId = 3
+            },
+            new ItemModel
+            {
+                Id = 15,
+                Name = "Lejon",
+                Image = "images/Lion.jpg",
+                GameId = 3
+            },
+            new ItemModel
+            {
+                Id = 16,
+                Name = "Apa",
+                Image = "images/Monkeys.jpg",
+                GameId = 3
+            },
+            new ItemModel
+            {
+                Id = 17,
+                Name = "Varg",
+                Image = "images/Wolf.jpg",
+                GameId = 3
+            },
+            // GameId 4: Bilar
+            new ItemModel
+            {
+                Id = 18,
+                Name = "Cool bil",
+                Image = "images/Exotic_car.jpg",
+                GameId = 4
+            },
+            new ItemModel
+            {
+                Id = 19,
+                Name = "Pasta bilen",
+                Image = "images/Pastawagon_car.jpg",
+                GameId = 4
+            },
+            new ItemModel
+            {
+                Id = 20,
+                Name = "Racer bilen",
+                Image = "images/Racecar_car.jpg",
+                GameId = 4
+            },
+            new ItemModel
+            {
+                Id = 21,
+                Name = "Stadsjeepen",
+                Image = "images/SUV_car.jpg",
+                GameId = 4
+            },
+            new ItemModel
+            {
+                Id = 22,
+                Name = "Ban bilen",
+                Image = "images/Trackcar_car.jpg",
+                GameId = 4
+            },
+            new ItemModel
+            {
+                Id = 23,
+                Name = "Veteran bilen",
+                Image = "images/Veteran_car.jpg",
+                GameId = 4
+            });
 
-            modelBuilder.Entity<Category>().HasData(
-                new Category()
+
+            modelBuilder.Entity<CategoryModel>().HasData(
+                new CategoryModel()
                 {
                     Id = 1,
                     Name = "Frukt",
-                    image_url = "images/Veteran_car.jpg"
+                    Image = "images/Veteran_car.jpg"
                 },
-                 new Category()
-                 {
-                     Id = 2,
-                     Name = "Alkohol",
-                     image_url = "images/Veteran_car.jpg"
-                 },
-                  new Category()
-                  {
-                      Id = 3,
-                      Name = "Djur",
-                      image_url = "images/Veteran_car.jpg"
-                  },
-                   new Category()
-                   {
-                       Id = 4,
-                       Name = "Bilar",
-                       image_url = "images/Veteran_car.jpg"
-                   }
-                );
+                new CategoryModel()
+                {
+                    Id = 2,
+                    Name = "Alkohol",
+                    Image = "images/Veteran_car.jpg"
+                },
+                new CategoryModel()
+                {
+                    Id = 3,
+                    Name = "Djur",
+                    Image = "images/Veteran_car.jpg"
+                },
+                new CategoryModel()
+                {
+                    Id = 4,
+                    Name = "Bilar",
+                    Image = "images/Veteran_car.jpg"
+                }
+            );
 
 
             // hehe
