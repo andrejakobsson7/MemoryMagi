@@ -4,6 +4,7 @@ using MemoryMagi.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MemoryMagi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240824120138_upgradeDatabase")]
+    partial class upgradeDatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -440,8 +443,8 @@ namespace MemoryMagi.Migrations
                         .HasColumnType("int")
                         .HasColumnName("game_id");
 
-                    b.Property<DateTime>("DatePlayed")
-                        .HasColumnType("datetime2")
+                    b.Property<DateOnly>("DatePlayed")
+                        .HasColumnType("date")
                         .HasColumnName("date_played");
 
                     b.Property<bool>("Passed")
@@ -452,7 +455,7 @@ namespace MemoryMagi.Migrations
                         .HasColumnType("time")
                         .HasColumnName("time");
 
-                    b.HasKey("UserId", "GameId", "DatePlayed");
+                    b.HasKey("UserId", "GameId");
 
                     b.HasIndex("GameId");
 

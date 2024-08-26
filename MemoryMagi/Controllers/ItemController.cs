@@ -1,5 +1,6 @@
 ﻿using MemoryMagi.Models;
 using MemoryMagi.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -11,9 +12,11 @@ namespace MemoryMagi.Controllers
     public class ItemController : ControllerBase
     {
         private readonly ItemRepository _itemRepository;
-        public ItemController(ItemRepository itemRepository)
+        private readonly GenericRepository<Item> _genericRepository;
+        public ItemController(ItemRepository itemRepository, GenericRepository<Item> genericRepository)
         {
             _itemRepository = itemRepository;
+            _genericRepository = genericRepository; // För att använda generic
         }
 
 
@@ -31,8 +34,29 @@ namespace MemoryMagi.Controllers
             {
                 return Ok(allItems);
             }
+        }
+
+        // För Tim
+        [HttpGet("GetSpecItems")]
+        [Authorize]
+        public async Task<IActionResult> GetItemsByGameId(int id)
+        {
+            GameModel getGameId = await _genericRepository.GetGameIds(id);
+
+            if (getGameId == null)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                return Ok(id);
+            }
+
 
         }
+
+
+
 
     }
 }

@@ -1,51 +1,72 @@
 ﻿using MemoryMagi.Models;
 using MemoryMagi.Repositories;
+using MemoryMagi.Repositories._2._0;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace MemoryMagi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class CategoryController : ControllerBase
     {
-        private readonly ICategoryRepository _categoryRepository;
+        private readonly ICategoryModelRepository _categoryModelRepository;
+        private readonly GenericRepository<CategoryModel> _genericRepository;
 
-        public CategoryController(ICategoryRepository categoryRepository)
+        public CategoryController(ICategoryModelRepository categoryModelRepository, GenericRepository<CategoryModel> genericRepository)
         {
-            _categoryRepository = categoryRepository;
+            _categoryModelRepository = categoryModelRepository;
+            _genericRepository = genericRepository;
         }
 
+        ////[HttpGet(Name = "GetAllCategories")]
+        ////public async Task<IActionResult> GetAllItems()
+        ////{
 
-        [HttpGet(Name = "GetAllCategories")]
-        public async Task<IActionResult> GetAllItems()
+        ////    List<Category> AllCategories = await _categoryRepository.GetAllCategoriesAsync();
+
+        ////    if (AllCategories == null)
+        ////    {
+        ////        return BadRequest();
+        ////    }
+        ////    else
+        ////    {
+        ////        return Ok(AllCategories);
+        ////    }
+        //}
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllCategoriesAsync()
         {
-
-            List<Category> AllCategories = await _categoryRepository.GetAllCategoriesAsync();
-
-            if (AllCategories == null)
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userId == null)
             {
-                return BadRequest();
+                return Unauthorized();
             }
             else
             {
-                return Ok(AllCategories);
+                List<CategoryModel> allCategories = await _categoryModelRepository.GetAllCategoriesAsync(userId);
+                if (allCategories == null)
+                {
+                    return BadRequest(allCategories);
+                }
+                else
+                {
+                    return Ok(allCategories);
+                }
             }
 
         }
 
-        [Authorize]
         [HttpPost]
-        public async Task<IActionResult> AddCategory(Category newCategory)
+        public async Task<IActionResult> AddCategoryAsync(CategoryModel newCategory)
         {
             try
             {
-                var addedCategory = await _categoryRepository.AddCategoryAsync(newCategory);
-                if (addedCategory == null)
-                {
-                    return StatusCode(500, addedCategory);
-                }
-                return StatusCode(201, addedCategory);
+                await _genericRepository.Add(newCategory);
+                return StatusCode(201, newCategory);
             }
             catch (Exception ex)
             {

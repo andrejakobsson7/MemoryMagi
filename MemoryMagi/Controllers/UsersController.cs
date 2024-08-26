@@ -70,6 +70,34 @@ namespace MemoryMagi.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterModel model)
         {
+            //string specialTecken = "!@#$%^&*()_-+=<>?/";
+
+            if (string.IsNullOrEmpty(model.Password) || model.Password.Length < 6)
+            {
+                return BadRequest("Lösenord ska ha minst 6 tecken");
+            }
+
+            if (!model.Password.Any(char.IsDigit))
+            {
+                return BadRequest("Lösenord måste innehålla minst 1 siffra");
+            }
+
+            if (!model.Password.Any(char.IsLower) || !model.Password.Any(char.IsUpper))
+            {
+                return BadRequest("Lösneord måste innehålla minst 1 stor och 1 liten bokstav");
+            }
+
+            if (!model.Password.Any(specialTecken => "!@#$%^&*()_-+=<>?/".Contains(specialTecken)))
+            {
+                return BadRequest("Lösenord måste innehålla ett special tecken");
+            }
+
+            if (!model.Email.Contains("@"))
+            {
+                return BadRequest("Email saknar '@' för att kunna slutföra registrering ");
+            }
+
+
             var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
             var result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
