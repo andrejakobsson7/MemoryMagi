@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MemoryMagi.Models
 {
-    [PrimaryKey("UserId", new string[] { "GameId" })]
+    [PrimaryKey("UserId", new string[] { "GameId", "DatePlayed" })]
 
     public class ResultModel
     {
@@ -19,7 +19,7 @@ namespace MemoryMagi.Models
         public TimeSpan Time { get; set; }
 
         [Column("date_played")]
-        public DateOnly DatePlayed { get; set; }
+        public DateTime DatePlayed { get; set; }
 
         [Column("passed")]
         public bool Passed { get; set; }
