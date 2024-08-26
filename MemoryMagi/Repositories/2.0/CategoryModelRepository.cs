@@ -1,10 +1,11 @@
 ﻿using MemoryMagi.Database;
 using MemoryMagi.Models;
+using MemoryMagi.Repositories._2._0;
 using Microsoft.EntityFrameworkCore;
 
 namespace MemoryMagi.Repositories
 {
-    public class CategoryModelRepository
+    public class CategoryModelRepository : ICategoryModelRepository
     {
 
         public AppDbContext _context { get; set; }
@@ -21,8 +22,6 @@ namespace MemoryMagi.Repositories
                     ThenInclude(g => g.DifficultyLevel).
                 Include(c => c.Games).
                     ThenInclude(g => g.GameType).
-                Include(c => c.Games).
-                    ThenInclude(g => g.Items).
                 Include(c => c.Games).
                     ThenInclude(g => g.Results.Where(r => r.UserId == userId)).
                 Include(c => c.Games).

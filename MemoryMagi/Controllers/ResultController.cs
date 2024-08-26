@@ -49,7 +49,7 @@ namespace MemoryMagi.Controllers
                 GameId = newResult.GameId,
                 UserId = newResult.UserId,
                 Time = newResult.Time,
-                DatePlayed = DateOnly.FromDateTime(DateTime.Now),
+                DatePlayed = DateTime.Now,
                 Passed = newResult.Passed,
             };
 
