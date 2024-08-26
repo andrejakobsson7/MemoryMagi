@@ -64,7 +64,7 @@ builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.Requ
 builder.Services.AddScoped<ItemRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IUserItemRepository, UserItemRepository>();
-
+builder.Services.AddScoped(typeof(GenericRepository<>));
 var app = builder.Build();
 
 app.UseCors("AllowAll");
