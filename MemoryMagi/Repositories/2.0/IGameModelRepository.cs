@@ -3,11 +3,10 @@ using MemoryMagi.Models;
 
 namespace MemoryMagi.Repositories._2._0
 {
-    public interface ICategoryModelRepository
+    public interface IGameModelRepository
     {
         public AppDbContext _context { get; set; }
 
-        public Task<List<GameModel>> GetAllCategoriesAsync(string userId);
-
+        public Task<List<GameModel>> GetAllGamesWithIncludedDataAsync(string userId);
     }
 }

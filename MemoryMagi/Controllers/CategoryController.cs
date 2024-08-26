@@ -1,6 +1,7 @@
 ﻿using MemoryMagi.Models;
 using MemoryMagi.Repositories;
 using MemoryMagi.Repositories._2._0;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using System.Text.Json;
@@ -13,16 +14,16 @@ namespace MemoryMagi.Controllers
     [Authorize]
     public class CategoryController : ControllerBase
     {
-        private readonly ICategoryModelRepository _categoryModelRepository;
+        private readonly IGameModelRepository _gameModelRepository;
         private readonly GenericRepository<CategoryModel> _genericRepository;
         private JsonSerializerOptions _jsonSerializerOptions = new()
         {
             ReferenceHandler = ReferenceHandler.Preserve
         };
 
-        public CategoryController(ICategoryModelRepository categoryModelRepository, GenericRepository<CategoryModel> genericRepository)
+        public CategoryController(IGameModelRepository gameModelRepository, GenericRepository<CategoryModel> genericRepository)
         {
-            _categoryModelRepository = categoryModelRepository;
+            _gameModelRepository = gameModelRepository;
             _genericRepository = genericRepository;
         }
 
@@ -52,14 +53,14 @@ namespace MemoryMagi.Controllers
             }
             else
             {
-                List<GameModel> allGames = await _categoryModelRepository.GetAllCategoriesAsync(userId);
+                List<GameModel> allGames = await _gameModelRepository.GetAllGamesWithIncludedDataAsync(userId);
                 if (allGames == null)
                 {
                     return BadRequest(allGames);
                 }
                 else
                 {
-                    var allCategories = allGames.Select(g => g.Category).GroupBy(c => c.Id).ToList();
+                    var allCategories = allGames.Select(g => g.Category).Distinct().ToList();
                     var categoriesJson = JsonSerializer.Serialize(allGames, _jsonSerializerOptions);
                     return Ok(categoriesJson);
                 }

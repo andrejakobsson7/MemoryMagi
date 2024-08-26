@@ -64,7 +64,7 @@ builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.Requ
     .AddDefaultTokenProviders();
 
 builder.Services.AddScoped<ItemRepository>();
-builder.Services.AddScoped<ICategoryModelRepository, CategoryModelRepository>();
+builder.Services.AddScoped<IGameModelRepository, GameModelRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IUserItemRepository, UserItemRepository>();
 builder.Services.AddScoped(typeof(GenericRepository<>));
