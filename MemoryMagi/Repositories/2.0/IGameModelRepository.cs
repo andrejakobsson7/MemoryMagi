@@ -1,5 +1,4 @@
 ﻿using MemoryMagi.Database;
-using MemoryMagi.Models;
 
 namespace MemoryMagi.Repositories._2._0
 {
@@ -7,6 +6,5 @@ namespace MemoryMagi.Repositories._2._0
     {
         public AppDbContext _context { get; set; }
 
-        public Task<List<GameModel>> GetAllGamesWithIncludedDataAsync(string userId);
     }
 }

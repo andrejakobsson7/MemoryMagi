@@ -1,4 +1,5 @@
-﻿using MemoryMagi.Models;
+﻿using MemoryMagi.Controllers.ApiModels;
+using MemoryMagi.Models;
 using MemoryMagi.Repositories;
 using MemoryMagi.Repositories._2._0;
 using Microsoft.AspNetCore.Authorization;
@@ -14,37 +15,22 @@ namespace MemoryMagi.Controllers
     [Authorize]
     public class CategoryController : ControllerBase
     {
-        private readonly IGameModelRepository _gameModelRepository;
+        private readonly ICategoryModelRepository _categoryModelRepository;
         private readonly GenericRepository<CategoryModel> _genericRepository;
         private JsonSerializerOptions _jsonSerializerOptions = new()
         {
             ReferenceHandler = ReferenceHandler.Preserve
         };
 
-        public CategoryController(IGameModelRepository gameModelRepository, GenericRepository<CategoryModel> genericRepository)
+        public CategoryController(ICategoryModelRepository categoryModelRepository, GenericRepository<CategoryModel> genericRepository)
         {
-            _gameModelRepository = gameModelRepository;
+            _categoryModelRepository = categoryModelRepository;
             _genericRepository = genericRepository;
         }
 
-        ////[HttpGet(Name = "GetAllCategories")]
-        ////public async Task<IActionResult> GetAllItems()
-        ////{
-
-        ////    List<Category> AllCategories = await _categoryRepository.GetAllCategoriesAsync();
-
-        ////    if (AllCategories == null)
-        ////    {
-        ////        return BadRequest();
-        ////    }
-        ////    else
-        ////    {
-        ////        return Ok(AllCategories);
-        ////    }
-        //}
-
-        [HttpGet]
-        public async Task<IActionResult> GetAllCategoriesAsync()
+        [HttpGet("GetCategoriesWithIncludedData")]
+        //For usage in start quiz-page
+        public async Task<IActionResult> GetAllCategoriesWithIncludedDataAsync()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (userId == null)
@@ -53,19 +39,36 @@ namespace MemoryMagi.Controllers
             }
             else
             {
-                List<GameModel> allGames = await _gameModelRepository.GetAllGamesWithIncludedDataAsync(userId);
-                if (allGames == null)
+                List<CategoryModel> allCategories = await _categoryModelRepository.GetAllCategoriesWithIncludedDataAsync(userId);
+                if (allCategories == null)
                 {
-                    return BadRequest(allGames);
+                    return BadRequest(allCategories);
                 }
                 else
                 {
-                    var allCategories = allGames.Select(g => g.Category).Distinct().ToList();
-                    var categoriesJson = JsonSerializer.Serialize(allGames, _jsonSerializerOptions);
+                    //Convert to api models
+                    List<CategoryApiModel> apiCategories = allCategories.Select(c => new CategoryApiModel(c)).ToList();
+                    //Serialize to avoid cycles
+                    var categoriesJson = JsonSerializer.Serialize(apiCategories, _jsonSerializerOptions);
                     return Ok(categoriesJson);
                 }
             }
 
+        }
+
+        [HttpGet("GetCategories")]
+        //For usage when creating games
+        public async Task<IActionResult> GetAllCategoriesAsync()
+        {
+            List<CategoryModel> allCategories = await _genericRepository.GetAll();
+            if (allCategories == null)
+            {
+                return BadRequest(allCategories);
+            }
+            else
+            {
+                return Ok(allCategories);
+            }
         }
 
         [HttpPost]

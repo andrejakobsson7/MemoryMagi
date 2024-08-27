@@ -15,29 +15,23 @@ namespace MemoryMagi.Repositories
             _context = context;
         }
 
-        public async Task<List<CategoryModel>> GetAllCategoriesAsync(string userId)
+        public async Task<List<CategoryModel>> GetAllCategoriesWithIncludedDataAsync(string userId)
         {
-            return await _context.Categories.
-                Include(c => c.Games).
-                    ThenInclude(g => g.DifficultyLevel).
-                Include(c => c.Games).
-                    ThenInclude(g => g.GameType).
-                Include(c => c.Games).
-                    ThenInclude(g => g.Results.Where(r => r.UserId == userId)).
-                Include(c => c.Games).
-                    ThenInclude(g => g.AllowedUsers.Where(u => u.UserId == userId)).
-                Include(c => c.Games.Where(g => g.CreatedBy == userId)).
-                    ToListAsync();
+            //Get categories and their related games that the user has either created, are public or that the user has been invited to.
+            //Then get the related data for these games and return it.
+            //Only include results that belongs to the specific user.
+            //Only get categories that has games (count over 0).
 
-            //Alternativ query
-            //List<GameModel> games = await _context.Games_2.
-            //    Include(g => g.Category).
-            //    Include(g => g.GameType).
-            //    Include(g => g.DifficultyLevel).
-            //    Include(g => g.Items).
-            //    Include(g => g.Results.Where(r => r.UserId == userId)).
-            //    Include(g => g.AllowedUsers.Where(u => u.UserId == userId)).
-            //    ToListAsync();
+            return await _context.Categories.Where(c => c.Games.Count > 0)
+                .Include(c => c.Games.Where(g => g.CreatedBy == userId ||
+                                                 g.AllowedUsers.Any(u => u.UserId == userId) ||
+                                                 g.GameType.ToLower() == "public"))
+                    .ThenInclude(g => g.DifficultyLevel)
+                .Include(c => c.Games.Where(g => g.CreatedBy == userId ||
+                                                 g.AllowedUsers.Any(u => u.UserId == userId) ||
+                                                 g.GameType.ToLower() == "public"))
+                    .ThenInclude(g => g.Results.Where(r => r.UserId == userId))
+            .ToListAsync();
         }
     }
 }
