@@ -26,7 +26,6 @@ namespace MemoryMagi.Controllers.ApiModels
         public bool IsCategoryPrivateComplete { get; set; }
 
         //Total games progress per category
-        public bool HasAnyGames { get; set; }
         public int TotalGames { get; set; }
         public int CompletedGames { get; set; }
         public bool IsCategoryComplete { get; set; }
@@ -52,7 +51,6 @@ namespace MemoryMagi.Controllers.ApiModels
             TotalGames = GetTotalCategoryGames(TotalPublicGames, TotalPrivateGames);
             CompletedGames = GetTotalCategoryCompletedGames(CompletedPublicGames, CompletedPrivateGames);
             IsCategoryComplete = GetTotalCategoryCompletionStatus(IsCategoryPublicComplete, IsCategoryPrivateComplete);
-            HasAnyGames = GetIfCategoryHasGameType(TotalGames);
         }
         private int GetCategoryId(CategoryModel category)
         {
