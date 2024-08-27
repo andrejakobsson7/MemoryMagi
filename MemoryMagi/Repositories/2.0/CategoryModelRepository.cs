@@ -17,7 +17,7 @@ namespace MemoryMagi.Repositories
 
         public async Task<List<CategoryModel>> GetAllCategoriesAsync(string userId)
         {
-            return await _context.Categories_2.
+            return await _context.Categories.
                 Include(c => c.Games).
                     ThenInclude(g => g.DifficultyLevel).
                 Include(c => c.Games).

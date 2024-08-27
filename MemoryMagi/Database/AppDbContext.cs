@@ -13,20 +13,16 @@ namespace MemoryMagi.Database
 
         }
 
-        public DbSet<Category> Categories { get; set; }
-        public DbSet<Item> Items { get; set; }
-        public DbSet<UserItem> UserItems { get; set; }
-        public DbSet<CategoryModel> Categories_2 { get; set; }
-        public DbSet<GameModel> Games_2 { get; set; }
 
-        public DbSet<ResultModel> Results_2 { get; set; }
+        public DbSet<CategoryModel> Categories { get; set; }
+        public DbSet<GameModel> Games { get; set; }
 
-        public DbSet<DifficultyLevelModel> DifficultyLevels_2 { get; set; }
-        public DbSet<GameTypeModel> GameTypes_2 { get; set; }
-        public DbSet<ItemModel> Items_2 { get; set; }
-        public DbSet<AchievementModel> Achievements_2 { get; set; }
-        public DbSet<UserAchievement> UserAchievements_2 { get; set; }
-        public DbSet<AllowedUser> AllowedUsers_2 { get; set; }
+        public DbSet<ResultModel> Results { get; set; }
+        public DbSet<DifficultyLevelModel> DifficultyLevels { get; set; }
+        public DbSet<ItemModel> Items { get; set; }
+        public DbSet<AchievementModel> Achievements { get; set; }
+        public DbSet<UserAchievement> UserAchievements { get; set; }
+        public DbSet<AllowedUser> AllowedUsers { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -230,43 +226,29 @@ namespace MemoryMagi.Database
             );
 
             modelBuilder.Entity<DifficultyLevelModel>().HasData(
-                new DifficultyLevelModel
-                {
-                    Id = 1,
-                    Name = "Lätt",
-                    Level = 1,        // Easy 
-                    NrOfCards = 4
-                },
-                new DifficultyLevelModel
-                {
-                    Id = 2,
-                    Name = "Medium",
-                    Level = 2,        // Medium
-                    NrOfCards = 8
-                },
-                new DifficultyLevelModel
-                {
-                    Id = 3,
-                    Name = "Svår",
-                    Level = 3,        // Hard 
-                    NrOfCards = 15
-                }
-            );
+           new DifficultyLevelModel
+           {
+               Id = 1,
+               Name = "Lätt",
+               Level = 1,        // Easy 
+               NrOfCards = 4
+           },
+           new DifficultyLevelModel
+           {
+               Id = 2,
+               Name = "Medium",
+               Level = 2,        // Medium
+               NrOfCards = 8
+           },
+           new DifficultyLevelModel
+           {
+               Id = 3,
+               Name = "Svår",
+               Level = 3,        // Hard 
+               NrOfCards = 15
+           }
+       );
 
-            modelBuilder.Entity<GameTypeModel>().HasData(
-                new GameTypeModel
-                {
-                    Id = 1,
-                    Name = "Public",
-                    GameType = 1
-                },
-                new GameTypeModel
-                {
-                    Id = 2,
-                    Name = "Private",
-                    GameType = 2
-                }
-            );
 
             modelBuilder.Entity<GameModel>().HasData(
                 new GameModel()
@@ -274,7 +256,7 @@ namespace MemoryMagi.Database
                     Id = 1,
                     CategoryId = 1, // Frukt
                     DifficultyLevelId = 1, // Easy
-                    GameTypeId = 1,
+                    GameType = "public",
                     CreatedBy = null, // Replace with real ID
                 },
                 new GameModel()
@@ -282,7 +264,7 @@ namespace MemoryMagi.Database
                     Id = 2,
                     CategoryId = 2, // Alkohol
                     DifficultyLevelId = 2, //Medium
-                    GameTypeId = 1,
+                    GameType = "public",
                     CreatedBy = null, // Replace with real ID
                 },
                 new GameModel()
@@ -290,7 +272,7 @@ namespace MemoryMagi.Database
                     Id = 3,
                     CategoryId = 3, // Djur
                     DifficultyLevelId = 3, //Hard
-                    GameTypeId = 1,
+                    GameType = "public",
                     CreatedBy = null, // Replace with real ID
                 },
                 new GameModel()
@@ -298,7 +280,7 @@ namespace MemoryMagi.Database
                     Id = 4,
                     CategoryId = 4, // Bilar
                     DifficultyLevelId = 1, //Easy
-                    GameTypeId = 1,
+                    GameType = "public",
                     CreatedBy = null, // Replace with real ID
                 }
             );
