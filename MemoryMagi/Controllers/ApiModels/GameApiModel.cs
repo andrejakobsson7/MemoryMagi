@@ -6,7 +6,7 @@ namespace MemoryMagi.Controllers.ApiModels
     {
         public int Id { get; set; }
         public DifficultyLevelModel? DifficultyLevel { get; set; }
-        public GameTypeModel? GameType { get; set; }
+        public string? GameType { get; set; }
         public string? CreatedBy { get; set; }
         public bool IsComplete { get; set; } = false;
         public List<ItemModel> Items { get; set; } = new();
@@ -30,7 +30,7 @@ namespace MemoryMagi.Controllers.ApiModels
             return game.DifficultyLevel;
         }
 
-        private GameTypeModel GetGameType(GameModel game)
+        private string? GetGameType(GameModel game)
         {
             return game.GameType;
         }

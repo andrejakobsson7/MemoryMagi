@@ -19,8 +19,8 @@ namespace MemoryMagi.Repositories
             //Get games that the user has either created, are public or that the user has been invited to.
             //Then get the related data for these games and return it.
             //Only include results that belongs to the specific user.
-            return await _context.Games_2
-            .Where(g => g.CreatedBy == userId || g.GameType.GameType == 1 ||
+            return await _context.Games
+            .Where(g => g.CreatedBy == userId || g.GameType == "public" ||
             g.AllowedUsers.Any(u => u.UserId == userId)).
             Include(g => g.DifficultyLevel).
             Include(g => g.Category).

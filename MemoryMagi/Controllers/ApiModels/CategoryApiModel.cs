@@ -93,12 +93,12 @@ namespace MemoryMagi.Controllers.ApiModels
 
         private List<GameApiModel> GetPublicGamesInCategory(List<GameApiModel> games)
         {
-            return AllGames.Where(g => g.GameType.GameType == 1).ToList();
+            return AllGames.Where(g => g.GameType == "public").ToList();
         }
 
         private List<GameApiModel> GetPrivateGamesInCategory(List<GameApiModel> games)
         {
-            return AllGames.Where(g => g.GameType.GameType != 1).ToList();
+            return AllGames.Where(g => g.GameType == "private").ToList();
         }
 
         private int GetTotalCategoryGames(int publicGamesCount, int privateGamesCount)
