@@ -3,6 +3,7 @@ using MemoryMagi.Models;
 using MemoryMagi.Repositories;
 using MemoryMagi.Repositories._2._0;
 using Microsoft.AspNetCore.Authorization;
+using MemoryMagi.Repositories._2._0;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using System.Text.Json;
@@ -12,6 +13,7 @@ namespace MemoryMagi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+
     [Authorize]
     public class CategoryController : ControllerBase
     {
@@ -19,7 +21,8 @@ namespace MemoryMagi.Controllers
         private readonly GenericRepository<CategoryModel> _genericRepository;
         private JsonSerializerOptions _jsonSerializerOptions = new()
         {
-            ReferenceHandler = ReferenceHandler.Preserve
+            ReferenceHandler = ReferenceHandler.Preserve,
+            WriteIndented = true,
         };
 
         public CategoryController(ICategoryModelRepository categoryModelRepository, GenericRepository<CategoryModel> genericRepository)

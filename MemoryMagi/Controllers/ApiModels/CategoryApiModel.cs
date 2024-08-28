@@ -33,6 +33,7 @@ namespace MemoryMagi.Controllers.ApiModels
         public CategoryApiModel(CategoryModel category)
         {
             Id = GetCategoryId(category);
+            Name = GetCategoryName(category);
             Image = GetImage(category);
             AllGames = ProjectGameModelToApiModel(category.Games);
             PublicGames = GetPublicGamesInCategory(AllGames);
@@ -55,6 +56,10 @@ namespace MemoryMagi.Controllers.ApiModels
         private int GetCategoryId(CategoryModel category)
         {
             return category.Id;
+        }
+        private string GetCategoryName(CategoryModel category)
+        {
+            return category.Name;
         }
 
         private string GetImage(CategoryModel category)
