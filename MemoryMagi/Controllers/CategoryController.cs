@@ -1,15 +1,24 @@
 ﻿using MemoryMagi.Models;
 using MemoryMagi.Repositories;
 using Microsoft.AspNetCore.Authorization;
+using MemoryMagi.Repositories._2._0;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MemoryMagi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    //[Authorize]
     public class CategoryController : ControllerBase
     {
         private readonly ICategoryRepository _categoryRepository;
+        private readonly ICategoryModelRepository _categoryModelRepository;
+        private readonly GenericRepository<CategoryModel> _genericRepository;
+        private JsonSerializerOptions _jsonSerializerOptions = new()
+        {
+            ReferenceHandler = ReferenceHandler.Preserve,
+            WriteIndented = true,
+        };
 
         public CategoryController(ICategoryRepository categoryRepository)
         {
