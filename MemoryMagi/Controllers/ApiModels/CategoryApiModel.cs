@@ -57,7 +57,6 @@ namespace MemoryMagi.Controllers.ApiModels
         {
             return category.Id;
         }
-
         private string GetCategoryName(CategoryModel category)
         {
             return category.Name;

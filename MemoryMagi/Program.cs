@@ -1,6 +1,7 @@
 using MemoryMagi.Database;
 using MemoryMagi.Models;
 using MemoryMagi.Repositories;
+using MemoryMagi.Repositories._2._0;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +16,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAuthorization();
 
+// 
 builder.Services.AddIdentityApiEndpoints<IdentityUser>()
     .AddEntityFrameworkStores<AppDbContext>();
 
@@ -61,9 +63,9 @@ builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.Requ
     .AddUserManager<UserManager<ApplicationUser>>()
     .AddDefaultTokenProviders();
 
-builder.Services.AddScoped<ItemRepository>();
-builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-builder.Services.AddScoped<IUserItemRepository, UserItemRepository>();
+builder.Services.AddScoped<IGameModelRepository, GameModelRepository>();
+builder.Services.AddScoped<ICategoryModelRepository, CategoryModelRepository>();
+builder.Services.AddScoped(typeof(GenericRepository<>));
 
 var app = builder.Build();
 
@@ -127,6 +129,8 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
+// Lägg till denna
+app.UseCors("AllowAll");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

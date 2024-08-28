@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MemoryMagi.Models
 {
-    public class Item
+    public class CategoryModel
     {
         [Key]
         [Column("id")]
@@ -12,13 +12,10 @@ namespace MemoryMagi.Models
         [Column("name")]
         public string Name { get; set; } = null!;
 
-        [Column("image")]
+        [Column("image_url")]
         public string Image { get; set; } = null!;
 
-        [Column("category_id")]
-        public int CategoryId { get; set; }
-
-        //Navigation property
-        public List<UserItem> UserItems { get; set; } = new();
+        //Navigation properties
+        public List<GameModel> Games { get; set; } = new();
     }
 }

@@ -4,6 +4,7 @@ using MemoryMagi.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MemoryMagi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240826182017_SeedData")]
+    partial class SeedData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,7 +39,37 @@ namespace MemoryMagi.Migrations
 
                     b.HasIndex("GameId");
 
-                    b.ToTable("AllowedUsers");
+                    b.ToTable("AllowedUsers_2");
+                });
+
+            modelBuilder.Entity("MemoryMagi.Models.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("name");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)")
+                        .HasColumnName("user_id");
+
+                    b.Property<string>("image_url")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("image_url");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("MemoryMagi.Models.CategoryModel", b =>
@@ -60,7 +93,7 @@ namespace MemoryMagi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories_2");
 
                     b.HasData(
                         new
@@ -113,7 +146,7 @@ namespace MemoryMagi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("DifficultyLevels");
+                    b.ToTable("DifficultyLevels_2");
 
                     b.HasData(
                         new
@@ -160,9 +193,9 @@ namespace MemoryMagi.Migrations
                         .HasColumnType("int")
                         .HasColumnName("difficulty_level_id");
 
-                    b.Property<string>("GameType")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("game_type");
+                    b.Property<int>("GameTypeId")
+                        .HasColumnType("int")
+                        .HasColumnName("game_type_id");
 
                     b.HasKey("Id");
 
@@ -172,7 +205,9 @@ namespace MemoryMagi.Migrations
 
                     b.HasIndex("DifficultyLevelId");
 
-                    b.ToTable("Games");
+                    b.HasIndex("GameTypeId");
+
+                    b.ToTable("Games_2");
 
                     b.HasData(
                         new
@@ -180,29 +215,96 @@ namespace MemoryMagi.Migrations
                             Id = 1,
                             CategoryId = 1,
                             DifficultyLevelId = 1,
-                            GameType = "public"
+                            GameTypeId = 1
                         },
                         new
                         {
                             Id = 2,
                             CategoryId = 2,
                             DifficultyLevelId = 2,
-                            GameType = "public"
+                            GameTypeId = 1
                         },
                         new
                         {
                             Id = 3,
                             CategoryId = 3,
                             DifficultyLevelId = 3,
-                            GameType = "public"
+                            GameTypeId = 1
                         },
                         new
                         {
                             Id = 4,
                             CategoryId = 4,
                             DifficultyLevelId = 1,
-                            GameType = "public"
+                            GameTypeId = 1
                         });
+                });
+
+            modelBuilder.Entity("MemoryMagi.Models.GameTypeModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("GameType")
+                        .HasColumnType("int")
+                        .HasColumnName("game_type");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("GameTypes_2");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            GameType = 1,
+                            Name = "Public"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            GameType = 2,
+                            Name = "Private"
+                        });
+                });
+
+            modelBuilder.Entity("MemoryMagi.Models.Item", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int")
+                        .HasColumnName("category_id");
+
+                    b.Property<string>("Image")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("image");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("name");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("Items");
                 });
 
             modelBuilder.Entity("MemoryMagi.Models.ItemModel", b =>
@@ -232,7 +334,7 @@ namespace MemoryMagi.Migrations
 
                     b.HasIndex("GameId");
 
-                    b.ToTable("Items");
+                    b.ToTable("Items_2");
 
                     b.HasData(
                         new
@@ -424,7 +526,28 @@ namespace MemoryMagi.Migrations
 
                     b.HasIndex("GameId");
 
-                    b.ToTable("Results");
+                    b.ToTable("Results_2");
+                });
+
+            modelBuilder.Entity("MemoryMagi.Models.UserItem", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)")
+                        .HasColumnName("user_id");
+
+                    b.Property<int>("ItemId")
+                        .HasColumnType("int")
+                        .HasColumnName("item_id");
+
+                    b.Property<bool>("IsComplete")
+                        .HasColumnType("bit")
+                        .HasColumnName("is_complete");
+
+                    b.HasKey("UserId", "ItemId");
+
+                    b.HasIndex("ItemId");
+
+                    b.ToTable("UserItems");
                 });
 
             modelBuilder.Entity("MemoryMagi.Models._2._0.AchievementModel", b =>
@@ -447,7 +570,7 @@ namespace MemoryMagi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Achievements");
+                    b.ToTable("Achievements_2");
                 });
 
             modelBuilder.Entity("MemoryMagi.Models._2._0.UserAchievement", b =>
@@ -468,7 +591,7 @@ namespace MemoryMagi.Migrations
 
                     b.HasIndex("AchievementId");
 
-                    b.ToTable("UserAchievements");
+                    b.ToTable("UserAchievements_2");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -704,6 +827,15 @@ namespace MemoryMagi.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("MemoryMagi.Models.Category", b =>
+                {
+                    b.HasOne("MemoryMagi.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("MemoryMagi.Models.GameModel", b =>
                 {
                     b.HasOne("MemoryMagi.Models.CategoryModel", "Category")
@@ -722,11 +854,28 @@ namespace MemoryMagi.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("MemoryMagi.Models.GameTypeModel", "GameType")
+                        .WithMany("Games")
+                        .HasForeignKey("GameTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Category");
 
                     b.Navigation("DifficultyLevel");
 
+                    b.Navigation("GameType");
+
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("MemoryMagi.Models.Item", b =>
+                {
+                    b.HasOne("MemoryMagi.Models.Category", null)
+                        .WithMany("Items")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("MemoryMagi.Models.ItemModel", b =>
@@ -755,6 +904,25 @@ namespace MemoryMagi.Migrations
                         .IsRequired();
 
                     b.Navigation("Game");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("MemoryMagi.Models.UserItem", b =>
+                {
+                    b.HasOne("MemoryMagi.Models.Item", "Item")
+                        .WithMany("UserItems")
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MemoryMagi.Models.ApplicationUser", "User")
+                        .WithMany("UserItems")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Item");
 
                     b.Navigation("User");
                 });
@@ -829,6 +997,11 @@ namespace MemoryMagi.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("MemoryMagi.Models.Category", b =>
+                {
+                    b.Navigation("Items");
+                });
+
             modelBuilder.Entity("MemoryMagi.Models.CategoryModel", b =>
                 {
                     b.Navigation("Games");
@@ -848,6 +1021,16 @@ namespace MemoryMagi.Migrations
                     b.Navigation("Results");
                 });
 
+            modelBuilder.Entity("MemoryMagi.Models.GameTypeModel", b =>
+                {
+                    b.Navigation("Games");
+                });
+
+            modelBuilder.Entity("MemoryMagi.Models.Item", b =>
+                {
+                    b.Navigation("UserItems");
+                });
+
             modelBuilder.Entity("MemoryMagi.Models._2._0.AchievementModel", b =>
                 {
                     b.Navigation("UserAchievements");
@@ -858,6 +1041,8 @@ namespace MemoryMagi.Migrations
                     b.Navigation("AllowedUsers");
 
                     b.Navigation("UserAchievements");
+
+                    b.Navigation("UserItems");
                 });
 #pragma warning restore 612, 618
         }

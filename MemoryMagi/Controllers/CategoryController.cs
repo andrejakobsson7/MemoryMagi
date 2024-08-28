@@ -1,17 +1,22 @@
-﻿using MemoryMagi.Models;
+﻿using MemoryMagi.Controllers.ApiModels;
+using MemoryMagi.Models;
 using MemoryMagi.Repositories;
+using MemoryMagi.Repositories._2._0;
 using Microsoft.AspNetCore.Authorization;
 using MemoryMagi.Repositories._2._0;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace MemoryMagi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+
+    [Authorize]
     public class CategoryController : ControllerBase
     {
-        private readonly ICategoryRepository _categoryRepository;
         private readonly ICategoryModelRepository _categoryModelRepository;
         private readonly GenericRepository<CategoryModel> _genericRepository;
         private JsonSerializerOptions _jsonSerializerOptions = new()
@@ -20,41 +25,62 @@ namespace MemoryMagi.Controllers
             WriteIndented = true,
         };
 
-        public CategoryController(ICategoryRepository categoryRepository)
+        public CategoryController(ICategoryModelRepository categoryModelRepository, GenericRepository<CategoryModel> genericRepository)
         {
-            _categoryRepository = categoryRepository;
+            _categoryModelRepository = categoryModelRepository;
+            _genericRepository = genericRepository;
         }
 
-
-        [HttpGet(Name = "GetAllCategories")]
-        public async Task<IActionResult> GetAllItems()
+        [HttpGet("GetCategoriesWithIncludedData")]
+        //For usage in start quiz-page
+        public async Task<IActionResult> GetAllCategoriesWithIncludedDataAsync()
         {
-
-            List<Category> AllCategories = await _categoryRepository.GetAllCategoriesAsync();
-
-            if (AllCategories == null)
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userId == null)
             {
-                return BadRequest();
+                return Unauthorized();
             }
             else
             {
-                return Ok(AllCategories);
+                List<CategoryModel> allCategories = await _categoryModelRepository.GetAllCategoriesWithIncludedDataAsync(userId);
+                if (allCategories == null)
+                {
+                    return BadRequest(allCategories);
+                }
+                else
+                {
+                    //Convert to api models
+                    List<CategoryApiModel> apiCategories = allCategories.Select(c => new CategoryApiModel(c)).ToList();
+                    //Serialize to avoid cycles
+                    var categoriesJson = JsonSerializer.Serialize(apiCategories, _jsonSerializerOptions);
+                    return Ok(categoriesJson);
+                }
             }
 
         }
 
-        [Authorize]
+        [HttpGet("GetCategories")]
+        //For usage when creating games
+        public async Task<IActionResult> GetAllCategoriesAsync()
+        {
+            List<CategoryModel> allCategories = await _genericRepository.GetAll();
+            if (allCategories == null)
+            {
+                return BadRequest(allCategories);
+            }
+            else
+            {
+                return Ok(allCategories);
+            }
+        }
+
         [HttpPost]
-        public async Task<IActionResult> AddCategory(Category newCategory)
+        public async Task<IActionResult> AddCategoryAsync(CategoryModel newCategory)
         {
             try
             {
-                var addedCategory = await _categoryRepository.AddCategoryAsync(newCategory);
-                if (addedCategory == null)
-                {
-                    return StatusCode(500, addedCategory);
-                }
-                return StatusCode(201, addedCategory);
+                await _genericRepository.Add(newCategory);
+                return StatusCode(201, newCategory);
             }
             catch (Exception ex)
             {
