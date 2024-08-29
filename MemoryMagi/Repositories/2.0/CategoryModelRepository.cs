@@ -25,10 +25,12 @@ namespace MemoryMagi.Repositories
             return await _context.Categories.Where(c => c.Games.Count > 0)
                 .Include(c => c.Games.Where(g => g.CreatedBy == userId ||
                                                  g.AllowedUsers.Any(u => u.UserId == userId) ||
+                                                 g.GameType.ToLower() == "private" ||
                                                  g.GameType.ToLower() == "public"))
                     .ThenInclude(g => g.DifficultyLevel)
                 .Include(c => c.Games.Where(g => g.CreatedBy == userId ||
                                                  g.AllowedUsers.Any(u => u.UserId == userId) ||
+                                                 g.GameType.ToLower() == "private" ||
                                                  g.GameType.ToLower() == "public"))
                     .ThenInclude(g => g.Results.Where(r => r.UserId == userId))
             .ToListAsync();
