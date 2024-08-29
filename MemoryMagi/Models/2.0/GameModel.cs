@@ -15,8 +15,8 @@ namespace MemoryMagi.Models
         [Column("difficulty_level_id")]
         public int DifficultyLevelId { get; set; }
 
-        [Column("game_type_id")]
-        public int GameTypeId { get; set; }
+        [Column("game_type")]
+        public string? GameType { get; set; }
 
         [ForeignKey("User")]
         [Column("created_by")]
@@ -25,7 +25,6 @@ namespace MemoryMagi.Models
         //Navigation properties
         public CategoryModel? Category { get; set; }
         public DifficultyLevelModel? DifficultyLevel { get; set; }
-        public GameTypeModel? GameType { get; set; }
         public ApplicationUser? User { get; set; }
         public List<ItemModel> Items { get; set; } = new();
         public List<ResultModel> Results { get; set; } = new();

@@ -6,10 +6,9 @@ namespace MemoryMagi.Controllers.ApiModels
     {
         public int Id { get; set; }
         public DifficultyLevelModel? DifficultyLevel { get; set; }
-        public GameTypeModel? GameType { get; set; }
+        public string? GameType { get; set; }
         public string? CreatedBy { get; set; }
         public bool IsComplete { get; set; } = false;
-        public List<ItemModel> Items { get; set; } = new();
         public GameApiModel(GameModel game)
         {
             Id = GetGameId(game);
@@ -17,7 +16,6 @@ namespace MemoryMagi.Controllers.ApiModels
             GameType = GetGameType(game);
             CreatedBy = GetCreatedBy(game);
             IsComplete = GetCompletionStatus(game);
-            Items = GetItems(game);
         }
 
         private int GetGameId(GameModel game)
@@ -30,7 +28,7 @@ namespace MemoryMagi.Controllers.ApiModels
             return game.DifficultyLevel;
         }
 
-        private GameTypeModel GetGameType(GameModel game)
+        private string? GetGameType(GameModel game)
         {
             return game.GameType;
         }
@@ -38,11 +36,6 @@ namespace MemoryMagi.Controllers.ApiModels
         private string GetCreatedBy(GameModel game)
         {
             return game.CreatedBy;
-        }
-
-        private List<ItemModel> GetItems(GameModel game)
-        {
-            return game.Items;
         }
 
         private bool GetCompletionStatus(GameModel game)

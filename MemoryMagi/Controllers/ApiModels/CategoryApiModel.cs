@@ -26,7 +26,6 @@ namespace MemoryMagi.Controllers.ApiModels
         public bool IsCategoryPrivateComplete { get; set; }
 
         //Total games progress per category
-        public bool HasAnyGames { get; set; }
         public int TotalGames { get; set; }
         public int CompletedGames { get; set; }
         public bool IsCategoryComplete { get; set; }
@@ -34,6 +33,7 @@ namespace MemoryMagi.Controllers.ApiModels
         public CategoryApiModel(CategoryModel category)
         {
             Id = GetCategoryId(category);
+            Name = GetCategoryName(category);
             Image = GetImage(category);
             AllGames = ProjectGameModelToApiModel(category.Games);
             PublicGames = GetPublicGamesInCategory(AllGames);
@@ -52,11 +52,14 @@ namespace MemoryMagi.Controllers.ApiModels
             TotalGames = GetTotalCategoryGames(TotalPublicGames, TotalPrivateGames);
             CompletedGames = GetTotalCategoryCompletedGames(CompletedPublicGames, CompletedPrivateGames);
             IsCategoryComplete = GetTotalCategoryCompletionStatus(IsCategoryPublicComplete, IsCategoryPrivateComplete);
-            HasAnyGames = GetIfCategoryHasGameType(TotalGames);
         }
         private int GetCategoryId(CategoryModel category)
         {
             return category.Id;
+        }
+        private string GetCategoryName(CategoryModel category)
+        {
+            return category.Name;
         }
 
         private string GetImage(CategoryModel category)
@@ -93,12 +96,12 @@ namespace MemoryMagi.Controllers.ApiModels
 
         private List<GameApiModel> GetPublicGamesInCategory(List<GameApiModel> games)
         {
-            return AllGames.Where(g => g.GameType.GameType == 1).ToList();
+            return AllGames.Where(g => g.GameType == "public").ToList();
         }
 
         private List<GameApiModel> GetPrivateGamesInCategory(List<GameApiModel> games)
         {
-            return AllGames.Where(g => g.GameType.GameType != 1).ToList();
+            return AllGames.Where(g => g.GameType == "private").ToList();
         }
 
         private int GetTotalCategoryGames(int publicGamesCount, int privateGamesCount)
