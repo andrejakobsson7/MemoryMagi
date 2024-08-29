@@ -51,5 +51,24 @@ namespace MemoryMagi.Controllers
 
         }
 
+        [HttpPost("AddItem")]
+        public async Task<IActionResult> AddItem([FromBody] ItemModel item)
+        {
+            if (item == null)
+            {
+                return BadRequest("Item is null.");
+            }
+
+            try
+            {
+                var addedItem = await _itemRepository.AddItemAsync(item);
+                return CreatedAtAction(nameof(GetItemsFromgameId), new { gameid = addedItem.GameId }, addedItem);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
     }
 }

@@ -39,20 +39,29 @@ namespace MemoryMagi.Controllers
         public async Task<IActionResult> GetUser()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (string.IsNullOrEmpty(userId))
+            {
+                return BadRequest("User information is missing from the token.");
+            }
+
             var user = await _userManager.FindByIdAsync(userId);
+
             if (user == null)
             {
                 return NotFound("User not found.");
             }
 
-            var userDto = new UserModel
+            var userDto = new
             {
+                Id = user.Id,
                 UserName = user.UserName,
                 Email = user.Email
             };
 
             return Ok(userDto);
         }
+
 
         //[HttpPost("login")]
         //public async Task<IActionResult> Login([FromBody] LoginModel model)

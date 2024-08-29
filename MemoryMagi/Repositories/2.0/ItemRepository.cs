@@ -28,6 +28,13 @@ namespace MemoryMagi.Repositories
             return await _context.Items.ToListAsync();
         }
 
+        public async Task<ItemModel> AddItemAsync(ItemModel item)
+        {
+            _context.Items.Add(item);
+            await _context.SaveChangesAsync();
+            return item;
+        }
+
 
     }
 }
