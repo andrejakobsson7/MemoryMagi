@@ -28,6 +28,7 @@ namespace MemoryMagi.Controllers
             var users = await _userManager.Users.ToListAsync();
             var usersModeled = users.Select(user => new UserModel
             {
+                UserId = user.Id,
                 UserName = user.UserName,
                 Email = user.Email
             }).ToList();
@@ -47,6 +48,7 @@ namespace MemoryMagi.Controllers
 
             var userDto = new UserModel
             {
+                UserId = userId,
                 UserName = user.UserName,
                 Email = user.Email
             };
@@ -165,6 +167,7 @@ namespace MemoryMagi.Controllers
 
         public class UserModel
         {
+            public string UserId { get; set; }
             public string UserName { get; set; }
             public string Email { get; set; }
         }
