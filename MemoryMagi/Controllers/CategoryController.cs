@@ -62,14 +62,16 @@ namespace MemoryMagi.Controllers
         //For usage when creating games
         public async Task<IActionResult> GetAllCategoriesAsync()
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
             List<CategoryModel> allCategories = await _genericRepository.GetAll();
             if (allCategories == null)
             {
-                return BadRequest(allCategories);
+                return BadRequest("No categories found");
             }
             else
             {
-                return Ok(allCategories);
+                return Ok(new { UserId = userId, Categories = allCategories });
             }
         }
 
