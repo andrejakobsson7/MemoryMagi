@@ -254,6 +254,7 @@ namespace MemoryMagi.Database
                 new GameModel()
                 {
                     Id = 1,
+                    Name = "Goda frukter",
                     CategoryId = 1, // Frukt
                     DifficultyLevelId = 1, // Easy
                     GameType = "public",
@@ -262,6 +263,7 @@ namespace MemoryMagi.Database
                 new GameModel()
                 {
                     Id = 2,
+                    Name = "18+ drinkar",
                     CategoryId = 2, // Alkohol
                     DifficultyLevelId = 2, //Medium
                     GameType = "public",
@@ -270,6 +272,7 @@ namespace MemoryMagi.Database
                 new GameModel()
                 {
                     Id = 3,
+                    Name = "Djur på bonnagården",
                     CategoryId = 3, // Djur
                     DifficultyLevelId = 3, //Hard
                     GameType = "public",
@@ -278,6 +281,7 @@ namespace MemoryMagi.Database
                 new GameModel()
                 {
                     Id = 4,
+                    Name = "Bilar man hade velat ha",
                     CategoryId = 4, // Bilar
                     DifficultyLevelId = 1, //Easy
                     GameType = "public",

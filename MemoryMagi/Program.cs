@@ -65,6 +65,7 @@ builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.Requ
 
 builder.Services.AddScoped<IGameModelRepository, GameModelRepository>();
 builder.Services.AddScoped<ICategoryModelRepository, CategoryModelRepository>();
+builder.Services.AddScoped<ItemRepository>();
 builder.Services.AddScoped(typeof(GenericRepository<>));
 
 var app = builder.Build();

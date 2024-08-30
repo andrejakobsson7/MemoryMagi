@@ -3,7 +3,6 @@ using MemoryMagi.Models;
 using MemoryMagi.Repositories;
 using MemoryMagi.Repositories._2._0;
 using Microsoft.AspNetCore.Authorization;
-using MemoryMagi.Repositories._2._0;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using System.Text.Json;

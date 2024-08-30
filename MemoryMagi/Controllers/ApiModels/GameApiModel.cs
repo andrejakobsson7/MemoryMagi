@@ -5,13 +5,15 @@ namespace MemoryMagi.Controllers.ApiModels
     public class GameApiModel
     {
         public int Id { get; set; }
-        public DifficultyLevelModel? DifficultyLevel { get; set; }
+        public string Name { get; set; }
+        public string? DifficultyLevel { get; set; }
         public string? GameType { get; set; }
         public string? CreatedBy { get; set; }
         public bool IsComplete { get; set; } = false;
         public GameApiModel(GameModel game)
         {
             Id = GetGameId(game);
+            Name = GetGameName(game);
             DifficultyLevel = GetDifficultyLevel(game);
             GameType = GetGameType(game);
             CreatedBy = GetCreatedBy(game);
@@ -23,9 +25,13 @@ namespace MemoryMagi.Controllers.ApiModels
             return game.Id;
         }
 
-        private DifficultyLevelModel GetDifficultyLevel(GameModel game)
+        private string GetGameName(GameModel game)
         {
-            return game.DifficultyLevel;
+            return game.Name;
+        }
+        private string GetDifficultyLevel(GameModel game)
+        {
+            return game.DifficultyLevel.Name;
         }
 
         private string? GetGameType(GameModel game)
