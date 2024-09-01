@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace MemoryMagi.Models
+namespace MemoryMagi.Models._2._0
 {
-    public class Category
+    public class AchievementModel
     {
         [Key]
         [Column("id")]
@@ -12,11 +12,10 @@ namespace MemoryMagi.Models
         [Column("name")]
         public string Name { get; set; } = null!;
 
-        [Column("user_id")]
-        public string? UserId { get; set; }
+        [Column("description")]
+        public string? Description { get; set; }
 
         //Navigation properties
-        public ApplicationUser? User { get; set; }
-        public List<Item> Items { get; set; } = new();
+        public List<UserAchievement>? UserAchievements { get; set; } = new();
     }
 }

@@ -1,72 +1,66 @@
 ﻿using MemoryMagi.Models;
 using MemoryMagi.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
+// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 namespace MemoryMagi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class ItemController : ControllerBase
     {
-        private readonly IItemRepository _itemRepository;
-
-        public ItemController(IItemRepository itemRepository)
+        private readonly ItemRepository _itemRepository;
+        private readonly GenericRepository<ItemModel> _genericRepository;
+        public ItemController(ItemRepository itemRepository, GenericRepository<ItemModel> genericRepository)
         {
             _itemRepository = itemRepository;
+            _genericRepository = genericRepository;
         }
-
-        [HttpGet]
-        public async Task<IActionResult> GetItems()
+        [HttpGet("GettItemFromGameId")]
+        public async Task<IActionResult> GetItemsFromgameId(int gameid)
         {
-            var items = await _itemRepository.GetAllItemsAsync();
-            if (items == null)
+            List<ItemModel> allItems = await _itemRepository.GetAllitemsFromGameId(gameid);
+            if (allItems == null)
             {
-                return NotFound();
+                return BadRequest();
             }
-            return Ok(items);
+            else
+            {
+                return Ok(allItems);
+            }
+        }
+        [HttpGet("GetAllItems")]
+        public async Task<IActionResult> GetAllItems()
+        {
+            List<ItemModel> allItems = await _genericRepository.GetAll();
+            if (allItems == null)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                return Ok(allItems);
+            }
+
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetItem(int id)
+        [HttpPost("AddItem")]
+        public async Task<IActionResult> AddItem([FromBody] ItemModel item)
         {
-            var item = await _itemRepository.GetItemByIdAsync(id);
             if (item == null)
             {
-                return NotFound();
+                return BadRequest("Item is null.");
             }
-            return Ok(item);
+
+            try
+            {
+                await _genericRepository.Add(item);
+                return StatusCode(201, item);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
 
-        [HttpPost]
-        public async Task<IActionResult> AddItem(Item newItem)
-        {
-            if (newItem == null)
-            {
-                return BadRequest();
-            }
-
-            var addedItem = await _itemRepository.AddItemAsync(newItem);
-            return CreatedAtAction(nameof(GetItem), new { id = addedItem.Id }, addedItem);
-        }
-
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateItem(int id, Item updatedItem)
-        {
-            if (id != updatedItem.Id || updatedItem == null)
-            {
-                return BadRequest();
-            }
-
-            var existingItem = await _itemRepository.GetItemByIdAsync(id);
-            if (existingItem == null)
-            {
-                return NotFound();
-            }
-
-            await _itemRepository.UpdateItemAsync(updatedItem);
-            return NoContent();
-        }
     }
 }

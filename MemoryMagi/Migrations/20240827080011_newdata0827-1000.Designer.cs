@@ -4,6 +4,7 @@ using MemoryMagi.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MemoryMagi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240827080011_newdata0827-1000")]
+    partial class newdata08271000
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -164,11 +167,6 @@ namespace MemoryMagi.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("game_type");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("name");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
@@ -185,32 +183,28 @@ namespace MemoryMagi.Migrations
                             Id = 1,
                             CategoryId = 1,
                             DifficultyLevelId = 1,
-                            GameType = "public",
-                            Name = "Goda frukter"
+                            GameType = "public"
                         },
                         new
                         {
                             Id = 2,
                             CategoryId = 2,
                             DifficultyLevelId = 2,
-                            GameType = "public",
-                            Name = "18+ drinkar"
+                            GameType = "public"
                         },
                         new
                         {
                             Id = 3,
                             CategoryId = 3,
                             DifficultyLevelId = 3,
-                            GameType = "public",
-                            Name = "Djur på bonnagården"
+                            GameType = "public"
                         },
                         new
                         {
                             Id = 4,
                             CategoryId = 4,
                             DifficultyLevelId = 1,
-                            GameType = "public",
-                            Name = "Bilar man hade velat ha"
+                            GameType = "public"
                         });
                 });
 
