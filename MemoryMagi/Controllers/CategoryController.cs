@@ -65,7 +65,7 @@ namespace MemoryMagi.Controllers
             List<CategoryModel> allCategories = await _genericRepository.GetAll();
             if (allCategories == null)
             {
-                return BadRequest(allCategories);
+                return BadRequest("No categories found");
             }
             else
             {
