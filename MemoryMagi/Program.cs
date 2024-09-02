@@ -74,6 +74,7 @@ builder.Services.AddScoped<IGameModelRepository, GameModelRepository>();
 builder.Services.AddScoped<ICategoryModelRepository, CategoryModelRepository>();
 builder.Services.AddScoped<ItemRepository>();
 builder.Services.AddScoped(typeof(GenericRepository<>));
+builder.Services.AddScoped<IResultModelRepository, ResultModelRepository>();
 
 var app = builder.Build();
 
