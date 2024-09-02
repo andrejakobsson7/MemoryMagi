@@ -289,7 +289,69 @@ namespace MemoryMagi.Database
                 }
             );
 
+            modelBuilder.Entity<AchievementModel>().HasData(
 
+                new AchievementModel()
+                {
+                    Id = 1,
+                    Name = "Klarat första spelet!",
+                    Description = "Mycket bra jobbat, du är på god väg!"
+                },
+                new AchievementModel()
+                {
+                    Id = 2,
+                    Name = "Du har klarat andra spelet!",
+                    Description = "Du är duktig, kämpa på!"
+                },
+                new AchievementModel()
+                {
+                    Id = 3,
+                    Name = "Du klarade den första \"lätt\" nivån!",
+                    Description = "Du klarade precis den lättaste nivån, kämpa på och försök klara nästa nivå!"
+                },
+                new AchievementModel()
+                {
+                    Id = 4,
+                    Name = "Första vinsten!",
+                    Description = "Din första vinst! Fortsätt att vinna och nå toppen!"
+                },
+                new AchievementModel()
+                {
+                    Id = 5,
+                    Name = "Mästarens start!",
+                    Description = "Du har tagit de första stegen mot att bli en mästare. Fortsätt så!"
+                },
+                new AchievementModel()
+                {
+                    Id = 6,
+                    Name = "Du klarade den \"medel\" nivån!",
+                    Description = "Bra jobbat! Nu har du klarat medelnivån, sikta på nästa!"
+                },
+                new AchievementModel()
+                {
+                    Id = 7,
+                    Name = "Första perfekta poäng!",
+                    Description = "Du fick perfekt poäng! Imponerande arbete!"
+                },
+                new AchievementModel()
+                {
+                    Id = 8,
+                    Name = "Fler än 10 spel klara!",
+                    Description = "Du har klarat fler än 10 spel! En riktig veteran!"
+                },
+                new AchievementModel()
+                {
+                    Id = 9,
+                    Name = "Snabbaste tiden!",
+                    Description = "Du har satt rekord för snabbaste tiden! Otroligt snabb!"
+                },
+                new AchievementModel()
+                {
+                    Id = 10,
+                    Name = "Avklarat hela spelet!",
+                    Description = "Fantastiskt! Du har klarat hela spelet! En prestation att vara stolt över!"
+                }
+                );
 
             // hehe
         }
