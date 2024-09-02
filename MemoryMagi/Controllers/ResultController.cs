@@ -20,7 +20,7 @@ namespace MemoryMagi.Controllers
 
 
         [HttpGet("GetAllResults")]
-        public async Task<IActionResult> GetAllItems()
+        public async Task<IActionResult> GetAllResults()
         {
 
             List<ResultModel> allResults = await _resultRepository.GetAll();
@@ -37,7 +37,7 @@ namespace MemoryMagi.Controllers
         }
 
         [HttpPost("Result")]
-        public async Task<ActionResult> PostCategory([FromBody] ResultViewModel newResult)
+        public async Task<ActionResult> PostResult([FromBody] ResultViewModel newResult)
         {
             if (newResult == null)
             {
