@@ -3,6 +3,8 @@ using MemoryMagi.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace MemoryMagi.Controllers
 {
@@ -12,6 +14,11 @@ namespace MemoryMagi.Controllers
     public class GameController : ControllerBase
     {
         private readonly GenericRepository<GameModel> _genericRepository;
+        private JsonSerializerOptions _jsonSerializerOptions = new()
+        {
+            ReferenceHandler = ReferenceHandler.Preserve,
+            WriteIndented = true,
+        };
 
         public GameController(GenericRepository<GameModel> genericRepository)
         {
@@ -33,7 +40,9 @@ namespace MemoryMagi.Controllers
                 try
                 {
                     await _genericRepository.Add(newGame);
-                    return StatusCode(201, newGame);
+                    //Serialize with preserve options to avoid cycles
+                    string newGameJson = JsonSerializer.Serialize(newGame, _jsonSerializerOptions);
+                    return StatusCode(201, newGameJson);
                 }
                 catch (Exception ex)
                 {
