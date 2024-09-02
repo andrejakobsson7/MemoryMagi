@@ -53,14 +53,6 @@ builder.Services.AddCors(options =>
     });
 });
 
-//For adding entity with related data where the related data should be added automatically.
-builder.Services.AddControllers()
-    .AddJsonOptions(opts =>
-    {
-        opts.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
-    });
-
-
 // Förbered för admin
 builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddRoles<IdentityRole>()
