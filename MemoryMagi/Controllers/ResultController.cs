@@ -1,7 +1,10 @@
-﻿using MemoryMagi.Database;
+﻿using MemoryMagi.Controllers.ApiModels;
+using MemoryMagi.Database;
 using MemoryMagi.Models;
 using MemoryMagi.Repositories;
+using MemoryMagi.Repositories._2._0;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace MemoryMagi.Controllers
 {
@@ -12,15 +15,17 @@ namespace MemoryMagi.Controllers
     {
         private readonly AppDbContext _context;
         private readonly GenericRepository<ResultModel> _resultRepository;
-        public ResultController(AppDbContext context, GenericRepository<ResultModel> resultRepository)
+        private readonly IResultModelRepository _resultModelRepository;
+        public ResultController(AppDbContext context, GenericRepository<ResultModel> resultRepository, IResultModelRepository resultModelRepository)
         {
             _context = context;
             _resultRepository = resultRepository;
+            _resultModelRepository = resultModelRepository;
         }
 
 
         [HttpGet("GetAllResults")]
-        public async Task<IActionResult> GetAllItems()
+        public async Task<IActionResult> GetAllResults()
         {
 
             List<ResultModel> allResults = await _resultRepository.GetAll();
@@ -36,8 +41,32 @@ namespace MemoryMagi.Controllers
 
         }
 
+        [HttpGet("GetAllResultsWithIncludedData")]
+        public async Task<IActionResult> GetAllResultsWithIncludedDataAsync(int currentResultId)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userId == null)
+            {
+                return Unauthorized();
+            }
+            else
+            {
+                try
+                {
+                    List<ResultModel> allResults = await _resultModelRepository.GetAllResultsWithIncludedData(userId, currentResultId);
+                    //Konvertera till API-modell för enklare data till frontend.
+                    List<ResultApiModel> allApiResults = allResults.Select(r => new ResultApiModel(r)).ToList();
+                    return Ok(allApiResults);
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(ex.Message);
+                }
+            }
+        }
+
         [HttpPost("Result")]
-        public async Task<ActionResult> PostCategory([FromBody] ResultViewModel newResult)
+        public async Task<ActionResult> PostResult([FromBody] ResultViewModel newResult)
         {
             if (newResult == null)
             {

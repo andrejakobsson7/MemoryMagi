@@ -22,12 +22,5 @@ namespace MemoryMagi.Repositories
                         .Where(item => item.GameId == gameId).ToListAsync();
 
         }
-
-        public async Task<List<ItemModel>> GetAllItemsAsync()
-        {
-            return await _context.Items.ToListAsync();
-        }
-
-
     }
 }

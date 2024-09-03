@@ -1,17 +1,17 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MemoryMagi.Models
 {
-    [PrimaryKey("UserId", new string[] { "GameId", "DatePlayed" })]
-
     public class ResultModel
     {
-        [ForeignKey("Game")]
+        [Key]
+        [Column("id")]
+        public int Id { get; set; }
+
         [Column("game_id")]
         public int GameId { get; set; }
 
-        [ForeignKey("User")]
         [Column("user_id")]
         public string UserId { get; set; } = null!;
 
