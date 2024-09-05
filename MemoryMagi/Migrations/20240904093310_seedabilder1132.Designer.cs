@@ -4,6 +4,7 @@ using MemoryMagi.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MemoryMagi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240904093310_seedabilder1132")]
+    partial class seedabilder1132
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -291,77 +294,77 @@ namespace MemoryMagi.Migrations
                         {
                             Id = 13,
                             GameId = 3,
-                            Image = "https://img.freepik.com/premium-vector/cute-cat-collection-isolated-white-background_703032-4100.jpg?w=1380",
+                            Image = "images/Cat.jpg",
                             Name = "Katt"
                         },
                         new
                         {
                             Id = 14,
                             GameId = 3,
-                            Image = "https://img.freepik.com/premium-vector/cartoon-illustration-brown-white-cow_1216680-373.jpg?w=740",
+                            Image = "images/Cows.jpg",
                             Name = "Ko"
                         },
                         new
                         {
                             Id = 15,
                             GameId = 3,
-                            Image = "https://img.freepik.com/premium-vector/cute-lion-cartoon-white-background_29190-8567.jpg?w=740",
+                            Image = "images/Lion.jpg",
                             Name = "Lejon"
                         },
                         new
                         {
                             Id = 16,
                             GameId = 3,
-                            Image = "https://img.freepik.com/free-vector/monkey-cartoon-character-sticker_1308-76562.jpg?t=st=1725442733~exp=1725446333~hmac=261a58dc78d31af291802ee3e0912fd5f2f294d1d32da3a27fb91b75c6f30dfe&w=740",
+                            Image = "images/Monkeys.jpg",
                             Name = "Apa"
                         },
                         new
                         {
                             Id = 17,
                             GameId = 3,
-                            Image = "https://img.freepik.com/premium-vector/cartoon-dog-with-cartoon-face-word-wolf-it_1025542-56600.jpg?w=740",
+                            Image = "images/Wolf.jpg",
                             Name = "Varg"
                         },
                         new
                         {
                             Id = 18,
                             GameId = 4,
-                            Image = "https://img.freepik.com/premium-vector/red-car-with-license-plate-number-3_1128391-17709.jpg?w=740",
-                            Name = "sport bil"
+                            Image = "images/Exotic_car.jpg",
+                            Name = "Cool bil"
                         },
                         new
                         {
                             Id = 19,
                             GameId = 4,
-                            Image = "https://img.freepik.com/free-vector/boy-driving-vintage-car-cartoon-design_1308-107242.jpg?t=st=1725453109~exp=1725456709~hmac=81d598da00b7fdb14f45c280734502f48e4d747188fd295ce35c102627bb0ad4&w=1800",
-                            Name = "cabriolet bilen"
+                            Image = "images/Pastawagon_car.jpg",
+                            Name = "Pasta bilen"
                         },
                         new
                         {
                             Id = 20,
                             GameId = 4,
-                            Image = "https://img.freepik.com/premium-vector/indy-car-speeding-f1-racing-f1-sports-car-illustration-vector_280080-22.jpg?w=1380,",
+                            Image = "images/Racecar_car.jpg",
                             Name = "Racer bilen"
                         },
                         new
                         {
                             Id = 21,
                             GameId = 4,
-                            Image = "https://img.freepik.com/premium-vector/red-car-with-surfboard-top-it_1013341-387239.jpg?w=740",
+                            Image = "images/SUV_car.jpg",
                             Name = "Stadsjeepen"
                         },
                         new
                         {
                             Id = 22,
                             GameId = 4,
-                            Image = "https://img.freepik.com/free-vector/black-sedan-car-isolated-white-background_1308-75583.jpg?t=st=1725452945~exp=1725456545~hmac=961c6db37d955480177b2eb6d6c6b7571efb30f5ff94d5fdd41dcc65c2c28521&w=1380",
-                            Name = "Sedan bilen"
+                            Image = "images/Trackcar_car.jpg",
+                            Name = "Ban bilen"
                         },
                         new
                         {
                             Id = 23,
                             GameId = 4,
-                            Image = "https://img.freepik.com/free-vector/classic-green-vintage-car-illustration_1308-164648.jpg?t=st=1725452987~exp=1725456587~hmac=dc808c875da97d90cb4641fdebe8f6718e4ff0dab6cb8aab516ef3495ffdb0f8&w=1380",
+                            Image = "images/Veteran_car.jpg",
                             Name = "Veteran bilen"
                         });
                 });

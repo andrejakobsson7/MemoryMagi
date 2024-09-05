@@ -5,7 +5,6 @@ namespace MemoryMagi.Models
 {
     public class ApplicationUser : IdentityUser
     {
-
         public List<UserAchievement>? UserAchievements { get; set; } = new();
 
         public List<AllowedUser>? AllowedUsers { get; set; } = new();
