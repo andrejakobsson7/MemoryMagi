@@ -182,6 +182,7 @@ namespace MemoryMagi.Controllers
         [HttpPut("update-achievements")]
         public async Task<IActionResult> UpdateAchievements([FromBody] List<AchievementDto> updatedAchievements)
         {
+            // Retrieve user ID from the token
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             if (string.IsNullOrEmpty(userId))
@@ -189,9 +190,9 @@ namespace MemoryMagi.Controllers
                 return BadRequest("User information is missing from the token.");
             }
 
-            // Fetch the current user's achievements
+            // Fetch the current user and their achievements
             var user = await _userManager.Users
-                .Include(u => u.UserAchievements)
+                .Include(u => u.UserAchievements) // Include achievements
                 .FirstOrDefaultAsync(u => u.Id == userId);
 
             if (user == null)
@@ -199,43 +200,49 @@ namespace MemoryMagi.Controllers
                 return NotFound("User not found.");
             }
 
-            // Loop through the updated achievements
+            // Loop through the updated achievements and apply changes
             foreach (var achievementDto in updatedAchievements)
             {
-                // Check if the user already has this achievement
                 var existingAchievement = user.UserAchievements
                     .FirstOrDefault(ua => ua.AchievementId == achievementDto.AchievementId);
 
                 if (existingAchievement != null)
                 {
-                    // Update existing achievement
+                    // Update the date of the existing achievement
                     existingAchievement.AchievementDate = DateOnly.Parse(achievementDto.AchievementDate);
                 }
                 else
                 {
-                    // Add new achievement
-                    var achievement = await _context.Achievements
-                        .FirstOrDefaultAsync(a => a.Id == achievementDto.AchievementId);
-                    if (achievement != null)
+                    // Add a new achievement to the user
+                    user.UserAchievements.Add(new UserAchievement
                     {
-                        user.UserAchievements.Add(new UserAchievement
-                        {
-                            UserId = userId,
-                            AchievementId = achievementDto.AchievementId,
-                            AchievementDate = DateOnly.Parse(achievementDto.AchievementDate)
-                        });
-                    }
+                        UserId = userId,
+                        AchievementId = achievementDto.AchievementId,
+                        AchievementDate = DateOnly.Parse(achievementDto.AchievementDate),
+                    });
                 }
             }
 
-            // Save the changes
-            var result = await _userManager.UpdateAsync(user);
-            if (!result.Succeeded)
+            try
             {
-                return StatusCode(500, "Error updating achievements.");
-            }
+                // Save the changes to the database
+                var result = await _userManager.UpdateAsync(user);
+                if (!result.Succeeded)
+                {
+                    return StatusCode(500, "Error updating achievements.");
+                }
 
-            return Ok("Achievements updated successfully.");
+                // Optionally, return the updated user to the client
+                var updatedUser = await _userManager.Users
+                    .Include(u => u.UserAchievements)
+                    .FirstOrDefaultAsync(u => u.Id == userId);
+
+                return Ok(updatedUser);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
 
         // hehe
