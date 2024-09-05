@@ -1,4 +1,7 @@
-﻿using MemoryMagi.Models;
+﻿using MemoryMagi.Database;
+using MemoryMagi.Models;
+using MemoryMagi.Models._2._0;
+using MemoryMagi.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,13 +17,16 @@ namespace MemoryMagi.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly AppDbContext _context;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly GenericRepository<AchievementModel> AchievementRepo;
 
-        public UsersController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, SignInManager<ApplicationUser> signInManager)
+        public UsersController(AppDbContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, SignInManager<ApplicationUser> signInManager)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _signInManager = signInManager;
+            _context = context;
         }
         [HttpGet("users")]
         public async Task<IActionResult> GetUsers()
@@ -46,18 +52,33 @@ namespace MemoryMagi.Controllers
                 return BadRequest("User information is missing from the token.");
             }
 
-            var user = await _userManager.FindByIdAsync(userId);
+            // Eagerly load UserAchievements and related Achievements
+            var user = await _userManager.Users
+                .Include(u => u.UserAchievements)
+                    .ThenInclude(ua => ua.Achievement)  // Include Achievement details
+                .FirstOrDefaultAsync(u => u.Id == userId);
 
             if (user == null)
             {
                 return NotFound("User not found.");
             }
 
+            // Mapping the UserAchievements to a simplified DTO
+            var userAchievementsDto = user.UserAchievements.Select(ua => new
+            {
+                AchievementId = ua.AchievementId,
+                Name = ua.Achievement?.Name, // Ensure we only get Name if Achievement is not null
+                Description = ua.Achievement?.Description,
+                AchievementDate = ua.AchievementDate.ToString("yyyy-MM-dd") // Format date as string
+            }).ToList();
+
+            // Creating the final userDto
             var userDto = new
             {
-                UserId = userId,
+                UserId = user.Id,
                 UserName = user.UserName,
-                Email = user.Email
+                Email = user.Email,
+                Achievements = userAchievementsDto
             };
 
             return Ok(userDto);
@@ -158,6 +179,65 @@ namespace MemoryMagi.Controllers
             return BadRequest("Current password incorrect." + result.Errors);
         }
 
+        [HttpPut("update-achievements")]
+        public async Task<IActionResult> UpdateAchievements([FromBody] List<AchievementDto> updatedAchievements)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (string.IsNullOrEmpty(userId))
+            {
+                return BadRequest("User information is missing from the token.");
+            }
+
+            // Fetch the current user's achievements
+            var user = await _userManager.Users
+                .Include(u => u.UserAchievements)
+                .FirstOrDefaultAsync(u => u.Id == userId);
+
+            if (user == null)
+            {
+                return NotFound("User not found.");
+            }
+
+            // Loop through the updated achievements
+            foreach (var achievementDto in updatedAchievements)
+            {
+                // Check if the user already has this achievement
+                var existingAchievement = user.UserAchievements
+                    .FirstOrDefault(ua => ua.AchievementId == achievementDto.AchievementId);
+
+                if (existingAchievement != null)
+                {
+                    // Update existing achievement
+                    existingAchievement.AchievementDate = DateOnly.Parse(achievementDto.AchievementDate);
+                }
+                else
+                {
+                    // Add new achievement
+                    var achievement = await _context.Achievements
+                        .FirstOrDefaultAsync(a => a.Id == achievementDto.AchievementId);
+                    if (achievement != null)
+                    {
+                        user.UserAchievements.Add(new UserAchievement
+                        {
+                            UserId = userId,
+                            AchievementId = achievementDto.AchievementId,
+                            AchievementDate = DateOnly.Parse(achievementDto.AchievementDate)
+                        });
+                    }
+                }
+            }
+
+            // Save the changes
+            var result = await _userManager.UpdateAsync(user);
+            if (!result.Succeeded)
+            {
+                return StatusCode(500, "Error updating achievements.");
+            }
+
+            return Ok("Achievements updated successfully.");
+        }
+
         // hehe
 
         public class RegisterModel
@@ -183,6 +263,11 @@ namespace MemoryMagi.Controllers
         {
             public string CurrentPassword { get; set; }
             public string NewPassword { get; set; }
+        }
+        public class AchievementDto
+        {
+            public int AchievementId { get; set; }
+            public string AchievementDate { get; set; } // Date in string format ("yyyy-MM-dd")
         }
     }
 }
