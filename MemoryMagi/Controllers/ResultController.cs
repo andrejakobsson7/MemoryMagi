@@ -73,11 +73,16 @@ namespace MemoryMagi.Controllers
                 return BadRequest();
             }
 
-            ResultModel model = new()
+            if (!TimeSpan.TryParse(newResult.Time, out TimeSpan timeSpan))
+            {
+                return BadRequest("Invalid time format. Expected format is hh:mm:ss.");
+            }
+
+            ResultModel model = new ResultModel()
             {
                 GameId = newResult.GameId,
                 UserId = newResult.UserId,
-                Time = newResult.Time,
+                Time = timeSpan,
                 DatePlayed = DateTime.Now,
                 Passed = newResult.Passed,
             };
@@ -94,7 +99,7 @@ namespace MemoryMagi.Controllers
     {
         public int GameId { get; set; }
         public string UserId { get; set; } = null!;
-        public TimeSpan Time { get; set; }
+        public string Time { get; set; } = null!;
         public bool Passed { get; set; }
     }
 }
