@@ -171,13 +171,13 @@ namespace MemoryMagi.Database
                 },
                 new CategoryModel()
                 {
-                    Id = 3,
+                    Id = 2,
                     Name = "Djur",
                     Image = "images/Veteran_car.jpg"
                 },
                 new CategoryModel()
                 {
-                    Id = 4,
+                    Id = 3,
                     Name = "Bilar",
                     Image = "images/Veteran_car.jpg"
                 }
@@ -216,34 +216,25 @@ namespace MemoryMagi.Database
                     CategoryId = 1, // Frukt
                     DifficultyLevelId = 1, // Easy
                     GameType = "public",
-                    CreatedBy = null, // Replace with real ID
-                },
-                new GameModel()
-                {
-                    Id = 2,
-                    Name = "18+ drinkar",
-                    CategoryId = 2, // Alkohol
-                    DifficultyLevelId = 2, //Medium
-                    GameType = "public",
-                    CreatedBy = null, // Replace with real ID
+                    CreatedBy = null,
                 },
                 new GameModel()
                 {
                     Id = 3,
                     Name = "Djur på bonnagården",
-                    CategoryId = 3, // Djur
-                    DifficultyLevelId = 3, //Hard
+                    CategoryId = 2, // Djur
+                    DifficultyLevelId = 2, //Medium
                     GameType = "public",
-                    CreatedBy = null, // Replace with real ID
+                    CreatedBy = null,
                 },
                 new GameModel()
                 {
                     Id = 4,
                     Name = "Bilar man hade velat ha",
-                    CategoryId = 4, // Bilar
-                    DifficultyLevelId = 1, //Easy
+                    CategoryId = 3, // Bilar
+                    DifficultyLevelId = 3, //Hard
                     GameType = "public",
-                    CreatedBy = null, // Replace with real ID
+                    CreatedBy = null,
                 }
             );
 

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MemoryMagi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240826182017_SeedData")]
-    partial class SeedData
+    [Migration("20240906094254_Initial-Migration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,37 +39,7 @@ namespace MemoryMagi.Migrations
 
                     b.HasIndex("GameId");
 
-                    b.ToTable("AllowedUsers_2");
-                });
-
-            modelBuilder.Entity("MemoryMagi.Models.Category", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("id");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("name");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)")
-                        .HasColumnName("user_id");
-
-                    b.Property<string>("image_url")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("image_url");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Categories");
+                    b.ToTable("AllowedUsers");
                 });
 
             modelBuilder.Entity("MemoryMagi.Models.CategoryModel", b =>
@@ -93,7 +63,7 @@ namespace MemoryMagi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories_2");
+                    b.ToTable("Categories");
 
                     b.HasData(
                         new
@@ -106,17 +76,11 @@ namespace MemoryMagi.Migrations
                         {
                             Id = 2,
                             Image = "images/Veteran_car.jpg",
-                            Name = "Alkohol"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Image = "images/Veteran_car.jpg",
                             Name = "Djur"
                         },
                         new
                         {
-                            Id = 4,
+                            Id = 3,
                             Image = "images/Veteran_car.jpg",
                             Name = "Bilar"
                         });
@@ -146,7 +110,7 @@ namespace MemoryMagi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("DifficultyLevels_2");
+                    b.ToTable("DifficultyLevels");
 
                     b.HasData(
                         new
@@ -193,64 +157,8 @@ namespace MemoryMagi.Migrations
                         .HasColumnType("int")
                         .HasColumnName("difficulty_level_id");
 
-                    b.Property<int>("GameTypeId")
-                        .HasColumnType("int")
-                        .HasColumnName("game_type_id");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
-
-                    b.HasIndex("CreatedBy");
-
-                    b.HasIndex("DifficultyLevelId");
-
-                    b.HasIndex("GameTypeId");
-
-                    b.ToTable("Games_2");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CategoryId = 1,
-                            DifficultyLevelId = 1,
-                            GameTypeId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CategoryId = 2,
-                            DifficultyLevelId = 2,
-                            GameTypeId = 1
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CategoryId = 3,
-                            DifficultyLevelId = 3,
-                            GameTypeId = 1
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CategoryId = 4,
-                            DifficultyLevelId = 1,
-                            GameTypeId = 1
-                        });
-                });
-
-            modelBuilder.Entity("MemoryMagi.Models.GameTypeModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("id");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("GameType")
-                        .HasColumnType("int")
+                    b.Property<string>("GameType")
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnName("game_type");
 
                     b.Property<string>("Name")
@@ -260,51 +168,39 @@ namespace MemoryMagi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("GameTypes_2");
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("CreatedBy");
+
+                    b.HasIndex("DifficultyLevelId");
+
+                    b.ToTable("Games");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            GameType = 1,
-                            Name = "Public"
+                            CategoryId = 1,
+                            DifficultyLevelId = 1,
+                            GameType = "public",
+                            Name = "Goda frukter"
                         },
                         new
                         {
-                            Id = 2,
-                            GameType = 2,
-                            Name = "Private"
+                            Id = 3,
+                            CategoryId = 2,
+                            DifficultyLevelId = 2,
+                            GameType = "public",
+                            Name = "Djur på bonnagården"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CategoryId = 3,
+                            DifficultyLevelId = 3,
+                            GameType = "public",
+                            Name = "Bilar man hade velat ha"
                         });
-                });
-
-            modelBuilder.Entity("MemoryMagi.Models.Item", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("id");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int")
-                        .HasColumnName("category_id");
-
-                    b.Property<string>("Image")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("image");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("name");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
-
-                    b.ToTable("Items");
                 });
 
             modelBuilder.Entity("MemoryMagi.Models.ItemModel", b =>
@@ -334,185 +230,153 @@ namespace MemoryMagi.Migrations
 
                     b.HasIndex("GameId");
 
-                    b.ToTable("Items_2");
+                    b.ToTable("Items");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
                             GameId = 1,
-                            Image = "images/Apples.jpg",
+                            Image = "https://img.freepik.com/free-vector/sticker-design-with-apple-isolated_1308-66383.jpg?t=st=1725441600~exp=1725445200~hmac=2b353ba4b82a3ad64efda6bf389b2541f080abace5c4b2650920cfd765f9e236&w=740",
                             Name = "Äpple"
                         },
                         new
                         {
                             Id = 2,
                             GameId = 1,
-                            Image = "images/Pasta.jpg",
+                            Image = "https://img.freepik.com/free-vector/spaghetti-pasta-with-bolognese-sauce_1308-115408.jpg?t=st=1725441659~exp=1725445259~hmac=cae2d1c081992be7f9b2697d6df20e9ffeb560de7546c7f8be2f602197921472&w=1380",
                             Name = "Pasta"
                         },
                         new
                         {
                             Id = 3,
                             GameId = 1,
-                            Image = "images/Pineapple.jpg",
+                            Image = "https://img.freepik.com/premium-vector/drawing-pineapple-with-green-top-yellow-top_1166763-24137.jpg?w=740",
                             Name = "Ananas"
                         },
                         new
                         {
                             Id = 4,
                             GameId = 1,
-                            Image = "images/Pumpkins.jpg",
+                            Image = "https://img.freepik.com/free-vector/fresh-pumpkin-white-b_1308-39708.jpg?t=st=1725442167~exp=1725445767~hmac=906c103466192496ecf2b6a977843c6c7588c65e5eb49bb89ee2da4a571bbf55&w=826",
                             Name = "Pumpa"
                         },
                         new
                         {
                             Id = 5,
                             GameId = 1,
-                            Image = "images/Strawberries.jpg",
+                            Image = "https://img.freepik.com/premium-vector/strawberry-clipart-vector-illustration-white-background_1280610-709.jpg?w=740",
                             Name = "Jordgubbar"
                         },
                         new
                         {
                             Id = 6,
                             GameId = 1,
-                            Image = "images/Fish.jpg",
+                            Image = "https://img.freepik.com/premium-vector/cartoon-illustration-smiling-orange-white-clownfish_1216680-928.jpg?w=740",
                             Name = "Fisk"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            GameId = 2,
-                            Image = "images/Beer.jpg",
-                            Name = "Öl"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            GameId = 2,
-                            Image = "images/Cocktail.jpg",
-                            Name = "Cocktail"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            GameId = 2,
-                            Image = "images/Crafted_beer.jpg",
-                            Name = "Crafted öl"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            GameId = 2,
-                            Image = "images/Red_Wine.jpg",
-                            Name = "Rött vin"
-                        },
-                        new
-                        {
-                            Id = 11,
-                            GameId = 2,
-                            Image = "images/Wine.jpg",
-                            Name = "Vin"
                         },
                         new
                         {
                             Id = 12,
                             GameId = 3,
-                            Image = "images/Bird.jpg",
+                            Image = "https://img.freepik.com/free-vector/hand-drawn-flat-design-robin-collection_23-2149145170.jpg?t=st=1725442349~exp=1725445949~hmac=e0c69eb898156b90b344b8315ad7f4c468d28130b0d358eb7ba220eafc748e98&w=740",
                             Name = "Fågel"
                         },
                         new
                         {
                             Id = 13,
                             GameId = 3,
-                            Image = "images/Cat.jpg",
+                            Image = "https://img.freepik.com/premium-vector/cute-cat-collection-isolated-white-background_703032-4100.jpg?w=1380",
                             Name = "Katt"
                         },
                         new
                         {
                             Id = 14,
                             GameId = 3,
-                            Image = "images/Cows.jpg",
+                            Image = "https://img.freepik.com/premium-vector/cartoon-illustration-brown-white-cow_1216680-373.jpg?w=740",
                             Name = "Ko"
                         },
                         new
                         {
                             Id = 15,
                             GameId = 3,
-                            Image = "images/Lion.jpg",
+                            Image = "https://img.freepik.com/premium-vector/cute-lion-cartoon-white-background_29190-8567.jpg?w=740",
                             Name = "Lejon"
                         },
                         new
                         {
                             Id = 16,
                             GameId = 3,
-                            Image = "images/Monkeys.jpg",
+                            Image = "https://img.freepik.com/free-vector/monkey-cartoon-character-sticker_1308-76562.jpg?t=st=1725442733~exp=1725446333~hmac=261a58dc78d31af291802ee3e0912fd5f2f294d1d32da3a27fb91b75c6f30dfe&w=740",
                             Name = "Apa"
                         },
                         new
                         {
                             Id = 17,
                             GameId = 3,
-                            Image = "images/Wolf.jpg",
+                            Image = "https://img.freepik.com/premium-vector/cartoon-dog-with-cartoon-face-word-wolf-it_1025542-56600.jpg?w=740",
                             Name = "Varg"
                         },
                         new
                         {
                             Id = 18,
                             GameId = 4,
-                            Image = "images/Exotic_car.jpg",
-                            Name = "Cool bil"
+                            Image = "https://img.freepik.com/premium-vector/red-car-with-license-plate-number-3_1128391-17709.jpg?w=740",
+                            Name = "sport bil"
                         },
                         new
                         {
                             Id = 19,
                             GameId = 4,
-                            Image = "images/Pastawagon_car.jpg",
-                            Name = "Pasta bilen"
+                            Image = "https://img.freepik.com/free-vector/boy-driving-vintage-car-cartoon-design_1308-107242.jpg?t=st=1725453109~exp=1725456709~hmac=81d598da00b7fdb14f45c280734502f48e4d747188fd295ce35c102627bb0ad4&w=1800",
+                            Name = "cabriolet bilen"
                         },
                         new
                         {
                             Id = 20,
                             GameId = 4,
-                            Image = "images/Racecar_car.jpg",
+                            Image = "https://img.freepik.com/premium-vector/indy-car-speeding-f1-racing-f1-sports-car-illustration-vector_280080-22.jpg?w=1380,",
                             Name = "Racer bilen"
                         },
                         new
                         {
                             Id = 21,
                             GameId = 4,
-                            Image = "images/SUV_car.jpg",
+                            Image = "https://img.freepik.com/premium-vector/red-car-with-surfboard-top-it_1013341-387239.jpg?w=740",
                             Name = "Stadsjeepen"
                         },
                         new
                         {
                             Id = 22,
                             GameId = 4,
-                            Image = "images/Trackcar_car.jpg",
-                            Name = "Ban bilen"
+                            Image = "https://img.freepik.com/free-vector/black-sedan-car-isolated-white-background_1308-75583.jpg?t=st=1725452945~exp=1725456545~hmac=961c6db37d955480177b2eb6d6c6b7571efb30f5ff94d5fdd41dcc65c2c28521&w=1380",
+                            Name = "Sedan bilen"
                         },
                         new
                         {
                             Id = 23,
                             GameId = 4,
-                            Image = "images/Veteran_car.jpg",
+                            Image = "https://img.freepik.com/free-vector/classic-green-vintage-car-illustration_1308-164648.jpg?t=st=1725452987~exp=1725456587~hmac=dc808c875da97d90cb4641fdebe8f6718e4ff0dab6cb8aab516ef3495ffdb0f8&w=1380",
                             Name = "Veteran bilen"
                         });
                 });
 
             modelBuilder.Entity("MemoryMagi.Models.ResultModel", b =>
                 {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)")
-                        .HasColumnName("user_id");
-
-                    b.Property<int>("GameId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("game_id");
+                        .HasColumnName("id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("DatePlayed")
                         .HasColumnType("datetime2")
                         .HasColumnName("date_played");
+
+                    b.Property<int>("GameId")
+                        .HasColumnType("int")
+                        .HasColumnName("game_id");
 
                     b.Property<bool>("Passed")
                         .HasColumnType("bit")
@@ -522,32 +386,18 @@ namespace MemoryMagi.Migrations
                         .HasColumnType("time")
                         .HasColumnName("time");
 
-                    b.HasKey("UserId", "GameId", "DatePlayed");
-
-                    b.HasIndex("GameId");
-
-                    b.ToTable("Results_2");
-                });
-
-            modelBuilder.Entity("MemoryMagi.Models.UserItem", b =>
-                {
                     b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)")
                         .HasColumnName("user_id");
 
-                    b.Property<int>("ItemId")
-                        .HasColumnType("int")
-                        .HasColumnName("item_id");
+                    b.HasKey("Id");
 
-                    b.Property<bool>("IsComplete")
-                        .HasColumnType("bit")
-                        .HasColumnName("is_complete");
+                    b.HasIndex("GameId");
 
-                    b.HasKey("UserId", "ItemId");
+                    b.HasIndex("UserId");
 
-                    b.HasIndex("ItemId");
-
-                    b.ToTable("UserItems");
+                    b.ToTable("Results");
                 });
 
             modelBuilder.Entity("MemoryMagi.Models._2._0.AchievementModel", b =>
@@ -570,7 +420,69 @@ namespace MemoryMagi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Achievements_2");
+                    b.ToTable("Achievements");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Mycket bra jobbat, du är på god väg!",
+                            Name = "Klarat första spelet!"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Du är duktig, kämpa på!",
+                            Name = "Du har klarat andra spelet!"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "Du klarade precis den lättaste nivån, kämpa på och försök klara nästa nivå!",
+                            Name = "Du klarade den första \"lätt\" nivån!"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Description = "Din första vinst! Fortsätt att vinna och nå toppen!",
+                            Name = "Första vinsten!"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Description = "Du har tagit de första stegen mot att bli en mästare. Fortsätt så!",
+                            Name = "Mästarens start!"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Description = "Bra jobbat! Nu har du klarat medelnivån, sikta på nästa!",
+                            Name = "Du klarade den \"medel\" nivån!"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Description = "Du fick perfekt poäng! Imponerande arbete!",
+                            Name = "Första perfekta poäng!"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Description = "Du har klarat fler än 10 spel! En riktig veteran!",
+                            Name = "Fler än 10 spel klara!"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Description = "Du har satt rekord för snabbaste tiden! Otroligt snabb!",
+                            Name = "Snabbaste tiden!"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Description = "Fantastiskt! Du har klarat hela spelet! En prestation att vara stolt över!",
+                            Name = "Avklarat hela spelet!"
+                        });
                 });
 
             modelBuilder.Entity("MemoryMagi.Models._2._0.UserAchievement", b =>
@@ -591,7 +503,7 @@ namespace MemoryMagi.Migrations
 
                     b.HasIndex("AchievementId");
 
-                    b.ToTable("UserAchievements_2");
+                    b.ToTable("UserAchievements");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -827,15 +739,6 @@ namespace MemoryMagi.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("MemoryMagi.Models.Category", b =>
-                {
-                    b.HasOne("MemoryMagi.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("MemoryMagi.Models.GameModel", b =>
                 {
                     b.HasOne("MemoryMagi.Models.CategoryModel", "Category")
@@ -854,28 +757,11 @@ namespace MemoryMagi.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MemoryMagi.Models.GameTypeModel", "GameType")
-                        .WithMany("Games")
-                        .HasForeignKey("GameTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Category");
 
                     b.Navigation("DifficultyLevel");
 
-                    b.Navigation("GameType");
-
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("MemoryMagi.Models.Item", b =>
-                {
-                    b.HasOne("MemoryMagi.Models.Category", null)
-                        .WithMany("Items")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("MemoryMagi.Models.ItemModel", b =>
@@ -904,25 +790,6 @@ namespace MemoryMagi.Migrations
                         .IsRequired();
 
                     b.Navigation("Game");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("MemoryMagi.Models.UserItem", b =>
-                {
-                    b.HasOne("MemoryMagi.Models.Item", "Item")
-                        .WithMany("UserItems")
-                        .HasForeignKey("ItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MemoryMagi.Models.ApplicationUser", "User")
-                        .WithMany("UserItems")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Item");
 
                     b.Navigation("User");
                 });
@@ -997,11 +864,6 @@ namespace MemoryMagi.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MemoryMagi.Models.Category", b =>
-                {
-                    b.Navigation("Items");
-                });
-
             modelBuilder.Entity("MemoryMagi.Models.CategoryModel", b =>
                 {
                     b.Navigation("Games");
@@ -1021,16 +883,6 @@ namespace MemoryMagi.Migrations
                     b.Navigation("Results");
                 });
 
-            modelBuilder.Entity("MemoryMagi.Models.GameTypeModel", b =>
-                {
-                    b.Navigation("Games");
-                });
-
-            modelBuilder.Entity("MemoryMagi.Models.Item", b =>
-                {
-                    b.Navigation("UserItems");
-                });
-
             modelBuilder.Entity("MemoryMagi.Models._2._0.AchievementModel", b =>
                 {
                     b.Navigation("UserAchievements");
@@ -1041,8 +893,6 @@ namespace MemoryMagi.Migrations
                     b.Navigation("AllowedUsers");
 
                     b.Navigation("UserAchievements");
-
-                    b.Navigation("UserItems");
                 });
 #pragma warning restore 612, 618
         }

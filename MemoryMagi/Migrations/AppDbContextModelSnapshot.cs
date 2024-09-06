@@ -71,13 +71,13 @@ namespace MemoryMagi.Migrations
                         },
                         new
                         {
-                            Id = 3,
+                            Id = 2,
                             Image = "images/Veteran_car.jpg",
                             Name = "Djur"
                         },
                         new
                         {
-                            Id = 4,
+                            Id = 3,
                             Image = "images/Veteran_car.jpg",
                             Name = "Bilar"
                         });
@@ -184,25 +184,17 @@ namespace MemoryMagi.Migrations
                         },
                         new
                         {
-                            Id = 2,
+                            Id = 3,
                             CategoryId = 2,
                             DifficultyLevelId = 2,
-                            GameType = "public",
-                            Name = "18+ drinkar"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CategoryId = 3,
-                            DifficultyLevelId = 3,
                             GameType = "public",
                             Name = "Djur på bonnagården"
                         },
                         new
                         {
                             Id = 4,
-                            CategoryId = 4,
-                            DifficultyLevelId = 1,
+                            CategoryId = 3,
+                            DifficultyLevelId = 3,
                             GameType = "public",
                             Name = "Bilar man hade velat ha"
                         });
