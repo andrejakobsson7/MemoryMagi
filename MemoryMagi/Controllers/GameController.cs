@@ -1,5 +1,6 @@
 ﻿using MemoryMagi.Models;
 using MemoryMagi.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using System.Text.Json;
@@ -9,7 +10,7 @@ namespace MemoryMagi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class GameController : ControllerBase
     {
         private readonly GenericRepository<GameModel> _genericRepository;
