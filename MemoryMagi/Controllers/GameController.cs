@@ -1,6 +1,5 @@
 ﻿using MemoryMagi.Models;
 using MemoryMagi.Repositories;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using System.Text.Json;
@@ -10,7 +9,7 @@ namespace MemoryMagi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class GameController : ControllerBase
     {
         private readonly GenericRepository<GameModel> _genericRepository;
@@ -46,9 +45,32 @@ namespace MemoryMagi.Controllers
                 }
                 catch (Exception ex)
                 {
-                    return BadRequest(ex.Message);
+                    return BadRequest($"The following error occured while saving game: {ex.InnerException.Message}");
                 }
             }
+        }
+
+        [HttpDelete("DeleteGame")]
+        public async Task<IActionResult> DeleteGameAsync(int gameId)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userId == null)
+            {
+                return Unauthorized();
+            }
+            else
+            {
+                try
+                {
+                    await _genericRepository.Delete(gameId);
+                    return Ok("Game was successfully deleted");
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest($"The following error occured while trying to delete game with id {gameId}: {ex.Message}");
+                }
+            }
+
         }
         //[HttpPost("PostGameWithId")]
         //public async Task<IActionResult> PostGameWithId([FromBody] GameModel newGame)
