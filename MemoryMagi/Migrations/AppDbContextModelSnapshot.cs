@@ -73,17 +73,11 @@ namespace MemoryMagi.Migrations
                         {
                             Id = 2,
                             Image = "images/Veteran_car.jpg",
-                            Name = "Alkohol"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Image = "images/Veteran_car.jpg",
                             Name = "Djur"
                         },
                         new
                         {
-                            Id = 4,
+                            Id = 3,
                             Image = "images/Veteran_car.jpg",
                             Name = "Bilar"
                         });
@@ -190,25 +184,17 @@ namespace MemoryMagi.Migrations
                         },
                         new
                         {
-                            Id = 2,
+                            Id = 3,
                             CategoryId = 2,
                             DifficultyLevelId = 2,
-                            GameType = "public",
-                            Name = "18+ drinkar"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CategoryId = 3,
-                            DifficultyLevelId = 3,
                             GameType = "public",
                             Name = "Djur på bonnagården"
                         },
                         new
                         {
                             Id = 4,
-                            CategoryId = 4,
-                            DifficultyLevelId = 1,
+                            CategoryId = 3,
+                            DifficultyLevelId = 3,
                             GameType = "public",
                             Name = "Bilar man hade velat ha"
                         });
@@ -248,161 +234,126 @@ namespace MemoryMagi.Migrations
                         {
                             Id = 1,
                             GameId = 1,
-                            Image = "images/Apples.jpg",
+                            Image = "https://img.freepik.com/free-vector/sticker-design-with-apple-isolated_1308-66383.jpg?t=st=1725441600~exp=1725445200~hmac=2b353ba4b82a3ad64efda6bf389b2541f080abace5c4b2650920cfd765f9e236&w=740",
                             Name = "Äpple"
                         },
                         new
                         {
                             Id = 2,
                             GameId = 1,
-                            Image = "images/Pasta.jpg",
+                            Image = "https://img.freepik.com/free-vector/spaghetti-pasta-with-bolognese-sauce_1308-115408.jpg?t=st=1725441659~exp=1725445259~hmac=cae2d1c081992be7f9b2697d6df20e9ffeb560de7546c7f8be2f602197921472&w=1380",
                             Name = "Pasta"
                         },
                         new
                         {
                             Id = 3,
                             GameId = 1,
-                            Image = "images/Pineapple.jpg",
+                            Image = "https://img.freepik.com/premium-vector/drawing-pineapple-with-green-top-yellow-top_1166763-24137.jpg?w=740",
                             Name = "Ananas"
                         },
                         new
                         {
                             Id = 4,
                             GameId = 1,
-                            Image = "images/Pumpkins.jpg",
+                            Image = "https://img.freepik.com/free-vector/fresh-pumpkin-white-b_1308-39708.jpg?t=st=1725442167~exp=1725445767~hmac=906c103466192496ecf2b6a977843c6c7588c65e5eb49bb89ee2da4a571bbf55&w=826",
                             Name = "Pumpa"
                         },
                         new
                         {
                             Id = 5,
                             GameId = 1,
-                            Image = "images/Strawberries.jpg",
+                            Image = "https://img.freepik.com/premium-vector/strawberry-clipart-vector-illustration-white-background_1280610-709.jpg?w=740",
                             Name = "Jordgubbar"
                         },
                         new
                         {
                             Id = 6,
                             GameId = 1,
-                            Image = "images/Fish.jpg",
+                            Image = "https://img.freepik.com/premium-vector/cartoon-illustration-smiling-orange-white-clownfish_1216680-928.jpg?w=740",
                             Name = "Fisk"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            GameId = 2,
-                            Image = "images/Beer.jpg",
-                            Name = "Öl"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            GameId = 2,
-                            Image = "images/Cocktail.jpg",
-                            Name = "Cocktail"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            GameId = 2,
-                            Image = "images/Crafted_beer.jpg",
-                            Name = "Crafted öl"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            GameId = 2,
-                            Image = "images/Red_Wine.jpg",
-                            Name = "Rött vin"
-                        },
-                        new
-                        {
-                            Id = 11,
-                            GameId = 2,
-                            Image = "images/Wine.jpg",
-                            Name = "Vin"
                         },
                         new
                         {
                             Id = 12,
                             GameId = 3,
-                            Image = "images/Bird.jpg",
+                            Image = "https://img.freepik.com/free-vector/hand-drawn-flat-design-robin-collection_23-2149145170.jpg?t=st=1725442349~exp=1725445949~hmac=e0c69eb898156b90b344b8315ad7f4c468d28130b0d358eb7ba220eafc748e98&w=740",
                             Name = "Fågel"
                         },
                         new
                         {
                             Id = 13,
                             GameId = 3,
-                            Image = "images/Cat.jpg",
+                            Image = "https://img.freepik.com/premium-vector/cute-cat-collection-isolated-white-background_703032-4100.jpg?w=1380",
                             Name = "Katt"
                         },
                         new
                         {
                             Id = 14,
                             GameId = 3,
-                            Image = "images/Cows.jpg",
+                            Image = "https://img.freepik.com/premium-vector/cartoon-illustration-brown-white-cow_1216680-373.jpg?w=740",
                             Name = "Ko"
                         },
                         new
                         {
                             Id = 15,
                             GameId = 3,
-                            Image = "images/Lion.jpg",
+                            Image = "https://img.freepik.com/premium-vector/cute-lion-cartoon-white-background_29190-8567.jpg?w=740",
                             Name = "Lejon"
                         },
                         new
                         {
                             Id = 16,
                             GameId = 3,
-                            Image = "images/Monkeys.jpg",
+                            Image = "https://img.freepik.com/free-vector/monkey-cartoon-character-sticker_1308-76562.jpg?t=st=1725442733~exp=1725446333~hmac=261a58dc78d31af291802ee3e0912fd5f2f294d1d32da3a27fb91b75c6f30dfe&w=740",
                             Name = "Apa"
                         },
                         new
                         {
                             Id = 17,
                             GameId = 3,
-                            Image = "images/Wolf.jpg",
+                            Image = "https://img.freepik.com/premium-vector/cartoon-dog-with-cartoon-face-word-wolf-it_1025542-56600.jpg?w=740",
                             Name = "Varg"
                         },
                         new
                         {
                             Id = 18,
                             GameId = 4,
-                            Image = "images/Exotic_car.jpg",
-                            Name = "Cool bil"
+                            Image = "https://img.freepik.com/premium-vector/red-car-with-license-plate-number-3_1128391-17709.jpg?w=740",
+                            Name = "sport bil"
                         },
                         new
                         {
                             Id = 19,
                             GameId = 4,
-                            Image = "images/Pastawagon_car.jpg",
-                            Name = "Pasta bilen"
+                            Image = "https://img.freepik.com/free-vector/boy-driving-vintage-car-cartoon-design_1308-107242.jpg?t=st=1725453109~exp=1725456709~hmac=81d598da00b7fdb14f45c280734502f48e4d747188fd295ce35c102627bb0ad4&w=1800",
+                            Name = "cabriolet bilen"
                         },
                         new
                         {
                             Id = 20,
                             GameId = 4,
-                            Image = "images/Racecar_car.jpg",
+                            Image = "https://img.freepik.com/premium-vector/indy-car-speeding-f1-racing-f1-sports-car-illustration-vector_280080-22.jpg?w=1380,",
                             Name = "Racer bilen"
                         },
                         new
                         {
                             Id = 21,
                             GameId = 4,
-                            Image = "images/SUV_car.jpg",
+                            Image = "https://img.freepik.com/premium-vector/red-car-with-surfboard-top-it_1013341-387239.jpg?w=740",
                             Name = "Stadsjeepen"
                         },
                         new
                         {
                             Id = 22,
                             GameId = 4,
-                            Image = "images/Trackcar_car.jpg",
-                            Name = "Ban bilen"
+                            Image = "https://img.freepik.com/free-vector/black-sedan-car-isolated-white-background_1308-75583.jpg?t=st=1725452945~exp=1725456545~hmac=961c6db37d955480177b2eb6d6c6b7571efb30f5ff94d5fdd41dcc65c2c28521&w=1380",
+                            Name = "Sedan bilen"
                         },
                         new
                         {
                             Id = 23,
                             GameId = 4,
-                            Image = "images/Veteran_car.jpg",
+                            Image = "https://img.freepik.com/free-vector/classic-green-vintage-car-illustration_1308-164648.jpg?t=st=1725452987~exp=1725456587~hmac=dc808c875da97d90cb4641fdebe8f6718e4ff0dab6cb8aab516ef3495ffdb0f8&w=1380",
                             Name = "Veteran bilen"
                         });
                 });
@@ -467,6 +418,68 @@ namespace MemoryMagi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Achievements");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Mycket bra jobbat, du är på god väg!",
+                            Name = "Klarat första spelet!"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Du är duktig, kämpa på!",
+                            Name = "Du har klarat andra spelet!"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "Du klarade precis den lättaste nivån, kämpa på och försök klara nästa nivå!",
+                            Name = "Du klarade den första \"lätt\" nivån!"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Description = "Din första vinst! Fortsätt att vinna och nå toppen!",
+                            Name = "Första vinsten!"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Description = "Du har tagit de första stegen mot att bli en mästare. Fortsätt så!",
+                            Name = "Mästarens start!"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Description = "Bra jobbat! Nu har du klarat medelnivån, sikta på nästa!",
+                            Name = "Du klarade den \"medel\" nivån!"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Description = "Du fick perfekt poäng! Imponerande arbete!",
+                            Name = "Första perfekta poäng!"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Description = "Du har klarat fler än 10 spel! En riktig veteran!",
+                            Name = "Fler än 10 spel klara!"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Description = "Du har satt rekord för snabbaste tiden! Otroligt snabb!",
+                            Name = "Snabbaste tiden!"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Description = "Fantastiskt! Du har klarat hela spelet! En prestation att vara stolt över!",
+                            Name = "Avklarat hela spelet!"
+                        });
                 });
 
             modelBuilder.Entity("MemoryMagi.Models._2._0.UserAchievement", b =>
