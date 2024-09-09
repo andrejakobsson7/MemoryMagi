@@ -89,22 +89,14 @@ namespace MemoryMagi.Controllers
         [HttpDelete("DeleteCategory")]
         public async Task<IActionResult> DeleteCategoryAsync(int categoryId)
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (userId == null)
+            try
             {
-                return Unauthorized();
+                await _genericRepository.Delete(categoryId);
+                return Ok("Category was successfully deleted");
             }
-            else
+            catch (Exception ex)
             {
-                try
-                {
-                    await _genericRepository.Delete(categoryId);
-                    return Ok("Category was successfully deleted");
-                }
-                catch (Exception ex)
-                {
-                    return BadRequest($"The following error occured while trying to delete category with id {categoryId}: {ex.Message}");
-                }
+                return BadRequest($"The following error occured while trying to delete category with id {categoryId}: {ex.Message}");
             }
         }
     }
