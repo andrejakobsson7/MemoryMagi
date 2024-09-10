@@ -29,6 +29,8 @@ namespace MemoryMagi.Models
         public CategoryModel? Category { get; set; }
         public DifficultyLevelModel? DifficultyLevel { get; set; }
         public ApplicationUser? User { get; set; }
+
+        [ValidateItemsLength]
         public List<ItemModel> Items { get; set; } = new();
         public List<ResultModel> Results { get; set; } = new();
         public List<AllowedUser> AllowedUsers { get; set; } = new();

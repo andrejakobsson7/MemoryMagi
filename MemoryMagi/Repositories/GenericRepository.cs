@@ -25,6 +25,11 @@ namespace MemoryMagi.Repositories
             return await _dbSet.FindAsync(id);
         }
 
+        public T? GetModelByIdSynchronously(int id)
+        {
+            return _dbSet.Find(id);
+        }
+
         // Hämta: Game-ID med allt från GameModel - för Tim?
         public async Task<GameModel?> GetGameIds(int gameId)
         {
@@ -61,6 +66,10 @@ namespace MemoryMagi.Repositories
 
                 _context.Set<T>().Remove(entityToDelete);
                 await _context.SaveChangesAsync();
+            }
+            else
+            {
+                throw new ArgumentException($"{typeof(T).Name} with id {id} does not exist and could not be deleted");
             }
         }
 
