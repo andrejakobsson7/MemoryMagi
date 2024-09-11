@@ -93,5 +93,24 @@ namespace MemoryMagi.Controllers
         //    }
         //}
 
+        [HttpGet("GetAllGames")]
+        public async Task<IActionResult> GetAllGamesAsync()
+        {
+            try
+            {
+                List<GameModel> allGames = await _genericRepository.GetAll();
+                if (allGames == null || allGames.Count == 0)
+                {
+                    return NotFound("No games found");
+                }
+
+                return Ok(allGames);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"The following error occurred while fetching games: {ex.Message}");
+            }
+        }
+
     }
 }
