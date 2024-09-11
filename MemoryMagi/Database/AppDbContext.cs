@@ -243,64 +243,74 @@ namespace MemoryMagi.Database
                 new AchievementModel()
                 {
                     Id = 1,
-                    Name = "Klarat första spelet!",
-                    Description = "Mycket bra jobbat, du är på god väg!"
+                    Name = "Första steget!",
+                    Description = "Klara ditt första spel",
+                    ImageUrl = "Achievement1Game.jpg"
                 },
                 new AchievementModel()
                 {
                     Id = 2,
-                    Name = "Du har klarat andra spelet!",
-                    Description = "Du är duktig, kämpa på!"
+                    Name = "Lärling",
+                    Description = "Klara totalt 5 spel",
+                    ImageUrl = "Achievement5Game.jpg"
                 },
                 new AchievementModel()
                 {
                     Id = 3,
-                    Name = "Du klarade den första \"lätt\" nivån!",
-                    Description = "Du klarade precis den lättaste nivån, kämpa på och försök klara nästa nivå!"
+                    Name = "Magiker",
+                    Description = "Klara total 20 spel",
+                    ImageUrl = "Achievement20Game.jpg"
                 },
                 new AchievementModel()
                 {
                     Id = 4,
-                    Name = "Första vinsten!",
-                    Description = "Din första vinst! Fortsätt att vinna och nå toppen!"
+                    Name = "Magi Mästare",
+                    Description = "Klara total 100 spel",
+                    ImageUrl = "Achievement100Game.jpg"
                 },
                 new AchievementModel()
                 {
                     Id = 5,
-                    Name = "Mästarens start!",
-                    Description = "Du har tagit de första stegen mot att bli en mästare. Fortsätt så!"
+                    Name = "Tidens lärling",
+                    Description = "Klara ett spel under 5 minuter",
+                    ImageUrl = "Achievement3minGame.jpg"
                 },
                 new AchievementModel()
                 {
                     Id = 6,
-                    Name = "Du klarade den \"medel\" nivån!",
-                    Description = "Bra jobbat! Nu har du klarat medelnivån, sikta på nästa!"
+                    Name = "Tidens Väktare",
+                    Description = "Klara ett spel under 1 minut",
+                    ImageUrl = "Achievement60secGame.jpg"
                 },
                 new AchievementModel()
                 {
                     Id = 7,
-                    Name = "Första perfekta poäng!",
-                    Description = "Du fick perfekt poäng! Imponerande arbete!"
+                    Name = "Tidens Härskare",
+                    Description = "Klara ett spel under 30 sekunder",
+                    ImageUrl = "Achievement30secGame.jpg"
                 },
                 new AchievementModel()
                 {
                     Id = 8,
-                    Name = "Fler än 10 spel klara!",
-                    Description = "Du har klarat fler än 10 spel! En riktig veteran!"
+                    Name = "Lärlingens Utmaning",
+                    Description = "Klara ett spel med \"Lätt\" svårighetsgrad",
+                    ImageUrl = "AchievementEasyGame.jpg"
                 },
                 new AchievementModel()
                 {
                     Id = 9,
-                    Name = "Snabbaste tiden!",
-                    Description = "Du har satt rekord för snabbaste tiden! Otroligt snabb!"
+                    Name = "Trollkarlens Utmaning",
+                    Description = "Klara ett spel med \"Medium\" svårighetsgrad",
+                    ImageUrl = "AchievementMediumGame.jpg"
                 },
                 new AchievementModel()
                 {
                     Id = 10,
-                    Name = "Avklarat hela spelet!",
-                    Description = "Fantastiskt! Du har klarat hela spelet! En prestation att vara stolt över!"
+                    Name = "Mästarens Utmaning",
+                    Description = "Klara ett spel med \"Svår\" svårighetsgrad",
+                    ImageUrl = "AchievementHardGame.jpg"
                 }
-                );
+            );
 
             // hehe
         }

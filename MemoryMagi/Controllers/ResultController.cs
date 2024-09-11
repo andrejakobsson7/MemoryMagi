@@ -101,5 +101,6 @@ namespace MemoryMagi.Controllers
         public string UserId { get; set; } = null!;
         public string Time { get; set; } = null!;
         public bool Passed { get; set; }
+        public string? DifficultyLevel { get; set; }
     }
 }

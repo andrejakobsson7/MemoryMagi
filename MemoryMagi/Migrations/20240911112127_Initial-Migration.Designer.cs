@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MemoryMagi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240906094254_Initial-Migration")]
+    [Migration("20240911112127_Initial-Migration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -413,6 +413,10 @@ namespace MemoryMagi.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("description");
 
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("image-url");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
@@ -426,62 +430,72 @@ namespace MemoryMagi.Migrations
                         new
                         {
                             Id = 1,
-                            Description = "Mycket bra jobbat, du är på god väg!",
-                            Name = "Klarat första spelet!"
+                            Description = "Klara ditt första spel",
+                            ImageUrl = "Achievement1Game.jpg",
+                            Name = "Första steget!"
                         },
                         new
                         {
                             Id = 2,
-                            Description = "Du är duktig, kämpa på!",
-                            Name = "Du har klarat andra spelet!"
+                            Description = "Klara totalt 5 spel",
+                            ImageUrl = "Achievement5Game.jpg",
+                            Name = "Lärling"
                         },
                         new
                         {
                             Id = 3,
-                            Description = "Du klarade precis den lättaste nivån, kämpa på och försök klara nästa nivå!",
-                            Name = "Du klarade den första \"lätt\" nivån!"
+                            Description = "Klara total 20 spel",
+                            ImageUrl = "Achievement20Game.jpg",
+                            Name = "Magiker"
                         },
                         new
                         {
                             Id = 4,
-                            Description = "Din första vinst! Fortsätt att vinna och nå toppen!",
-                            Name = "Första vinsten!"
+                            Description = "Klara total 100 spel",
+                            ImageUrl = "Achievement100Game.jpg",
+                            Name = "Magi Mästare"
                         },
                         new
                         {
                             Id = 5,
-                            Description = "Du har tagit de första stegen mot att bli en mästare. Fortsätt så!",
-                            Name = "Mästarens start!"
+                            Description = "Klara ett spel under 5 minuter",
+                            ImageUrl = "Achievement3minGame.jpg",
+                            Name = "Tidens lärling"
                         },
                         new
                         {
                             Id = 6,
-                            Description = "Bra jobbat! Nu har du klarat medelnivån, sikta på nästa!",
-                            Name = "Du klarade den \"medel\" nivån!"
+                            Description = "Klara ett spel under 1 minut",
+                            ImageUrl = "Achievement60secGame.jpg",
+                            Name = "Tidens Väktare"
                         },
                         new
                         {
                             Id = 7,
-                            Description = "Du fick perfekt poäng! Imponerande arbete!",
-                            Name = "Första perfekta poäng!"
+                            Description = "Klara ett spel under 30 sekunder",
+                            ImageUrl = "Achievement30secGame.jpg",
+                            Name = "Tidens Härskare"
                         },
                         new
                         {
                             Id = 8,
-                            Description = "Du har klarat fler än 10 spel! En riktig veteran!",
-                            Name = "Fler än 10 spel klara!"
+                            Description = "Klara ett spel med \"Lätt\" svårighetsgrad",
+                            ImageUrl = "AchievementEasyGame.jpg",
+                            Name = "Lärlingens Utmaning"
                         },
                         new
                         {
                             Id = 9,
-                            Description = "Du har satt rekord för snabbaste tiden! Otroligt snabb!",
-                            Name = "Snabbaste tiden!"
+                            Description = "Klara ett spel med \"Medium\" svårighetsgrad",
+                            ImageUrl = "AchievementMediumGame.jpg",
+                            Name = "Trollkarlens Utmaning"
                         },
                         new
                         {
                             Id = 10,
-                            Description = "Fantastiskt! Du har klarat hela spelet! En prestation att vara stolt över!",
-                            Name = "Avklarat hela spelet!"
+                            Description = "Klara ett spel med \"Svår\" svårighetsgrad",
+                            ImageUrl = "AchievementHardGame.jpg",
+                            Name = "Mästarens Utmaning"
                         });
                 });
 

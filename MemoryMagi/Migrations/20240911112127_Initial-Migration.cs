@@ -20,7 +20,8 @@ namespace MemoryMagi.Migrations
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    description = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    imageurl = table.Column<string>(name: "image-url", type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -337,19 +338,19 @@ namespace MemoryMagi.Migrations
 
             migrationBuilder.InsertData(
                 table: "Achievements",
-                columns: new[] { "id", "description", "name" },
+                columns: new[] { "id", "description", "image-url", "name" },
                 values: new object[,]
                 {
-                    { 1, "Mycket bra jobbat, du är på god väg!", "Klarat första spelet!" },
-                    { 2, "Du är duktig, kämpa på!", "Du har klarat andra spelet!" },
-                    { 3, "Du klarade precis den lättaste nivån, kämpa på och försök klara nästa nivå!", "Du klarade den första \"lätt\" nivån!" },
-                    { 4, "Din första vinst! Fortsätt att vinna och nå toppen!", "Första vinsten!" },
-                    { 5, "Du har tagit de första stegen mot att bli en mästare. Fortsätt så!", "Mästarens start!" },
-                    { 6, "Bra jobbat! Nu har du klarat medelnivån, sikta på nästa!", "Du klarade den \"medel\" nivån!" },
-                    { 7, "Du fick perfekt poäng! Imponerande arbete!", "Första perfekta poäng!" },
-                    { 8, "Du har klarat fler än 10 spel! En riktig veteran!", "Fler än 10 spel klara!" },
-                    { 9, "Du har satt rekord för snabbaste tiden! Otroligt snabb!", "Snabbaste tiden!" },
-                    { 10, "Fantastiskt! Du har klarat hela spelet! En prestation att vara stolt över!", "Avklarat hela spelet!" }
+                    { 1, "Klara ditt första spel", "Achievement1Game.jpg", "Första steget!" },
+                    { 2, "Klara totalt 5 spel", "Achievement5Game.jpg", "Lärling" },
+                    { 3, "Klara total 20 spel", "Achievement20Game.jpg", "Magiker" },
+                    { 4, "Klara total 100 spel", "Achievement100Game.jpg", "Magi Mästare" },
+                    { 5, "Klara ett spel under 5 minuter", "Achievement3minGame.jpg", "Tidens lärling" },
+                    { 6, "Klara ett spel under 1 minut", "Achievement60secGame.jpg", "Tidens Väktare" },
+                    { 7, "Klara ett spel under 30 sekunder", "Achievement30secGame.jpg", "Tidens Härskare" },
+                    { 8, "Klara ett spel med \"Lätt\" svårighetsgrad", "AchievementEasyGame.jpg", "Lärlingens Utmaning" },
+                    { 9, "Klara ett spel med \"Medium\" svårighetsgrad", "AchievementMediumGame.jpg", "Trollkarlens Utmaning" },
+                    { 10, "Klara ett spel med \"Svår\" svårighetsgrad", "AchievementHardGame.jpg", "Mästarens Utmaning" }
                 });
 
             migrationBuilder.InsertData(

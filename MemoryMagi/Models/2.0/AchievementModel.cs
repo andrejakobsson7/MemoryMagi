@@ -14,6 +14,8 @@ namespace MemoryMagi.Models._2._0
 
         [Column("description")]
         public string? Description { get; set; }
+        [Column("image-url")]
+        public string? ImageUrl { get; set; }
 
         //Navigation properties
         public List<UserAchievement>? UserAchievements { get; set; } = new();
