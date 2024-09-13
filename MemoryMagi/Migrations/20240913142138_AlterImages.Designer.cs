@@ -4,6 +4,7 @@ using MemoryMagi.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MemoryMagi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240913142138_AlterImages")]
+    partial class AlterImages
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -494,7 +497,7 @@ namespace MemoryMagi.Migrations
                         {
                             Id = 35,
                             GameId = 5,
-                            Image = "https://cdn11.bigcommerce.com/s-ydriczk/images/stencil/1500x1500/products/87964/89908/The-Flash-DC-Comics-Lifesize-Cardboard-Cutout-available-now-at-starstills__31957.1474976928.jpg?c=2",
+                            Image = "https://static.wikia.nocookie.net/heroes-and-villain/images/a/a2/Profile_-_Wally_West.png/revision/latest?cb=20220610164521",
                             Name = "The Flash"
                         });
                 });
