@@ -46,9 +46,32 @@ namespace MemoryMagi.Controllers
                 }
                 catch (Exception ex)
                 {
-                    return BadRequest(ex.Message);
+                    return BadRequest($"The following error occured while saving game: {ex.InnerException.Message}");
                 }
             }
+        }
+
+        [HttpDelete("DeleteGame")]
+        public async Task<IActionResult> DeleteGameAsync(int gameId)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userId == null)
+            {
+                return Unauthorized();
+            }
+            else
+            {
+                try
+                {
+                    await _genericRepository.Delete(gameId);
+                    return Ok("Game was successfully deleted");
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest($"The following error occured while trying to delete game with id {gameId}: {ex.Message}");
+                }
+            }
+
         }
         //[HttpPost("PostGameWithId")]
         //public async Task<IActionResult> PostGameWithId([FromBody] GameModel newGame)
@@ -69,6 +92,25 @@ namespace MemoryMagi.Controllers
         //        return Ok(new { Id = newGame.Id, Message = "Game skapat och ID returnerat" });
         //    }
         //}
+
+        [HttpGet("GetAllGames")]
+        public async Task<IActionResult> GetAllGamesAsync()
+        {
+            try
+            {
+                List<GameModel> allGames = await _genericRepository.GetAll();
+                if (allGames == null || allGames.Count == 0)
+                {
+                    return NotFound("No games found");
+                }
+
+                return Ok(allGames);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"The following error occurred while fetching games: {ex.Message}");
+            }
+        }
 
     }
 }
