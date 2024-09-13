@@ -13,6 +13,7 @@ namespace MemoryMagi.Controllers.ApiModels
         public string UserId { get; set; }
         public string? Username { get; set; }
         public List<UserAchievement> UserAchievements { get; set; } = new();
+        public string? DifficultyLevelName { get; set; }
 
         public ResultApiModel(ResultModel result)
         {
@@ -24,6 +25,7 @@ namespace MemoryMagi.Controllers.ApiModels
             UserId = GetUserId(result);
             Username = GetUserName(result);
             UserAchievements = GetUserAchievements(result);
+            DifficultyLevelName = GetDifficultyLevelName(result);
         }
 
         private int GetResultId(ResultModel result)
@@ -64,6 +66,11 @@ namespace MemoryMagi.Controllers.ApiModels
                 UserId = ua.UserId,
                 AchievementDate = ua.AchievementDate
             }).ToList();
+        }
+
+        private string? GetDifficultyLevelName(ResultModel result)
+        {
+            return result.Game?.DifficultyLevel?.Name ?? null;
         }
     }
 }

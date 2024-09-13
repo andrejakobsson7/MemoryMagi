@@ -28,6 +28,8 @@ namespace MemoryMagi.Repositories
                 //Ta med alla resultat, användaren och användarens achievements. Ta bara med spel som man klarat av (passed = true)
                 //Sortera på tid
                 return await _context.Results.Where(r => r.GameId == currentResult.GameId && r.Passed == true)
+                    .Include(r => r.Game)
+                    .ThenInclude(g => g.DifficultyLevel)
                     .Include(r => r.User)
                     .ThenInclude(u => u.UserAchievements.Where(ua => ua.UserId == currentResult.UserId))
                     .OrderBy(r => r.Time)
