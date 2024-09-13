@@ -2,6 +2,7 @@
 using MemoryMagi.Models;
 using MemoryMagi.Models._2._0;
 using MemoryMagi.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -136,6 +137,22 @@ namespace MemoryMagi.Controllers
                 return Ok();
             }
             return BadRequest(result.Errors);
+        }
+
+        [Authorize]
+        [HttpPost("logout")]
+        public async Task<IActionResult> Logout()
+        {
+            try
+            {
+                await _signInManager.SignOutAsync();
+                return Ok(new { message = "User signed out..." });
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, new { message = "Internal server error while signing out. Please try again later." });
+            }
+
         }
 
         [HttpPut("update-user")]

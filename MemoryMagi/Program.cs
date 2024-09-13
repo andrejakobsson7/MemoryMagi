@@ -3,7 +3,6 @@ using MemoryMagi.Models;
 using MemoryMagi.Repositories;
 using MemoryMagi.Repositories._2._0;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -147,28 +146,8 @@ app.MapIdentityApi<IdentityUser>();
 
 app.UseHttpsRedirection();
 // För att kommma åt bilder:
-app.UseStaticFiles();
-
-//Endpoint for logging out
-app.MapPost("/logout", async (SignInManager<IdentityUser> signInManager,
-    [FromBody] object empty) =>
-{
-    if (empty != null)
-    {
-        await signInManager.SignOutAsync();
-        return Results.Ok();
-    }
-    return Results.Unauthorized();
-})
-.RequireAuthorization();
+app.UseStaticFiles(); ;
 
 app.MapControllers();
 
-
-
-
-
 app.Run();
-
-
-
