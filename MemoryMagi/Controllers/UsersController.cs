@@ -146,7 +146,7 @@ namespace MemoryMagi.Controllers
             try
             {
                 await _signInManager.SignOutAsync();
-                return Ok(new { message = "User signed out..." });
+                return Ok(new { message = "User signed out successfully" });
             }
             catch (Exception)
             {
