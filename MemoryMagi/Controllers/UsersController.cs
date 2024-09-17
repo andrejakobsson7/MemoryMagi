@@ -262,7 +262,28 @@ namespace MemoryMagi.Controllers
             }
         }
 
-        // hehe
+        [HttpDelete("delete-user")]
+        public async Task<IActionResult> DeleteUser(string email)
+        {
+            ApplicationUser userToDelete = await _userManager.FindByEmailAsync(email);
+            if (userToDelete == null)
+            {
+                return BadRequest("User not found");
+            }
+            else
+            {
+                try
+                {
+                    await _userManager.DeleteAsync(userToDelete);
+                    return Ok("User was successfully deleted");
+                }
+                catch (Exception)
+                {
+                    return StatusCode(500, $"Internal server error while attempting to remove user with email {email}. Please try again later");
+                }
+
+            }
+        }
 
         public class RegisterModel
         {

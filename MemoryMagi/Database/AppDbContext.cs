@@ -288,25 +288,19 @@ namespace MemoryMagi.Database
                 {
                     Id = 1,
                     Name = "Frukt",
-                    Image = "https://img.pixers.pics/pho_wat(s3:700/FO/53/42/44/83/700_FO53424483_d7f9c14e67bdba97211d5192a12e242c.jpg,700,654,cms:2018/10/5bd1b6b8d04b8_220x50-watermark.png,over,480,604,jpg)/posters-bar-frukt-grupp-tecknad-illustration.jpg.jpg"
+                    Image = "https://i.dietdoctor.com/se/wp-content/2019/10/Fruits-and-vegetables-guide.jpg?auto=compress%2Cformat&w=1200&h=800&fit=crop"
                 },
                 new CategoryModel()
                 {
                     Id = 2,
                     Name = "Djur",
-                    Image = "https://img.pixers.pics/pho_wat(s3:700/FO/63/25/91/96/700_FO63259196_e707a3a294a157465cac9e30e69ed23c.jpg,700,648,cms:2018/10/5bd1b6b8d04b8_220x50-watermark.png,over,480,598,jpg)/posters-grattis-safari-djur-tecknad.jpg.jpg"
+                    Image = "https://img.pixers.pics/pho_wat(s3:700/FO/57/06/50/45/700_FO57065045_3947f9ea6db6ffee13e8d6526c4b092f.jpg,700,700,cms:2018/10/5bd1b6b8d04b8_220x50-watermark.png,over,480,650,jpg)/posters-vilda-djur-pa-cartoon-jungle-jungle-vilda-djur.jpg.jpg"
                 },
                 new CategoryModel()
                 {
                     Id = 3,
                     Name = "Bilar",
-                    Image = "https://thumbs.dreamstime.com/b/kawaii-cute-cars-sticker-image-style-art-meme-animated-gifs-isolated-white-background-ai-generated-png-283486842.jpg"
-                },
-                new CategoryModel()
-                {
-                    Id = 4,
-                    Name = "Superhjältar",
-                    Image = "https://t3.ftcdn.net/jpg/06/11/65/14/360_F_611651420_EgCnaCL6KDm3ukuMNmecVkaCHcfmbO6u.jpg"
+                    Image = "https://sohu-shop.se/images/wallstickers/wallstickers-med-catoon-biler.webp"
                 }
             );
 
