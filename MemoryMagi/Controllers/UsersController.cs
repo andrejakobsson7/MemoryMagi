@@ -2,6 +2,7 @@
 using MemoryMagi.Models;
 using MemoryMagi.Models._2._0;
 using MemoryMagi.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -138,6 +139,22 @@ namespace MemoryMagi.Controllers
             return BadRequest(result.Errors);
         }
 
+        [Authorize]
+        [HttpPost("logout")]
+        public async Task<IActionResult> Logout()
+        {
+            try
+            {
+                await _signInManager.SignOutAsync();
+                return Ok(new { message = "User signed out successfully" });
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, new { message = "Internal server error while signing out. Please try again later." });
+            }
+
+        }
+
         [HttpPut("update-user")]
         public async Task<IActionResult> UpdateUser([FromBody] UserModel model)
         {
@@ -245,7 +262,28 @@ namespace MemoryMagi.Controllers
             }
         }
 
-        // hehe
+        [HttpDelete("delete-user")]
+        public async Task<IActionResult> DeleteUser(string email)
+        {
+            ApplicationUser userToDelete = await _userManager.FindByEmailAsync(email);
+            if (userToDelete == null)
+            {
+                return BadRequest("User not found");
+            }
+            else
+            {
+                try
+                {
+                    await _userManager.DeleteAsync(userToDelete);
+                    return Ok("User was successfully deleted");
+                }
+                catch (Exception)
+                {
+                    return StatusCode(500, $"Internal server error while attempting to remove user with email {email}. Please try again later");
+                }
+
+            }
+        }
 
         public class RegisterModel
         {
