@@ -66,7 +66,7 @@ namespace MemoryMagi.Migrations
                         new
                         {
                             Id = 1,
-                            Image = "images/Veteran_car.jpg",
+                            Image = "https://i.dietdoctor.com/se/wp-content/2019/10/Fruits-and-vegetables-guide.jpg?auto=compress%2Cformat&w=1200&h=800&fit=crop",
                             Name = "Frukt"
                         },
                         new

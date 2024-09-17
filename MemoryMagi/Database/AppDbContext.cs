@@ -16,7 +16,6 @@ namespace MemoryMagi.Database
 
         public DbSet<CategoryModel> Categories { get; set; }
         public DbSet<GameModel> Games { get; set; }
-
         public DbSet<ResultModel> Results { get; set; }
         public DbSet<DifficultyLevelModel> DifficultyLevels { get; set; }
         public DbSet<ItemModel> Items { get; set; }
@@ -301,6 +300,12 @@ namespace MemoryMagi.Database
                     Id = 3,
                     Name = "Bilar",
                     Image = "https://sohu-shop.se/images/wallstickers/wallstickers-med-catoon-biler.webp"
+                },
+                new CategoryModel()
+                {
+                    Id = 4,
+                    Name = "Superhjältar",
+                    Image = "https://t3.ftcdn.net/jpg/06/11/65/14/360_F_611651420_EgCnaCL6KDm3ukuMNmecVkaCHcfmbO6u.jpg"
                 }
             );
 

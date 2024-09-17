@@ -7,32 +7,11 @@
 namespace MemoryMagi.Migrations
 {
     /// <inheritdoc />
-    public partial class SeedMoreData : Migration
+    public partial class Seed : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.UpdateData(
-                table: "Categories",
-                keyColumn: "id",
-                keyValue: 1,
-                column: "image_url",
-                value: "https://img.pixers.pics/pho_wat(s3:700/FO/53/42/44/83/700_FO53424483_d7f9c14e67bdba97211d5192a12e242c.jpg,700,654,cms:2018/10/5bd1b6b8d04b8_220x50-watermark.png,over,480,604,jpg)/posters-bar-frukt-grupp-tecknad-illustration.jpg.jpg");
-
-            migrationBuilder.UpdateData(
-                table: "Categories",
-                keyColumn: "id",
-                keyValue: 2,
-                column: "image_url",
-                value: "https://img.pixers.pics/pho_wat(s3:700/FO/63/25/91/96/700_FO63259196_e707a3a294a157465cac9e30e69ed23c.jpg,700,648,cms:2018/10/5bd1b6b8d04b8_220x50-watermark.png,over,480,598,jpg)/posters-grattis-safari-djur-tecknad.jpg.jpg");
-
-            migrationBuilder.UpdateData(
-                table: "Categories",
-                keyColumn: "id",
-                keyValue: 3,
-                column: "image_url",
-                value: "https://thumbs.dreamstime.com/b/kawaii-cute-cars-sticker-image-style-art-meme-animated-gifs-isolated-white-background-ai-generated-png-283486842.jpg");
-
             migrationBuilder.InsertData(
                 table: "Categories",
                 columns: new[] { "id", "image_url", "name" },
@@ -187,14 +166,14 @@ namespace MemoryMagi.Migrations
                 columns: new[] { "id", "game_id", "image", "name" },
                 values: new object[,]
                 {
-                    { 28, 2, "https://static.wikia.nocookie.net/p__/images/d/df/Iron_Man_Mk_L_2.png/revision/latest?cb=20151218034339&path-prefix=protagonist", "Iron Man" },
-                    { 29, 2, "https://static.wikia.nocookie.net/thedailybugle/images/0/02/Captain_America_Cap.png/revision/latest?cb=20150629095627", "Captain America" },
-                    { 30, 2, "https://static.wikia.nocookie.net/vsdebating/images/c/c3/3803806155thorcartoonpngavengersassemblethordrawingclipart.png/revision/latest?cb=20220217033844", "Thor" },
-                    { 31, 2, "https://static.wikia.nocookie.net/thedailybugle/images/2/2b/Ultimate_Spider_Man_Render.png/revision/latest?cb=20160319202253", "Spider-Man" },
-                    { 32, 5, "https://static.wikia.nocookie.net/vsdebating/images/b/b4/BatmanTAS.png/revision/latest?cb=20220406015822", "Batman" },
-                    { 33, 5, "https://static.wikia.nocookie.net/p__/images/3/36/Superman_DCAU_004.png/revision/latest?cb=20210809205037&path-prefix=protagonist", "Superman" },
-                    { 34, 5, "https://static.wikia.nocookie.net/p__/images/d/dc/Wonder_Woman_%28DCAU%29_Render.png/revision/latest?cb=20220706195658&path-prefix=protagonist", "Wonder Woman" },
-                    { 35, 5, "https://static.wikia.nocookie.net/p__/images/e/e9/The_Flash_%28DCAU%29.png/revision/latest?cb=20190122131230&path-prefix=protagonist", "The Flash" }
+                    { 28, 2, "https://cdn11.bigcommerce.com/s-36f0xn7qz3/images/stencil/original/products/1038/1663/2366_IronMan_AvengersAssemble_40__71309.1608072851.jpg?c=1", "Iron Man" },
+                    { 29, 2, "https://cdn11.bigcommerce.com/s-36f0xn7qz3/images/stencil/original/products/1039/1633/2367_CaptainAmerica_AvengersAssemble_46__81672.1608071746.jpg?c=1", "Captain America" },
+                    { 30, 2, "https://cdn11.bigcommerce.com/s-36f0xn7qz3/images/stencil/original/products/1040/1678/2368_Thor_AvengersAssemble_40__24328.1608073129.jpg?c=1", "Thor" },
+                    { 31, 2, "https://cdn11.bigcommerce.com/s-36f0xn7qz3/images/stencil/1060x1060/products/1136/1672/2481_Spider-Man_2017_40__97689.1608073067.jpg?c=1", "Spider-Man" },
+                    { 32, 5, "https://m.media-amazon.com/images/S/pv-target-images/9fd172a452587004a54251df846efdb16b3f2e808718c9dca35fe7ff68f508ac._SX1080_FMjpg_.jpg", "Batman" },
+                    { 33, 5, "https://cdn.flickeringmyth.com/wp-content/uploads/2021/09/superman-blu-ray-1629903679988.jpg", "Superman" },
+                    { 34, 5, "https://experiencethewonder.com/wp-content/uploads/2004/06/2004-WBCP-Justice-League-Unlimited-Animated-Style-Guide-Wonder-Woman-010.jpg", "Wonder Woman" },
+                    { 35, 5, "https://cdn11.bigcommerce.com/s-ydriczk/images/stencil/1500x1500/products/87964/89908/The-Flash-DC-Comics-Lifesize-Cardboard-Cutout-available-now-at-starstills__31957.1474976928.jpg?c=2", "The Flash" }
                 });
         }
 
@@ -300,27 +279,6 @@ namespace MemoryMagi.Migrations
                 table: "Categories",
                 keyColumn: "id",
                 keyValue: 4);
-
-            migrationBuilder.UpdateData(
-                table: "Categories",
-                keyColumn: "id",
-                keyValue: 1,
-                column: "image_url",
-                value: "images/Veteran_car.jpg");
-
-            migrationBuilder.UpdateData(
-                table: "Categories",
-                keyColumn: "id",
-                keyValue: 2,
-                column: "image_url",
-                value: "images/Veteran_car.jpg");
-
-            migrationBuilder.UpdateData(
-                table: "Categories",
-                keyColumn: "id",
-                keyValue: 3,
-                column: "image_url",
-                value: "images/Veteran_car.jpg");
 
             migrationBuilder.UpdateData(
                 table: "Items",
