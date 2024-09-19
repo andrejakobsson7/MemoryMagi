@@ -37,5 +37,17 @@ namespace MemoryMagi.Repositories
             }
         }
 
+        //Get results for every game the user has ever played
+        public async Task<List<ResultModel>> GetUserResultsForAllGames(string userId)
+        {
+            return await _context.Results.Where(r => r.UserId == userId && r.Passed == true)
+            .Include(r => r.Game)
+            .ThenInclude(g => g.DifficultyLevel)
+            .Include(r => r.User)
+            .ThenInclude(u => u.UserAchievements.Where(ua => ua.UserId == userId))
+            .OrderBy(r => r.Time)
+            .ToListAsync();
+        }
+
     }
 }

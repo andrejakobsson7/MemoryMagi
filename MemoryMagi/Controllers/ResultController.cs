@@ -65,6 +65,30 @@ namespace MemoryMagi.Controllers
             }
         }
 
+        [HttpGet("GetUserResultsForAllGames")]
+        public async Task<IActionResult> GetUserResultsForAllGames()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userId == null)
+            {
+                return Unauthorized();
+            }
+            else
+            {
+                try
+                {
+                    List<ResultModel> allResults = await _resultModelRepository.GetUserResultsForAllGames(userId);
+                    //Konvertera till API-modell för enklare data till frontend.
+                    List<ResultApiModel> allApiResults = allResults.Select(r => new ResultApiModel(r)).ToList();
+                    return Ok(allApiResults);
+                }
+                catch (Exception)
+                {
+                    return StatusCode(500, "Internal server error while attempting to get all results for user");
+                }
+            }
+        }
+
         [HttpPost("Result")]
         public async Task<ActionResult> PostResult([FromBody] ResultViewModel newResult)
         {
