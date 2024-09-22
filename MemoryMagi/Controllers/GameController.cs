@@ -99,9 +99,9 @@ namespace MemoryMagi.Controllers
             try
             {
                 List<GameModel> allGames = await _genericRepository.GetAll();
-                if (allGames == null || allGames.Count == 0)
+                if (allGames == null)
                 {
-                    return NotFound("No games found");
+                    return NoContent();
                 }
 
                 return Ok(allGames);
