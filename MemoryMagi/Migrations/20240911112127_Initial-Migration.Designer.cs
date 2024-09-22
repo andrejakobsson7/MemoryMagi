@@ -4,6 +4,7 @@ using MemoryMagi.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MemoryMagi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240911112127_Initial-Migration")]
+    partial class InitialMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -66,26 +69,20 @@ namespace MemoryMagi.Migrations
                         new
                         {
                             Id = 1,
-                            Image = "https://i.dietdoctor.com/se/wp-content/2019/10/Fruits-and-vegetables-guide.jpg?auto=compress%2Cformat&w=1200&h=800&fit=crop",
+                            Image = "images/Veteran_car.jpg",
                             Name = "Frukt"
                         },
                         new
                         {
                             Id = 2,
-                            Image = "https://img.pixers.pics/pho_wat(s3:700/FO/57/06/50/45/700_FO57065045_3947f9ea6db6ffee13e8d6526c4b092f.jpg,700,700,cms:2018/10/5bd1b6b8d04b8_220x50-watermark.png,over,480,650,jpg)/posters-vilda-djur-pa-cartoon-jungle-jungle-vilda-djur.jpg.jpg",
+                            Image = "images/Veteran_car.jpg",
                             Name = "Djur"
                         },
                         new
                         {
                             Id = 3,
-                            Image = "https://sohu-shop.se/images/wallstickers/wallstickers-med-catoon-biler.webp",
+                            Image = "images/Veteran_car.jpg",
                             Name = "Bilar"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Image = "https://t3.ftcdn.net/jpg/06/11/65/14/360_F_611651420_EgCnaCL6KDm3ukuMNmecVkaCHcfmbO6u.jpg",
-                            Name = "Superhjältar"
                         });
                 });
 
@@ -190,14 +187,6 @@ namespace MemoryMagi.Migrations
                         },
                         new
                         {
-                            Id = 2,
-                            CategoryId = 4,
-                            DifficultyLevelId = 1,
-                            GameType = "public",
-                            Name = "Marvel"
-                        },
-                        new
-                        {
                             Id = 3,
                             CategoryId = 2,
                             DifficultyLevelId = 2,
@@ -211,14 +200,6 @@ namespace MemoryMagi.Migrations
                             DifficultyLevelId = 3,
                             GameType = "public",
                             Name = "Bilar man hade velat ha"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            CategoryId = 4,
-                            DifficultyLevelId = 1,
-                            GameType = "public",
-                            Name = "DC"
                         });
                 });
 
@@ -263,239 +244,120 @@ namespace MemoryMagi.Migrations
                         {
                             Id = 2,
                             GameId = 1,
+                            Image = "https://img.freepik.com/free-vector/spaghetti-pasta-with-bolognese-sauce_1308-115408.jpg?t=st=1725441659~exp=1725445259~hmac=cae2d1c081992be7f9b2697d6df20e9ffeb560de7546c7f8be2f602197921472&w=1380",
+                            Name = "Pasta"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            GameId = 1,
                             Image = "https://img.freepik.com/premium-vector/drawing-pineapple-with-green-top-yellow-top_1166763-24137.jpg?w=740",
                             Name = "Ananas"
                         },
                         new
                         {
-                            Id = 3,
+                            Id = 4,
+                            GameId = 1,
+                            Image = "https://img.freepik.com/free-vector/fresh-pumpkin-white-b_1308-39708.jpg?t=st=1725442167~exp=1725445767~hmac=906c103466192496ecf2b6a977843c6c7588c65e5eb49bb89ee2da4a571bbf55&w=826",
+                            Name = "Pumpa"
+                        },
+                        new
+                        {
+                            Id = 5,
                             GameId = 1,
                             Image = "https://img.freepik.com/premium-vector/strawberry-clipart-vector-illustration-white-background_1280610-709.jpg?w=740",
                             Name = "Jordgubbar"
                         },
                         new
                         {
-                            Id = 4,
+                            Id = 6,
                             GameId = 1,
-                            Image = "https://static.vecteezy.com/ti/gratis-vektor/p3/19862411-ljuv-hallon-ikon-klamma-konst-vektor-illustration-i-tecknad-serie-animering-frukt-och-vegetabiliska-vector.jpg",
-                            Name = "Hallon"
+                            Image = "https://img.freepik.com/premium-vector/cartoon-illustration-smiling-orange-white-clownfish_1216680-928.jpg?w=740",
+                            Name = "Fisk"
                         },
                         new
                         {
-                            Id = 5,
+                            Id = 12,
                             GameId = 3,
                             Image = "https://img.freepik.com/free-vector/hand-drawn-flat-design-robin-collection_23-2149145170.jpg?t=st=1725442349~exp=1725445949~hmac=e0c69eb898156b90b344b8315ad7f4c468d28130b0d358eb7ba220eafc748e98&w=740",
                             Name = "Fågel"
                         },
                         new
                         {
-                            Id = 6,
+                            Id = 13,
                             GameId = 3,
                             Image = "https://img.freepik.com/premium-vector/cute-cat-collection-isolated-white-background_703032-4100.jpg?w=1380",
                             Name = "Katt"
                         },
                         new
                         {
-                            Id = 7,
+                            Id = 14,
                             GameId = 3,
                             Image = "https://img.freepik.com/premium-vector/cartoon-illustration-brown-white-cow_1216680-373.jpg?w=740",
                             Name = "Ko"
                         },
                         new
                         {
-                            Id = 8,
+                            Id = 15,
                             GameId = 3,
                             Image = "https://img.freepik.com/premium-vector/cute-lion-cartoon-white-background_29190-8567.jpg?w=740",
                             Name = "Lejon"
                         },
                         new
                         {
-                            Id = 9,
+                            Id = 16,
                             GameId = 3,
                             Image = "https://img.freepik.com/free-vector/monkey-cartoon-character-sticker_1308-76562.jpg?t=st=1725442733~exp=1725446333~hmac=261a58dc78d31af291802ee3e0912fd5f2f294d1d32da3a27fb91b75c6f30dfe&w=740",
                             Name = "Apa"
                         },
                         new
                         {
-                            Id = 10,
+                            Id = 17,
                             GameId = 3,
                             Image = "https://img.freepik.com/premium-vector/cartoon-dog-with-cartoon-face-word-wolf-it_1025542-56600.jpg?w=740",
                             Name = "Varg"
                         },
                         new
                         {
-                            Id = 11,
-                            GameId = 3,
-                            Image = "https://static.vecteezy.com/ti/gratis-vektor/p3/12507322-sot-kanin-tecknad-serie-pa-vit-bakgrund-vector.jpg",
-                            Name = "Kanin"
-                        },
-                        new
-                        {
-                            Id = 12,
-                            GameId = 3,
-                            Image = "https://static.vecteezy.com/ti/gratis-vektor/p3/6325976-elefant-tecknad-fargad-clipart-illustration-gratis-vector.jpg",
-                            Name = "Elefant"
-                        },
-                        new
-                        {
-                            Id = 13,
-                            GameId = 4,
-                            Image = "https://img.freepik.com/premium-vector/red-car-with-license-plate-number-3_1128391-17709.jpg?w=740",
-                            Name = "Sportbil"
-                        },
-                        new
-                        {
-                            Id = 14,
-                            GameId = 4,
-                            Image = "https://img.freepik.com/free-vector/boy-driving-vintage-car-cartoon-design_1308-107242.jpg?t=st=1725453109~exp=1725456709~hmac=81d598da00b7fdb14f45c280734502f48e4d747188fd295ce35c102627bb0ad4&w=1800",
-                            Name = "Cabriolet"
-                        },
-                        new
-                        {
-                            Id = 15,
-                            GameId = 4,
-                            Image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtZSSxfN4KGqrhe4o4hCapFOKvmmfN9EJL1g&s",
-                            Name = "Racerbil"
-                        },
-                        new
-                        {
-                            Id = 16,
-                            GameId = 4,
-                            Image = "https://img.freepik.com/premium-vector/red-car-with-surfboard-top-it_1013341-387239.jpg?w=740",
-                            Name = "Stadsjeep"
-                        },
-                        new
-                        {
-                            Id = 17,
-                            GameId = 4,
-                            Image = "https://img.freepik.com/free-vector/black-sedan-car-isolated-white-background_1308-75583.jpg?t=st=1725452945~exp=1725456545~hmac=961c6db37d955480177b2eb6d6c6b7571efb30f5ff94d5fdd41dcc65c2c28521&w=1380",
-                            Name = "Sedan"
-                        },
-                        new
-                        {
                             Id = 18,
                             GameId = 4,
-                            Image = "https://img.freepik.com/free-vector/classic-green-vintage-car-illustration_1308-164648.jpg?t=st=1725452987~exp=1725456587~hmac=dc808c875da97d90cb4641fdebe8f6718e4ff0dab6cb8aab516ef3495ffdb0f8&w=1380",
-                            Name = "Veteranbil"
+                            Image = "https://img.freepik.com/premium-vector/red-car-with-license-plate-number-3_1128391-17709.jpg?w=740",
+                            Name = "sport bil"
                         },
                         new
                         {
                             Id = 19,
                             GameId = 4,
-                            Image = "https://e7.pngegg.com/pngimages/699/627/png-clipart-black-batman-batmobile-illustration-batman-batmobile-superhero-drawing-cartoon-car-mammal-heroes.png",
-                            Name = "Batmobil"
+                            Image = "https://img.freepik.com/free-vector/boy-driving-vintage-car-cartoon-design_1308-107242.jpg?t=st=1725453109~exp=1725456709~hmac=81d598da00b7fdb14f45c280734502f48e4d747188fd295ce35c102627bb0ad4&w=1800",
+                            Name = "cabriolet bilen"
                         },
                         new
                         {
                             Id = 20,
                             GameId = 4,
-                            Image = "https://media.istockphoto.com/id/508838370/sv/vektor/golf-cart-with-shadow.jpg?s=612x612&w=0&k=20&c=OYJWkcZXA2X0Q0ubspPWSnG55go2VMu_lEnvCAVSHUU=",
-                            Name = "Golfbil"
+                            Image = "https://img.freepik.com/premium-vector/indy-car-speeding-f1-racing-f1-sports-car-illustration-vector_280080-22.jpg?w=1380,",
+                            Name = "Racer bilen"
                         },
                         new
                         {
                             Id = 21,
                             GameId = 4,
-                            Image = "https://static.vecteezy.com/system/resources/thumbnails/021/514/981/small_2x/van-car-cartoon-icon-illustration-vehicle-transportation-icon-concept-isolated-premium-flat-cartoon-style-vector.jpg",
-                            Name = "Van"
+                            Image = "https://img.freepik.com/premium-vector/red-car-with-surfboard-top-it_1013341-387239.jpg?w=740",
+                            Name = "Stadsjeepen"
                         },
                         new
                         {
                             Id = 22,
                             GameId = 4,
-                            Image = "https://thumbs.dreamstime.com/b/ford-mustangfastback-1965-28658306.jpg",
-                            Name = "Muskelbil"
+                            Image = "https://img.freepik.com/free-vector/black-sedan-car-isolated-white-background_1308-75583.jpg?t=st=1725452945~exp=1725456545~hmac=961c6db37d955480177b2eb6d6c6b7571efb30f5ff94d5fdd41dcc65c2c28521&w=1380",
+                            Name = "Sedan bilen"
                         },
                         new
                         {
                             Id = 23,
                             GameId = 4,
-                            Image = "https://images.squarespace-cdn.com/content/v1/6598c8e83ff0af0197ff19f9/1709281356076-X4X5JKNF1FDD50SKVD0D/1981-delorean-back-to-the-future-_0008_9.jpg",
-                            Name = "Framtidsbil"
-                        },
-                        new
-                        {
-                            Id = 24,
-                            GameId = 4,
-                            Image = "https://m.media-amazon.com/images/I/71zkRuxSezL._AC_UF894,1000_QL80_.jpg",
-                            Name = "Ghostbusters-bil"
-                        },
-                        new
-                        {
-                            Id = 25,
-                            GameId = 4,
-                            Image = "https://static.vecteezy.com/ti/gratis-vektor/p1/2687298-monster-truck-cartoon-vehicle-or-car-and-extreme-show-transport-illustration-vector.jpg",
-                            Name = "Monstertruck"
-                        },
-                        new
-                        {
-                            Id = 26,
-                            GameId = 4,
-                            Image = "https://images.all-free-download.com/images/graphiclarge/mr_bean_s_car_in_mr_bean_cartoon_movie_icon_flat_handdrawn_classic_sketch_6926445.jpg",
-                            Name = "Mr. Beans bil"
-                        },
-                        new
-                        {
-                            Id = 27,
-                            GameId = 4,
-                            Image = "https://www.shutterstock.com/shutterstock/photos/1213775323/display_1500/stock-vector-vector-layout-of-an-suv-hummer-1213775323.jpg",
-                            Name = "Hummer"
-                        },
-                        new
-                        {
-                            Id = 28,
-                            GameId = 2,
-                            Image = "https://cdn11.bigcommerce.com/s-36f0xn7qz3/images/stencil/original/products/1038/1663/2366_IronMan_AvengersAssemble_40__71309.1608072851.jpg?c=1",
-                            Name = "Iron Man"
-                        },
-                        new
-                        {
-                            Id = 29,
-                            GameId = 2,
-                            Image = "https://cdn11.bigcommerce.com/s-36f0xn7qz3/images/stencil/original/products/1039/1633/2367_CaptainAmerica_AvengersAssemble_46__81672.1608071746.jpg?c=1",
-                            Name = "Captain America"
-                        },
-                        new
-                        {
-                            Id = 30,
-                            GameId = 2,
-                            Image = "https://cdn11.bigcommerce.com/s-36f0xn7qz3/images/stencil/original/products/1040/1678/2368_Thor_AvengersAssemble_40__24328.1608073129.jpg?c=1",
-                            Name = "Thor"
-                        },
-                        new
-                        {
-                            Id = 31,
-                            GameId = 2,
-                            Image = "https://cdn11.bigcommerce.com/s-36f0xn7qz3/images/stencil/1060x1060/products/1136/1672/2481_Spider-Man_2017_40__97689.1608073067.jpg?c=1",
-                            Name = "Spider-Man"
-                        },
-                        new
-                        {
-                            Id = 32,
-                            GameId = 5,
-                            Image = "https://m.media-amazon.com/images/S/pv-target-images/9fd172a452587004a54251df846efdb16b3f2e808718c9dca35fe7ff68f508ac._SX1080_FMjpg_.jpg",
-                            Name = "Batman"
-                        },
-                        new
-                        {
-                            Id = 33,
-                            GameId = 5,
-                            Image = "https://cdn.flickeringmyth.com/wp-content/uploads/2021/09/superman-blu-ray-1629903679988.jpg",
-                            Name = "Superman"
-                        },
-                        new
-                        {
-                            Id = 34,
-                            GameId = 5,
-                            Image = "https://experiencethewonder.com/wp-content/uploads/2004/06/2004-WBCP-Justice-League-Unlimited-Animated-Style-Guide-Wonder-Woman-010.jpg",
-                            Name = "Wonder Woman"
-                        },
-                        new
-                        {
-                            Id = 35,
-                            GameId = 5,
-                            Image = "https://cdn11.bigcommerce.com/s-ydriczk/images/stencil/1500x1500/products/87964/89908/The-Flash-DC-Comics-Lifesize-Cardboard-Cutout-available-now-at-starstills__31957.1474976928.jpg?c=2",
-                            Name = "The Flash"
+                            Image = "https://img.freepik.com/free-vector/classic-green-vintage-car-illustration_1308-164648.jpg?t=st=1725452987~exp=1725456587~hmac=dc808c875da97d90cb4641fdebe8f6718e4ff0dab6cb8aab516ef3495ffdb0f8&w=1380",
+                            Name = "Veteran bilen"
                         });
                 });
 
